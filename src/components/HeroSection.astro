@@ -2,36 +2,38 @@
 import { SITE_CONFIG } from '../config/site';
 ---
 
-<section id="overview" class="pt-16 sm:pt-24 pb-16 bg-[#f5f5f7] dark:bg-[#000000] text-center px-4 sm:px-6 overflow-hidden">
+<section id="overview" class="pt-16 sm:pt-24 pb-16 bg-[#f5f5f7] dark:bg-[#000000] text-center px-4 sm:px-6 overflow-hidden [perspective:1200px]">
   <div class="max-w-5xl mx-auto flex flex-col items-center">
     
-    <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#0071e3] mb-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
-      {SITE_CONFIG.edition}
-    </span>
+    <div id="index-hero-text" class="flex flex-col items-center">
+      <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#0071e3] mb-3">
+        {SITE_CONFIG.edition}
+      </span>
 
-    <h1 class="text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.04] mb-6 text-balance max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-700 delay-75">
-      Power. Precision.<br />Pure macOS.
-    </h1>
+      <h1 class="text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.04] mb-6 text-balance max-w-4xl">
+        Power. Precision.<br />Pure macOS.
+      </h1>
 
-    <p class="text-lg sm:text-2xl text-[#86868b] max-w-2xl font-normal leading-relaxed mb-8 text-balance animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
-      {SITE_CONFIG.description}
-    </p>
+      <p class="text-lg sm:text-2xl text-[#86868b] max-w-2xl font-normal leading-relaxed mb-8 text-balance">
+        {SITE_CONFIG.description}
+      </p>
 
-    <!-- Apple Paired CTA Pattern -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-5 mb-14 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-      <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary">
-        Download Bitten Fruit
-      </a>
-      <a href="#features" class="apple-link group text-base">
-        <span>Explore all features</span>
-        <svg class="size-4 text-[#0071e3] dark:text-[#2997ff] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </a>
+      <!-- Apple Paired CTA Pattern -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-5 mb-14">
+        <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary">
+          Download Bitten Fruit
+        </a>
+        <a href="#features" class="apple-link group text-base">
+          <span>Explore all features</span>
+          <svg class="size-4 text-[#0071e3] dark:text-[#2997ff] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
     </div>
 
     <!-- Apple Studio Display Hardware Frame Render -->
-    <div class="w-full max-w-5xl mx-auto mt-4 animate-in fade-in zoom-in-95 duration-1000 delay-300">
+    <div id="index-display-container" class="w-full max-w-5xl mx-auto mt-4 origin-top z-20">
       <div class="relative rounded-[28px] sm:rounded-[36px] bg-[#1d1d1f] p-3 sm:p-4 shadow-2xl border border-white/10">
         <!-- Camera Lens Dot -->
         <div class="absolute top-2.5 left-1/2 -translate-x-1/2 size-2 rounded-full bg-[#000000] border border-white/10 z-20"></div>
@@ -48,8 +50,64 @@ import { SITE_CONFIG } from '../config/site';
       </div>
       
       <!-- Studio Display Stand Base -->
-      <div class="w-36 h-4 bg-gradient-to-b from-[#272729] to-[#121214] mx-auto rounded-b-xl border-x border-b border-white/10 shadow-lg"></div>
+      <div id="index-display-stand" class="w-36 h-4 bg-gradient-to-b from-[#272729] to-[#121214] mx-auto rounded-b-xl border-x border-b border-white/10 shadow-lg"></div>
     </div>
 
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initIndexHero() {
+    const heroSection = document.getElementById('overview');
+    if (!heroSection) return;
+
+    const heroTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#overview',
+        start: 'top top',
+        end: '+=1000',
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      }
+    });
+
+    heroTl
+      .to('#index-hero-text', {
+        autoAlpha: 0,
+        y: -100,
+        scale: 0.92,
+        duration: 0.5,
+        ease: 'power1.in',
+      }, 0)
+      .to('#index-display-stand', {
+        autoAlpha: 0,
+        height: 0,
+        duration: 0.3,
+        ease: 'power1.in',
+      }, 0)
+      .to('#index-display-container', {
+        scale: 1.35,
+        rotateX: 4,
+        y: -70,
+        duration: 1,
+        ease: 'power1.inOut',
+      }, 0);
+
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initIndexHero);
+  } else {
+    initIndexHero();
+  }
+</script>

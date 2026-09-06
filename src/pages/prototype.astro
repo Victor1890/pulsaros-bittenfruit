@@ -2,45 +2,73 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import AppleMediaCardGallery from '../components/AppleMediaCardGallery.astro';
 import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_FEATURES, CLOUD_PROVIDERS } from '../config/site';
 ---
 
-<Layout title="PulsarOS Bitten Fruit — GSAP Interactive Video Prototype">
+<Layout title="PulsarOS Bitten Fruit — macOS Experience on Linux">
   <div class="min-h-screen bg-[#000000] text-[#f5f5f7] font-sans antialiased selection:bg-[#0071e3]/30 selection:text-white">
-    <Header />
+    
+    <!-- 0. APPLE STICKY SUB-NAV BAR -->
+    <div class="sticky top-0 z-40 bg-[#161617]/80 backdrop-blur-xl border-b border-white/10 text-xs py-3 px-4 sm:px-8 transition-colors">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <a href="#" class="font-semibold text-sm sm:text-base text-white hover:opacity-80 transition-opacity tracking-tight">
+          PulsarOS Bitten Fruit
+        </a>
+        <div class="flex items-center gap-4 sm:gap-6">
+          <a href="#hero-trigger" class="text-white/70 hover:text-white transition-colors hidden sm:inline-block">Overview</a>
+          <a href="#interactive-story-section" class="text-white/70 hover:text-white transition-colors hidden sm:inline-block">Features</a>
+          <a href="#bento-section" class="text-white/70 hover:text-white transition-colors hidden sm:inline-block">Bento Grid</a>
+          <a href="#editions-section" class="text-white/70 hover:text-white transition-colors hidden sm:inline-block">Editions</a>
+          <a 
+            href={SITE_CONFIG.releasesUrl} 
+            target="_blank" 
+            rel="noopener" 
+            class="bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium px-4 py-1.5 rounded-full transition-all text-xs shadow-sm hover:scale-105"
+          >
+            Download ISO
+          </a>
+        </div>
+      </div>
+    </div>
 
     <main class="overflow-x-hidden">
 
       <!-- PROTOTYPE BANNER -->
-      <div class="bg-[#0071e3] text-white text-xs font-medium py-2 px-4 text-center border-b border-white/10 flex items-center justify-center gap-3">
-        <span class="px-2 py-0.5 rounded bg-black/20 text-white font-mono uppercase text-[10px]">GSAP Video Prototype</span>
-        <span>Live MP4 Demo Animations & Scroll-Driven Video Playback</span>
-        <a href="/" class="underline text-white font-semibold hover:opacity-80">Back to Main →</a>
+      <div class="bg-gradient-to-r from-[#0071e3] to-[#0055b3] text-white text-xs font-medium py-2 px-4 text-center border-b border-white/10 flex items-center justify-center gap-3">
+        <span class="px-2 py-0.5 rounded bg-black/20 text-white font-mono uppercase text-[10px] tracking-wider">Apple Animation Engine</span>
+        <span>GSAP ScrollTrigger Pinned Zoom & Dynamic Video Playback</span>
+        <a href="/" class="underline text-white font-semibold hover:opacity-80 ml-2">Main Site →</a>
       </div>
 
-      <!-- 1. HERO SECTION WITH GSAP SCROLLTRIGGER PIN & ZOOM -->
-      <section id="hero-trigger" class="relative min-h-screen flex flex-col items-center justify-start pt-20 px-4 sm:px-6 text-center bg-black border-b border-white/10">
+      <!-- 1. HERO SECTION WITH GSAP SCROLLTRIGGER PIN & SCREEN ZOOM -->
+      <section id="hero-trigger" class="relative min-h-screen flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 sm:px-6 text-center bg-black border-b border-white/10 [perspective:1200px]">
         
         <!-- Hero Text Group -->
         <div id="hero-text" class="max-w-4xl mx-auto flex flex-col items-center z-10">
-          <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#2997ff] mb-3 inline-block">
-            PulsarOS Bitten Fruit
-          </span>
+          <div class="hero-text-scroll mb-4 overflow-hidden" style="clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);">
+            <span class="gsap-reveal-hero text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#2997ff] inline-block bg-[#2997ff]/10 px-4 py-1 rounded-full border border-[#2997ff]/20">
+              PulsarOS Bitten Fruit
+            </span>
+          </div>
 
-          <h1 class="text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-tight text-white leading-[1.04] mb-6 text-balance">
-            Power. Precision.<br />Pure macOS on Linux.
+          <h1 class="gsap-reveal-hero text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-tight text-white leading-[1.03] mb-6 text-balance">
+            Power. Precision.<br />
+            <span class="bg-gradient-to-r from-white via-[#f5f5f7] to-[#86868b] bg-clip-text text-transparent">
+              Pure macOS on Linux.
+            </span>
           </h1>
 
-          <p class="text-lg sm:text-2xl text-[#86868b] max-w-2xl font-normal leading-relaxed mb-8 text-balance">
+          <p class="gsap-reveal-hero text-lg sm:text-2xl text-[#86868b] max-w-2xl font-normal leading-relaxed mb-8 text-balance">
             Engineered to replicate the exact visual design, animation rhythm, and desktop experience of macOS.
           </p>
 
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-5 mb-10">
-            <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary">
+          <div class="gsap-reveal-hero flex flex-col sm:flex-row items-center justify-center gap-5 mb-10">
+            <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary shadow-lg shadow-[#0071e3]/20">
               Download Bitten Fruit
             </a>
-            <a href="#intelligence-section" class="apple-link group text-base text-[#2997ff]">
-              <span>Scroll for GSAP Video Experience</span>
+            <a href="#interactive-story-section" class="apple-link group text-base text-[#2997ff]">
+              <span>Scroll to explore features</span>
               <svg class="size-4 text-[#2997ff] group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
@@ -48,12 +76,13 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
           </div>
         </div>
 
-        <!-- Studio Display Frame with Video Demo inside -->
-        <div id="display-container" class="w-full max-w-5xl mx-auto mt-4 transition-transform origin-top">
+        <!-- Studio Display / Laptop Hardware Frame with Dynamic Zoom -->
+        <div id="display-container" class="w-full max-w-5xl mx-auto mt-4 origin-top z-20">
           <div class="relative rounded-[28px] sm:rounded-[36px] bg-[#1d1d1f] p-3 sm:p-4 shadow-2xl border border-white/15">
             <div class="absolute top-2.5 left-1/2 -translate-x-1/2 size-2.5 rounded-full bg-[#000000] border border-white/10 z-20"></div>
-            <div class="rounded-[20px] sm:rounded-[28px] overflow-hidden bg-black relative border border-black aspect-video">
+            <div class="rounded-[20px] sm:rounded-[28px] overflow-hidden bg-black relative border border-black aspect-video shadow-inner">
               <video 
+                id="hero-video"
                 src="/videos/session-restore.mp4" 
                 poster="/assets/desktop.png"
                 autoplay 
@@ -69,57 +98,186 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
 
       </section>
 
-      <!-- 2. OBSIDIAN DARK INTELLIGENCE SECTION (GSAP Video Cards) -->
-      <section id="intelligence-section" class="py-28 sm:py-36 bg-black text-white px-4 sm:px-6 relative">
-        <div class="max-w-6xl mx-auto">
+      <!-- 2. APPLE ALL-ACCESS PASS MEDIA CARD GALLERY -->
+      <AppleMediaCardGallery />
+
+      <!-- 3. STICKY INTERACTIVE STORY SECTION (Apple Feature Sync) -->
+      <section id="interactive-story-section" class="py-24 sm:py-36 bg-black text-white px-4 sm:px-6 relative border-t border-white/10">
+        <div class="max-w-7xl mx-auto">
           
-          <div class="text-center max-w-3xl mx-auto mb-20">
-            <span class="gsap-reveal-sub text-xs font-semibold uppercase tracking-widest text-[#2997ff] mb-3 block">Apple Intelligence Parallel</span>
-            <h2 class="gsap-reveal-title text-4xl sm:text-6xl font-semibold tracking-tight text-white leading-tight">
-              Intelligence built right in.
+          <!-- Pure Apple Typography Section Title -->
+          <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+            <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#2997ff] mb-3 block">
+              Design & Engineering
+            </span>
+            <h2 class="gsap-text-reveal text-4xl sm:text-6xl font-semibold tracking-tight text-white leading-tight">
+              Designed down to the smallest pixel.
             </h2>
-            <p class="gsap-reveal-desc mt-4 text-lg sm:text-xl text-[#86868b] leading-relaxed">
-              Session Restore and Sayri AI redefine how you work on Linux.
+            <p class="gsap-text-reveal mt-4 text-lg sm:text-xl text-[#86868b] leading-relaxed">
+              Every detail is modeled after commercial desktop operating systems.
             </p>
           </div>
 
-          <!-- Video Cards Grid -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {INTELLIGENCE_FEATURES.map((feat) => (
-              <div class="bg-[#161617] rounded-3xl p-8 sm:p-12 border border-white/10 flex flex-col justify-between overflow-hidden group">
-                <div>
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff]">{feat.badge}</span>
-                    {feat.logo && (
-                      <img src={feat.logo} alt={feat.title} class="h-7 w-auto object-contain" />
-                    )}
-                  </div>
-                  <h3 class="text-3xl sm:text-4xl font-semibold text-white mb-4">{feat.title}</h3>
-                  <p class="text-[#86868b] text-base sm:text-lg leading-relaxed mb-8">{feat.description}</p>
-                </div>
-                <div class="rounded-2xl overflow-hidden border border-white/10 bg-black aspect-video">
-                  <video src={feat.video} poster={feat.poster} autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
-                </div>
+          <!-- 2-Column Story Grid with Vertical Cards and Sticky Video -->
+          <div id="story-grid-container" class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start relative">
+            
+            <!-- Left Column: Vertical Story Cards -->
+            <div id="story-cards-column" class="lg:col-span-5 space-y-36 pt-4">
+              
+              <div class="story-card bg-[#161617] rounded-3xl p-8 border border-white/10 transition-all duration-500 hover:border-[#2997ff]/40 cursor-pointer opacity-100" data-story-video="/videos/session-restore.mp4">
+                <span class="text-xs font-mono text-[#2997ff] uppercase tracking-wider block mb-2">01 — Continuity</span>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-white mb-3">Session Restore</h3>
+                <p class="text-[#86868b] leading-relaxed text-base">
+                  Reboot or power on, and every application, window arrangement, and open document reopens instantly where you left off.
+                </p>
               </div>
-            ))}
+
+              <div class="story-card bg-[#161617] rounded-3xl p-8 border border-white/10 transition-all duration-500 hover:border-[#2997ff]/40 cursor-pointer opacity-60" data-story-video="/videos/sayri.mp4">
+                <span class="text-xs font-mono text-[#2997ff] uppercase tracking-wider block mb-2">02 — Private Intelligence</span>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-white mb-3">Sayri AI Assistant</h3>
+                <p class="text-[#86868b] leading-relaxed text-base">
+                  An intelligent assistant powered by local LLMs running straight on your GPU. 100% private, no telemetry, no cloud lock-in.
+                </p>
+              </div>
+
+              <div class="story-card bg-[#161617] rounded-3xl p-8 border border-white/10 transition-all duration-500 hover:border-[#2997ff]/40 cursor-pointer opacity-60" data-story-video="/videos/spotlight.mp4">
+                <span class="text-xs font-mono text-[#2997ff] uppercase tracking-wider block mb-2">03 — Search & Action</span>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-white mb-3">Spotlight Search</h3>
+                <p class="text-[#86868b] leading-relaxed text-base">
+                  Command center for your machine. Search files, launch applications, calculate math, check clipboard history, or trigger system scripts.
+                </p>
+              </div>
+
+              <div class="story-card bg-[#161617] rounded-3xl p-8 border border-white/10 transition-all duration-500 hover:border-[#2997ff]/40 cursor-pointer opacity-60" data-story-video="/videos/window-mode.mp4">
+                <span class="text-xs font-mono text-[#2997ff] uppercase tracking-wider block mb-2">04 — Workspaces</span>
+                <h3 class="text-2xl sm:text-3xl font-semibold text-white mb-3">Window Management</h3>
+                <p class="text-[#86868b] leading-relaxed text-base">
+                  Split view, Mission Control gestures, full screen on dynamic workspaces, and fluid window snapping built for power users.
+                </p>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Sticky Video Display -->
+            <div id="story-video-container" class="lg:col-span-7 sticky top-28 rounded-3xl overflow-hidden bg-[#161617] border border-white/15 shadow-2xl aspect-video w-full z-20">
+              <video 
+                id="story-active-video"
+                src="/videos/session-restore.mp4" 
+                poster="/assets/desktop.png"
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                class="w-full h-full object-cover transition-opacity duration-300"
+              ></video>
+              <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 text-xs font-medium text-white flex items-center gap-2">
+                <span class="size-2 rounded-full bg-[#2997ff] animate-ping"></span>
+                <span id="story-video-label">Live Feature Preview: Session Restore</span>
+              </div>
+            </div>
+
           </div>
 
         </div>
       </section>
 
-      <!-- 3. GSAP PINNED HORIZONTAL VIDEO CAROUSEL -->
-      <section id="horizontal-section" class="py-24 bg-[#161617] overflow-hidden text-white border-y border-white/10">
-        <div class="max-w-6xl mx-auto px-4 mb-12">
+      <!-- 4. BENTO GRID SHOWCASE (Apple Bento Design) -->
+      <section id="bento-section" class="py-24 sm:py-36 bg-[#161617] text-white px-4 sm:px-6 relative border-t border-white/10">
+        <div class="max-w-7xl mx-auto">
+          
+          <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+            <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff] mb-2 block">Comprehensive Suite</span>
+            <h2 class="gsap-text-reveal text-4xl sm:text-6xl font-semibold tracking-tight text-white">
+              Built for every workflow.
+            </h2>
+            <p class="gsap-text-reveal text-[#86868b] text-lg sm:text-xl mt-4">
+              Explore the core technologies powering PulsarOS Bitten Fruit.
+            </p>
+          </div>
+
+          <!-- Bento Grid Layout -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Large Hero Bento Card (2 cols) -->
+            <div class="gsap-bento-card md:col-span-2 bg-[#000000] rounded-3xl p-8 sm:p-12 border border-white/10 flex flex-col justify-between overflow-hidden group hover:border-[#2997ff]/40 transition-colors">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#2997ff] mb-2 block">Core Architecture</span>
+                <h3 class="text-3xl sm:text-4xl font-semibold text-white mb-4">MacBoat Integration</h3>
+                <p class="text-[#86868b] text-base sm:text-lg leading-relaxed max-w-xl mb-8">
+                  Run macOS in preconfigured OpenCore Virtual Machines directly using official Apple recovery servers with native performance.
+                </p>
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-white/10 aspect-video bg-[#161617]">
+                <video src="/videos/window-mode.mp4" autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+              </div>
+            </div>
+
+            <!-- Bento Card 2 -->
+            <div class="gsap-bento-card bg-[#000000] rounded-3xl p-8 border border-white/10 flex flex-col justify-between group hover:border-[#2997ff]/40 transition-colors">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-[#2997ff]">Windows Apps</span>
+                  <img src="/logos/winboat.svg" alt="WinBoat" class="size-7 object-contain" />
+                </div>
+                <h3 class="text-2xl font-semibold text-white mb-2">WinBoat</h3>
+                <p class="text-[#86868b] text-sm leading-relaxed mb-6">
+                  Execute Windows software as native desktop windows with zero configuration or Wine headache.
+                </p>
+              </div>
+              <div class="rounded-xl overflow-hidden border border-white/10 aspect-video bg-[#161617]">
+                <video src="/videos/app-store.mp4" autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+              </div>
+            </div>
+
+            <!-- Bento Card 3 -->
+            <div class="gsap-bento-card bg-[#000000] rounded-3xl p-8 border border-white/10 flex flex-col justify-between group hover:border-[#2997ff]/40 transition-colors">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-[#2997ff]">Android Apps</span>
+                  <img src="/logos/droidtux.png" alt="DroidTux" class="size-7 object-contain" />
+                </div>
+                <h3 class="text-2xl font-semibold text-white mb-2">DroidTux</h3>
+                <p class="text-[#86868b] text-sm leading-relaxed mb-6">
+                  Run mobile Android apps side-by-side with full mouse, trackpad, and keyboard shortcuts.
+                </p>
+              </div>
+              <div class="rounded-xl overflow-hidden border border-white/10 aspect-video bg-[#161617]">
+                <video src="/videos/sayri.mp4" autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+              </div>
+            </div>
+
+            <!-- Large Hero Bento Card (2 cols) -->
+            <div class="gsap-bento-card md:col-span-2 bg-[#000000] rounded-3xl p-8 sm:p-12 border border-white/10 flex flex-col justify-between overflow-hidden group hover:border-[#2997ff]/40 transition-colors">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#2997ff] mb-2 block">Visual Experience</span>
+                <h3 class="text-3xl sm:text-4xl font-semibold text-white mb-4">Dynamic Wallpapers & Keyboard Remap</h3>
+                <p class="text-[#86868b] text-base sm:text-lg leading-relaxed max-w-xl mb-8">
+                  Live moving wallpapers on lockscreen and desktop paired with native macOS command key bindings out of the box.
+                </p>
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-white/10 aspect-video bg-[#161617]">
+                <video src="/videos/remap-live-wallpaper.mp4" autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 5. GSAP PINNED HORIZONTAL VIDEO CAROUSEL -->
+      <section id="horizontal-section" class="py-24 bg-[#000000] overflow-hidden text-white border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
           <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff] block mb-2">Video Reel Showcase</span>
           <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight">PulsarOS Bitten Fruit Live Demos.</h2>
-          <p class="text-[#86868b] text-base mt-2">Scroll to move through the live video feature cards.</p>
+          <p class="text-[#86868b] text-base mt-2">Scroll horizontally to inspect each live video feature.</p>
         </div>
 
         <!-- Horizontal Video Track -->
         <div id="horizontal-track-wrapper" class="w-full">
           <div id="horizontal-track" class="flex gap-6 px-6 w-max">
             {VIDEO_SHOWCASES.map((tile, i) => (
-              <div class="w-[360px] sm:w-[460px] bg-[#000000] rounded-3xl p-8 border border-white/15 flex flex-col justify-between shrink-0">
+              <div class="w-[360px] sm:w-[480px] bg-[#161617] rounded-3xl p-8 border border-white/15 flex flex-col justify-between shrink-0 hover:border-[#2997ff]/40 transition-colors">
                 <div>
                   <span class="text-xs font-mono text-[#2997ff]">0{i + 1}</span>
                   <h3 class="text-2xl sm:text-3xl font-semibold text-white mt-1">{tile.title}</h3>
@@ -135,14 +293,14 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
         </div>
       </section>
 
-      <!-- 4. CLOUD PROVIDERS LOGO BAR -->
-      <section class="py-20 bg-black text-white px-4 border-b border-white/10">
+      <!-- 6. CLOUD PROVIDERS LOGO BAR -->
+      <section class="py-20 bg-black text-white px-4 border-t border-white/10">
         <div class="max-w-6xl mx-auto text-center">
           <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff] mb-2 block">Finder Integration</span>
           <h3 class="text-2xl sm:text-4xl font-semibold mb-8">Native Support for 55 Cloud Providers</h3>
-          <div class="flex flex-wrap items-center justify-center gap-6">
+          <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             {CLOUD_PROVIDERS.map((provider) => (
-              <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#161617] border border-white/10">
+              <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#161617] border border-white/10 hover:border-[#2997ff]/40 transition-colors">
                 <img src={provider.logo} alt={provider.name} class="size-6 object-contain" />
                 <span class="text-xs font-semibold text-white">{provider.name}</span>
               </div>
@@ -151,32 +309,8 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
         </div>
       </section>
 
-      <!-- 5. ECOSYSTEM & CROSS-PLATFORM -->
-      <section class="py-24 sm:py-32 bg-black px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center max-w-3xl mx-auto mb-16">
-            <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff] mb-2 block">Unmatched Integration</span>
-            <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-white">Cross-Platform Suite.</h2>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ECOSYSTEM.map((item) => (
-              <div class="bg-[#161617] rounded-3xl p-8 border border-white/10 hover:border-[#2997ff]/40 transition-colors">
-                <div class="flex items-center justify-between mb-4">
-                  <span class="text-xs font-medium text-[#2997ff] uppercase tracking-wider">{item.tag}</span>
-                  <img src={item.logo} alt={item.name} class="h-8 w-8 object-contain" />
-                </div>
-                <h3 class="text-2xl font-semibold text-white mb-2">{item.name}</h3>
-                <p class="text-sm font-medium text-white mb-2">{item.headline}</p>
-                <p class="text-sm text-[#86868b] leading-relaxed">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <!-- 6. SIDE-BY-SIDE COMPARE -->
-      <section class="py-24 sm:py-32 bg-[#161617] px-4 sm:px-6 border-t border-white/10">
+      <!-- 7. SIDE-BY-SIDE COMPARE EDITIONS -->
+      <section id="editions-section" class="py-24 sm:py-32 bg-[#161617] px-4 sm:px-6 border-t border-white/10">
         <div class="max-w-5xl mx-auto">
           <div class="text-center max-w-3xl mx-auto mb-16">
             <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-white">Which Edition Fits You?</h2>
@@ -184,7 +318,7 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {EDITIONS.map((ed) => (
-              <div class="bg-[#000000] rounded-3xl p-8 sm:p-12 border border-white/10 flex flex-col justify-between">
+              <div class="bg-[#000000] rounded-3xl p-8 sm:p-12 border border-white/10 flex flex-col justify-between hover:border-[#2997ff]/40 transition-colors">
                 <div>
                   <span class="text-xs font-semibold px-3 py-1 rounded-full bg-[#2997ff]/10 text-[#2997ff] uppercase tracking-wider inline-block mb-4">{ed.badge}</span>
                   <h3 class="text-3xl font-semibold text-white mb-1">{ed.name}</h3>
@@ -206,7 +340,7 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
         </div>
       </section>
 
-      <!-- 7. FAQ SECTION -->
+      <!-- 8. FAQ SECTION -->
       <section class="py-24 sm:py-32 bg-black px-4 sm:px-6 border-t border-white/10">
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-16">
@@ -214,7 +348,7 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
           </div>
           <div class="space-y-6">
             {FAQS.map((item) => (
-              <div class="bg-[#161617] rounded-3xl p-8 border border-white/10">
+              <div class="bg-[#161617] rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-colors">
                 <h3 class="text-xl font-semibold text-white mb-3">{item.question}</h3>
                 <p class="text-base text-[#86868b] leading-relaxed">{item.answer}</p>
               </div>
@@ -228,10 +362,10 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
     <Footer />
 
     <!-- FLOATING PROTOTYPE CONTROL BAR -->
-    <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-[#1d1d1f]/90 backdrop-blur-xl border border-white/20 px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-4 text-xs">
-      <span class="font-semibold text-white flex items-center gap-1.5">
-        <span class="size-2 rounded-full bg-[#2997ff] animate-pulse"></span>
-        GSAP Video Prototype
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#1d1d1f]/90 backdrop-blur-xl border border-white/20 px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 text-xs">
+      <span class="font-semibold text-white flex items-center gap-2">
+        <span class="size-2.5 rounded-full bg-[#2997ff] animate-pulse"></span>
+        Apple GSAP Engine
       </span>
       <span class="text-white/30">|</span>
       <button id="btn-scroll-top" class="text-white/80 hover:text-white transition-colors font-medium">Scroll to Top</button>
@@ -241,57 +375,180 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
   </div>
 </Layout>
 
-<!-- GSAP + SCROLLTRIGGER CLIENT-SIDE SCRIPT -->
+<!-- GSAP + SCROLLTRIGGER CLIENT-SIDE ANIMATION CONTROLLER -->
 <script>
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   gsap.registerPlugin(ScrollTrigger);
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initAnimations() {
+    // 1. Hero Entrance Animation (HeroSection.tsx pattern)
+    const heroEntranceTl = gsap.timeline({ delay: 0.1 });
 
-    // 1. Hero Text Fade & Display Scale Zoom Effect on Scroll
+    heroEntranceTl
+      .to('.hero-text-scroll', {
+        duration: 1,
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        ease: 'circ.out',
+      })
+      .from('.gsap-reveal-hero', {
+        y: 40,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: 'power2.out',
+      }, '-=0.6');
+
+    // 2. Hero Display Zoom & 3D Scroll Transform (Apple signature pattern)
     const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: '#hero-trigger',
         start: 'top top',
-        end: '+=800',
+        end: '+=1000',
         scrub: 1,
         pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
       }
     });
 
     heroTl
       .to('#hero-text', {
         autoAlpha: 0,
-        y: -50,
-        scale: 0.95,
+        y: -100,
+        scale: 0.92,
         duration: 0.5,
-      })
+        ease: 'power1.in',
+      }, 0)
       .to('#display-stand', {
         autoAlpha: 0,
         height: 0,
         duration: 0.3,
+        ease: 'power1.in',
       }, 0)
       .to('#display-container', {
-        scale: 1.2,
-        y: -30,
+        scale: 1.35,
+        rotateX: 4,
+        y: -70,
         duration: 1,
+        ease: 'power1.inOut',
       }, 0);
 
-    // 2. Intelligence Section Entrance
-    gsap.from('.gsap-reveal-title', {
+    // 3. Text Reveal Animations
+    const textReveals = document.querySelectorAll('.gsap-text-reveal');
+    textReveals.forEach((el) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+      });
+    });
+
+    // 4. Interactive Vertical Story Card Scroll Sync & Sticky Video
+    const storyCards = document.querySelectorAll<HTMLElement>('.story-card');
+    const activeVideo = document.getElementById('story-active-video') as HTMLVideoElement | null;
+    const videoLabel = document.getElementById('story-video-label');
+
+    const cardTitles = [
+      "Session Restore",
+      "Sayri AI Assistant",
+      "Spotlight Search",
+      "Window Management"
+    ];
+
+    storyCards.forEach((card, index) => {
+      // Click event for manual selection
+      card.addEventListener('click', () => {
+        const videoSrc = card.getAttribute('data-story-video');
+        if (activeVideo && videoSrc && activeVideo.getAttribute('src') !== videoSrc) {
+          activeVideo.style.opacity = '0';
+          setTimeout(() => {
+            activeVideo.src = videoSrc;
+            activeVideo.play().catch(() => {});
+            activeVideo.style.opacity = '1';
+          }, 150);
+        }
+        if (videoLabel) {
+          videoLabel.textContent = `Live Feature Preview: ${cardTitles[index] || ''}`;
+        }
+        storyCards.forEach((c) => {
+          c.classList.remove('border-[#2997ff]', 'bg-[#272729]', 'opacity-100');
+          c.classList.add('border-white/10', 'bg-[#161617]', 'opacity-60');
+        });
+        card.classList.remove('border-white/10', 'bg-[#161617]', 'opacity-60');
+        card.classList.add('border-[#2997ff]', 'bg-[#272729]', 'opacity-100');
+      });
+
+      // ScrollTrigger for scroll activation
+      const startThreshold = index === storyCards.length - 1 ? 'top 85%' : 'top 60%';
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: startThreshold,
+        end: 'bottom 40%',
+        onEnter: () => {
+          const videoSrc = card.getAttribute('data-story-video');
+          if (activeVideo && videoSrc && activeVideo.getAttribute('src') !== videoSrc) {
+            activeVideo.style.opacity = '0';
+            setTimeout(() => {
+              activeVideo.src = videoSrc;
+              activeVideo.play().catch(() => {});
+              activeVideo.style.opacity = '1';
+            }, 150);
+          }
+          if (videoLabel) {
+            videoLabel.textContent = `Live Feature Preview: ${cardTitles[index] || ''}`;
+          }
+          storyCards.forEach((c) => {
+            c.classList.remove('border-[#2997ff]', 'bg-[#272729]', 'opacity-100');
+            c.classList.add('border-white/10', 'bg-[#161617]', 'opacity-60');
+          });
+          card.classList.remove('border-white/10', 'bg-[#161617]', 'opacity-60');
+          card.classList.add('border-[#2997ff]', 'bg-[#272729]', 'opacity-100');
+        },
+        onEnterBack: () => {
+          const videoSrc = card.getAttribute('data-story-video');
+          if (activeVideo && videoSrc && activeVideo.getAttribute('src') !== videoSrc) {
+            activeVideo.style.opacity = '0';
+            setTimeout(() => {
+              activeVideo.src = videoSrc;
+              activeVideo.play().catch(() => {});
+              activeVideo.style.opacity = '1';
+            }, 150);
+          }
+          if (videoLabel) {
+            videoLabel.textContent = `Live Feature Preview: ${cardTitles[index] || ''}`;
+          }
+          storyCards.forEach((c) => {
+            c.classList.remove('border-[#2997ff]', 'bg-[#272729]', 'opacity-100');
+            c.classList.add('border-white/10', 'bg-[#161617]', 'opacity-60');
+          });
+          card.classList.remove('border-white/10', 'bg-[#161617]', 'opacity-60');
+          card.classList.add('border-[#2997ff]', 'bg-[#272729]', 'opacity-100');
+        }
+      });
+    });
+
+    // 5. Bento Cards Stagger Reveal
+    gsap.from('.gsap-bento-card', {
       scrollTrigger: {
-        trigger: '#intelligence-section',
-        start: 'top 80%',
+        trigger: '#bento-section',
+        start: 'top 75%',
       },
-      y: 40,
-      autoAlpha: 0,
+      y: 60,
+      opacity: 0,
       duration: 0.8,
+      stagger: 0.15,
       ease: 'power3.out',
     });
 
-    // 3. Pinned Horizontal Track Scroll
+    // 6. Pinned Horizontal Track Scroll
     const track = document.getElementById('horizontal-track');
     if (track) {
       const scrollAmount = track.scrollWidth - window.innerWidth + 80;
@@ -310,9 +567,20 @@ import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_F
       });
     }
 
+    // Scroll to Top Button
     document.getElementById('btn-scroll-top')?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-  });
+    // Refresh ScrollTrigger positions after full load
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+  } else {
+    initAnimations();
+  }
 </script>
