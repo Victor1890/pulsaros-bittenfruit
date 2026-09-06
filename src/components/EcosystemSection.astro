@@ -1,0 +1,35 @@
+---
+import { ECOSYSTEM } from '../config/site';
+---
+
+<section id="connectivity" class="py-24 sm:py-32 bg-[#ffffff] dark:bg-[#000000] px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-semibold uppercase tracking-widest text-[#0071e3] dark:text-[#2997ff] mb-3 block">Seamless Integration</span>
+      <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7]">
+        Works connected everywhere.
+      </h2>
+      <p class="mt-4 text-lg sm:text-xl text-[#86868b] leading-relaxed">
+        PulsarOS Bitten Fruit bridges macOS, Windows, and Android natively.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {ECOSYSTEM.map((item) => (
+        <div class="bg-[#f5f5f7] dark:bg-[#161617] rounded-3xl p-8 border border-[#e5e7eb] dark:border-white/10 flex flex-col justify-between hover:border-[#0071e3]/40 transition-colors">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-medium text-[#0071e3] dark:text-[#2997ff] uppercase tracking-wider">{item.tag}</span>
+              <img src={item.logo} alt={item.name} class="h-8 w-8 object-contain" />
+            </div>
+            <h3 class="text-2xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">{item.name}</h3>
+            <p class="text-sm font-medium text-[#1d1d1f] dark:text-[#f5f5f7] mb-3">{item.headline}</p>
+            <p class="text-sm text-[#86868b] leading-relaxed">{item.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -5,40 +5,37 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #09090b;
+  --foreground: #1d1d1f;
   --card: #ffffff;
-  --card-foreground: #09090b;
-  --popover: #ffffff;
-  --popover-foreground: #09090b;
+  --card-foreground: #1d1d1f;
   --primary: #0071e3;
+  --primary-hover: #0077ed;
   --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #09090b;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  --accent: #f5f5f7;
-  --accent-foreground: #09090b;
-  --border: #e4e4e7;
+  --secondary: #0066cc;
+  --secondary-foreground: #ffffff;
+  --tertiary: #f5f5f7;
+  --muted: #f5f5f7;
+  --muted-foreground: #6e6e73;
+  --border: #e5e7eb;
+  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  --font-text: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   --font-sans: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --radius: 0.75rem;
 }
 
 .dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: #141416;
-  --card-foreground: #fafafa;
-  --popover: #141416;
-  --popover-foreground: #fafafa;
+  --background: #000000;
+  --foreground: #f5f5f7;
+  --card: #161617;
+  --card-foreground: #f5f5f7;
   --primary: #2997ff;
+  --primary-hover: #0077ed;
   --primary-foreground: #ffffff;
-  --secondary: #27272a;
-  --secondary-foreground: #fafafa;
-  --muted: #1e1e22;
-  --muted-foreground: #a1a1aa;
-  --accent: #141416;
-  --accent-foreground: #fafafa;
-  --border: #27272a;
+  --secondary: #2997ff;
+  --secondary-foreground: #ffffff;
+  --tertiary: #161617;
+  --muted: #161617;
+  --muted-foreground: #86868b;
+  --border: #333336;
 }
 
 @theme inline {
@@ -46,18 +43,17 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-tertiary: var(--tertiary);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
 
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
   --font-sans: var(--font-sans);
 }
 
@@ -66,6 +62,19 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased overscroll-contain overflow-x-clip;
+    @apply bg-background text-foreground font-sans antialiased selection:bg-[#0071e3]/20 selection:text-[#0071e3] overscroll-contain overflow-x-clip;
   }
+}
+
+/* Apple Specific Utilities */
+.apple-button-primary {
+  @apply inline-flex items-center justify-center bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium rounded-full transition-colors min-h-[44px] px-6 py-2.5 text-base shadow-xs;
+}
+
+.apple-button-secondary {
+  @apply inline-flex items-center justify-center border border-[#0066cc] text-[#0066cc] dark:text-[#2997ff] dark:border-[#2997ff] hover:bg-[#0071e3]/5 font-medium rounded-full transition-colors min-h-[44px] px-6 py-2.5 text-base;
+}
+
+.apple-link {
+  @apply inline-flex items-center gap-1 text-[#0071e3] dark:text-[#2997ff] font-medium hover:underline;
 }

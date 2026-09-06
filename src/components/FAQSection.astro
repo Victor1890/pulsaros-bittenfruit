@@ -1,0 +1,22 @@
+---
+import { FAQS } from '../config/site';
+---
+
+<section id="faq" class="py-24 sm:py-32 bg-[#ffffff] dark:bg-[#000000] px-4 sm:px-6 border-t border-[#e5e7eb] dark:border-white/10">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7]">
+        Frequently Asked Questions
+      </h2>
+    </div>
+
+    <div class="space-y-6">
+      {FAQS.map((item) => (
+        <div class="bg-[#f5f5f7] dark:bg-[#161617] rounded-3xl p-8 border border-[#e5e7eb] dark:border-white/10">
+          <h3 class="text-xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3">{item.question}</h3>
+          <p class="text-base text-[#86868b] leading-relaxed">{item.answer}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

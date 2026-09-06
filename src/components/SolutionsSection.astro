@@ -1,0 +1,52 @@
+---
+import { INTELLIGENCE_FEATURES } from '../config/site';
+---
+
+<section id="intelligence" class="py-24 sm:py-32 bg-[#000000] text-white px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+      <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff] mb-3 block">Next-Generation Desktop</span>
+      <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-white leading-tight">
+        Intelligence built right in.
+      </h2>
+      <p class="mt-4 text-lg sm:text-xl text-[#86868b] leading-relaxed">
+        Session Restore and Sayri AI redefine how you interact with your operating system.
+      </p>
+    </div>
+
+    <!-- Apple Campaign Cards Grid with Video Demos -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {INTELLIGENCE_FEATURES.map((feat) => (
+        <div class="bg-[#161617] rounded-3xl p-8 sm:p-12 border border-white/10 flex flex-col justify-between overflow-hidden group shadow-2xl">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff]">{feat.badge}</span>
+              {feat.logo && (
+                <img src={feat.logo} alt={feat.title} class="h-7 w-auto object-contain" />
+              )}
+            </div>
+            <h3 class="text-3xl sm:text-4xl font-semibold text-white mb-4">{feat.title}</h3>
+            <p class="text-[#86868b] text-base sm:text-lg leading-relaxed mb-8">
+              {feat.description}
+            </p>
+          </div>
+          
+          <div class="rounded-2xl overflow-hidden border border-white/10 bg-black aspect-video relative group-hover:border-[#2997ff]/40 transition-colors">
+            <video 
+              src={feat.video} 
+              poster={feat.poster}
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              preload="metadata"
+              class="w-full h-full object-cover"
+            ></video>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,318 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_CONFIG, FAQS, EDITIONS, ECOSYSTEM, VIDEO_SHOWCASES, INTELLIGENCE_FEATURES, CLOUD_PROVIDERS } from '../config/site';
+---
+
+<Layout title="PulsarOS Bitten Fruit — GSAP Interactive Video Prototype">
+  <div class="min-h-screen bg-[#000000] text-[#f5f5f7] font-sans antialiased selection:bg-[#0071e3]/30 selection:text-white">
+    <Header />
+
+    <main class="overflow-x-hidden">
+
+      <!-- PROTOTYPE BANNER -->
+      <div class="bg-[#0071e3] text-white text-xs font-medium py-2 px-4 text-center border-b border-white/10 flex items-center justify-center gap-3">
+        <span class="px-2 py-0.5 rounded bg-black/20 text-white font-mono uppercase text-[10px]">GSAP Video Prototype</span>
+        <span>Live MP4 Demo Animations & Scroll-Driven Video Playback</span>
+        <a href="/" class="underline text-white font-semibold hover:opacity-80">Back to Main →</a>
+      </div>
+
+      <!-- 1. HERO SECTION WITH GSAP SCROLLTRIGGER PIN & ZOOM -->
+      <section id="hero-trigger" class="relative min-h-screen flex flex-col items-center justify-start pt-20 px-4 sm:px-6 text-center bg-black border-b border-white/10">
+        
+        <!-- Hero Text Group -->
+        <div id="hero-text" class="max-w-4xl mx-auto flex flex-col items-center z-10">
+          <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#2997ff] mb-3 inline-block">
+            PulsarOS Bitten Fruit
+          </span>
+
+          <h1 class="text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-tight text-white leading-[1.04] mb-6 text-balance">
+            Power. Precision.<br />Pure macOS on Linux.
+          </h1>
+
+          <p class="text-lg sm:text-2xl text-[#86868b] max-w-2xl font-normal leading-relaxed mb-8 text-balance">
+            Engineered to replicate the exact visual design, animation rhythm, and desktop experience of macOS.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-5 mb-10">
+            <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary">
+              Download Bitten Fruit
+            </a>
+            <a href="#intelligence-section" class="apple-link group text-base text-[#2997ff]">
+              <span>Scroll for GSAP Video Experience</span>
+              <svg class="size-4 text-[#2997ff] group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Studio Display Frame with Video Demo inside -->
+        <div id="display-container" class="w-full max-w-5xl mx-auto mt-4 transition-transform origin-top">
+          <div class="relative rounded-[28px] sm:rounded-[36px] bg-[#1d1d1f] p-3 sm:p-4 shadow-2xl border border-white/15">
+            <div class="absolute top-2.5 left-1/2 -translate-x-1/2 size-2.5 rounded-full bg-[#000000] border border-white/10 z-20"></div>
+            <div class="rounded-[20px] sm:rounded-[28px] overflow-hidden bg-black relative border border-black aspect-video">
+              <video 
+                src="/videos/session-restore.mp4" 
+                poster="/assets/desktop.png"
+                autoplay 
+                loop 
+                muted 
+                playsinline
+                class="w-full h-full object-cover object-top"
+              ></video>
+            </div>
+          </div>
+          <div id="display-stand" class="w-36 h-4 bg-gradient-to-b from-[#272729] to-[#121214] mx-auto rounded-b-xl border-x border-b border-white/10 shadow-lg"></div>
+        </div>
+
+      </section>
+
+      <!-- 2. OBSIDIAN DARK INTELLIGENCE SECTION (GSAP Video Cards) -->
+      <section id="intelligence-section" class="py-28 sm:py-36 bg-black text-white px-4 sm:px-6 relative">
+        <div class="max-w-6xl mx-auto">
+          
+          <div class="text-center max-w-3xl mx-auto mb-20">
+            <span class="gsap-reveal-sub text-xs font-semibold uppercase tracking-widest text-[#2997ff] mb-3 block">Apple Intelligence Parallel</span>
+            <h2 class="gsap-reveal-title text-4xl sm:text-6xl font-semibold tracking-tight text-white leading-tight">
+              Intelligence built right in.
+            </h2>
+            <p class="gsap-reveal-desc mt-4 text-lg sm:text-xl text-[#86868b] leading-relaxed">
+              Session Restore and Sayri AI redefine how you work on Linux.
+            </p>
+          </div>
+
+          <!-- Video Cards Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {INTELLIGENCE_FEATURES.map((feat) => (
+              <div class="bg-[#161617] rounded-3xl p-8 sm:p-12 border border-white/10 flex flex-col justify-between overflow-hidden group">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff]">{feat.badge}</span>
+                    {feat.logo && (
+                      <img src={feat.logo} alt={feat.title} class="h-7 w-auto object-contain" />
+                    )}
+                  </div>
+                  <h3 class="text-3xl sm:text-4xl font-semibold text-white mb-4">{feat.title}</h3>
+                  <p class="text-[#86868b] text-base sm:text-lg leading-relaxed mb-8">{feat.description}</p>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-white/10 bg-black aspect-video">
+                  <video src={feat.video} poster={feat.poster} autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. GSAP PINNED HORIZONTAL VIDEO CAROUSEL -->
+      <section id="horizontal-section" class="py-24 bg-[#161617] overflow-hidden text-white border-y border-white/10">
+        <div class="max-w-6xl mx-auto px-4 mb-12">
+          <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff] block mb-2">Video Reel Showcase</span>
+          <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight">PulsarOS Bitten Fruit Live Demos.</h2>
+          <p class="text-[#86868b] text-base mt-2">Scroll to move through the live video feature cards.</p>
+        </div>
+
+        <!-- Horizontal Video Track -->
+        <div id="horizontal-track-wrapper" class="w-full">
+          <div id="horizontal-track" class="flex gap-6 px-6 w-max">
+            {VIDEO_SHOWCASES.map((tile, i) => (
+              <div class="w-[360px] sm:w-[460px] bg-[#000000] rounded-3xl p-8 border border-white/15 flex flex-col justify-between shrink-0">
+                <div>
+                  <span class="text-xs font-mono text-[#2997ff]">0{i + 1}</span>
+                  <h3 class="text-2xl sm:text-3xl font-semibold text-white mt-1">{tile.title}</h3>
+                  <p class="text-sm text-[#2997ff] font-medium mt-1 mb-3">{tile.subtitle}</p>
+                  <p class="text-[#86868b] text-sm leading-relaxed mb-6">{tile.description}</p>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-white/10 aspect-video bg-black">
+                  <video src={tile.video} poster={tile.poster} autoplay loop muted playsinline class="w-full h-full object-cover"></video>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. CLOUD PROVIDERS LOGO BAR -->
+      <section class="py-20 bg-black text-white px-4 border-b border-white/10">
+        <div class="max-w-6xl mx-auto text-center">
+          <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff] mb-2 block">Finder Integration</span>
+          <h3 class="text-2xl sm:text-4xl font-semibold mb-8">Native Support for 55 Cloud Providers</h3>
+          <div class="flex flex-wrap items-center justify-center gap-6">
+            {CLOUD_PROVIDERS.map((provider) => (
+              <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#161617] border border-white/10">
+                <img src={provider.logo} alt={provider.name} class="size-6 object-contain" />
+                <span class="text-xs font-semibold text-white">{provider.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. ECOSYSTEM & CROSS-PLATFORM -->
+      <section class="py-24 sm:py-32 bg-black px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs font-semibold uppercase tracking-widest text-[#2997ff] mb-2 block">Unmatched Integration</span>
+            <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-white">Cross-Platform Suite.</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {ECOSYSTEM.map((item) => (
+              <div class="bg-[#161617] rounded-3xl p-8 border border-white/10 hover:border-[#2997ff]/40 transition-colors">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-xs font-medium text-[#2997ff] uppercase tracking-wider">{item.tag}</span>
+                  <img src={item.logo} alt={item.name} class="h-8 w-8 object-contain" />
+                </div>
+                <h3 class="text-2xl font-semibold text-white mb-2">{item.name}</h3>
+                <p class="text-sm font-medium text-white mb-2">{item.headline}</p>
+                <p class="text-sm text-[#86868b] leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. SIDE-BY-SIDE COMPARE -->
+      <section class="py-24 sm:py-32 bg-[#161617] px-4 sm:px-6 border-t border-white/10">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-white">Which Edition Fits You?</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {EDITIONS.map((ed) => (
+              <div class="bg-[#000000] rounded-3xl p-8 sm:p-12 border border-white/10 flex flex-col justify-between">
+                <div>
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-[#2997ff]/10 text-[#2997ff] uppercase tracking-wider inline-block mb-4">{ed.badge}</span>
+                  <h3 class="text-3xl font-semibold text-white mb-1">{ed.name}</h3>
+                  <p class="text-base font-medium text-[#2997ff] mb-4">{ed.headline}</p>
+                  <p class="text-sm text-[#86868b] leading-relaxed mb-8">{ed.description}</p>
+                  <ul class="space-y-3 mb-10 border-t border-white/10 pt-6">
+                    {ed.highlights.map((h) => (
+                      <li class="flex items-center text-sm font-medium text-white">
+                        <svg class="size-4 text-[#2997ff] mr-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary w-full text-center">Get {ed.name}</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FAQ SECTION -->
+      <section class="py-24 sm:py-32 bg-black px-4 sm:px-6 border-t border-white/10">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-16">
+            <h2 class="text-4xl sm:text-5xl font-semibold tracking-tight text-white">Frequently Asked Questions</h2>
+          </div>
+          <div class="space-y-6">
+            {FAQS.map((item) => (
+              <div class="bg-[#161617] rounded-3xl p-8 border border-white/10">
+                <h3 class="text-xl font-semibold text-white mb-3">{item.question}</h3>
+                <p class="text-base text-[#86868b] leading-relaxed">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <Footer />
+
+    <!-- FLOATING PROTOTYPE CONTROL BAR -->
+    <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-[#1d1d1f]/90 backdrop-blur-xl border border-white/20 px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-4 text-xs">
+      <span class="font-semibold text-white flex items-center gap-1.5">
+        <span class="size-2 rounded-full bg-[#2997ff] animate-pulse"></span>
+        GSAP Video Prototype
+      </span>
+      <span class="text-white/30">|</span>
+      <button id="btn-scroll-top" class="text-white/80 hover:text-white transition-colors font-medium">Scroll to Top</button>
+      <a href="/" class="text-[#2997ff] font-semibold hover:underline ml-2">Main Site →</a>
+    </div>
+
+  </div>
+</Layout>
+
+<!-- GSAP + SCROLLTRIGGER CLIENT-SIDE SCRIPT -->
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Hero Text Fade & Display Scale Zoom Effect on Scroll
+    const heroTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#hero-trigger',
+        start: 'top top',
+        end: '+=800',
+        scrub: 1,
+        pin: true,
+      }
+    });
+
+    heroTl
+      .to('#hero-text', {
+        autoAlpha: 0,
+        y: -50,
+        scale: 0.95,
+        duration: 0.5,
+      })
+      .to('#display-stand', {
+        autoAlpha: 0,
+        height: 0,
+        duration: 0.3,
+      }, 0)
+      .to('#display-container', {
+        scale: 1.2,
+        y: -30,
+        duration: 1,
+      }, 0);
+
+    // 2. Intelligence Section Entrance
+    gsap.from('.gsap-reveal-title', {
+      scrollTrigger: {
+        trigger: '#intelligence-section',
+        start: 'top 80%',
+      },
+      y: 40,
+      autoAlpha: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+    });
+
+    // 3. Pinned Horizontal Track Scroll
+    const track = document.getElementById('horizontal-track');
+    if (track) {
+      const scrollAmount = track.scrollWidth - window.innerWidth + 80;
+      
+      gsap.to('#horizontal-track', {
+        x: -scrollAmount,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#horizontal-section',
+          start: 'top top',
+          end: `+=${scrollAmount + 400}`,
+          scrub: 1,
+          pin: true,
+          invalidateOnRefresh: true,
+        }
+      });
+    }
+
+    document.getElementById('btn-scroll-top')?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+  });
+</script>
