@@ -1,11 +1,328 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const ISO_RELEASES = "https://github.com/Inled-Pulsar-OS/ISO/releases/latest";
+const GITHUB_REPO = "https://github.com/Inled-Pulsar-OS";
+
+const BENTO_FEATURES = [
+  {
+    category: "Session Restore",
+    title: "Pick up exactly where you left off.",
+    desc: "Reboot or power on. Every app, window, and document reopens automatically in its exact previous state.",
+    image: "/assets/desktop.png",
+    alt: "PulsarOS Desktop with Session Restore",
+    span: "col-span-1 lg:col-span-2"
+  },
+  {
+    category: "Sayri AI",
+    title: "Your local AI assistant.",
+    desc: "Private, fast, and local. Choose your preferred AI model without sending data to third-party servers.",
+    image: "/assets/spotlight.png",
+    alt: "Sayri AI Assistant interface",
+    span: "col-span-1"
+  },
+  {
+    category: "Finder",
+    title: "Native file navigation.",
+    desc: "Tags, sidebar shortcuts, quick preview, and native support for 55+ cloud storage providers built right in.",
+    image: "/assets/finder.png",
+    alt: "PulsarOS Finder file manager",
+    span: "col-span-1"
+  },
+  {
+    category: "Spotlight",
+    title: "Search anything in milliseconds.",
+    desc: "Instantly launch apps, search documents, inspect clipboard history, or uninstall packages from one search bar.",
+    image: "/assets/spotlight.png",
+    alt: "PulsarOS Spotlight Search",
+    span: "col-span-1 lg:col-span-2"
+  },
+];
+
+const CROSS_PLATFORM = [
+  {
+    name: "MacBoat",
+    tagline: "macOS Integration",
+    desc: "Run macOS in a VM with OpenCore integration directly from official Apple recovery servers.",
+    icon: "M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5"
+  },
+  {
+    name: "WinBoat",
+    tagline: "Seamless Windows Apps",
+    desc: "Execute Windows apps inside native desktop windows with full performance and no Wine configuration.",
+    icon: "M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z"
+  },
+  {
+    name: "DroidTux",
+    tagline: "Android on Desktop",
+    desc: "Launch mobile Android applications as native desktop windows with touch and keyboard mapping.",
+    icon: "M5 16V9a7 7 0 0 1 14 0v7 M12 12v4 M9 16h6"
+  },
+  {
+    name: "GSConnect",
+    tagline: "Universal Device Sync",
+    desc: "Shared clipboard, SMS notifications, and remote trackpad control between your phone and PC.",
+    icon: "M17 1l4 4-4 4 M21 5H9 M7 23l-4-4 4-4 M3 19h12 M11 12H3"
+  }
+];
+
+const EDITIONS = [
+  {
+    name: "Debian Edition",
+    tagline: "Unmatched Stability",
+    desc: "Rock-solid enterprise foundation. Ideal for production machines and users who value absolute reliability.",
+    highlights: ["Debian Stable core", "GRUB & rEFInd bootloaders", "Minimal memory footprint", "Long-term support"],
+    badge: "Stable"
+  },
+  {
+    name: "Arch Edition",
+    tagline: "Peak Performance",
+    desc: "Always up to date with the latest Linux kernel, bleeding-edge GPU drivers, and full access to the AUR.",
+    highlights: ["Arch Linux core", "Latest Linux Kernel", "Full AUR support", "Pacman package manager"],
+    badge: "Rolling"
+  }
+];
+
+const GALLERY = [
+  { src: "/assets/desktop.png", label: "Desktop Environment" },
+  { src: "/assets/finder.png", label: "Finder File Manager" },
+  { src: "/assets/seafari.png", label: "Seafari Web Browser" },
+  { src: "/assets/quick-setting.png", label: "Quick Control Center" },
+  { src: "/assets/wizard.png", label: "Setup Wizard" },
+  { src: "/assets/select-disk.png", label: "Installer Disk Select" },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="PulsarOS — The macOS experience. Reimagined on Linux.">
+  <!-- Navigation Header -->
+  <header class="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-border/40 transition-colors">
+    <div class="max-w-6xl mx-auto px-6 h-12 flex items-center justify-between text-sm">
+      <a href="/" class="font-semibold text-foreground tracking-tight hover:opacity-80 transition-opacity flex items-center gap-1">
+        <img src="/favicon.png" alt="PulsarOS Logo" class="size-10" />
+        PulsarOS
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-8 text-xs font-medium text-muted-foreground">
+        <a href="#features" class="hover:text-foreground transition-colors">Features</a>
+        <a href="#connectivity" class="hover:text-foreground transition-colors">Connectivity</a>
+        <a href="#editions" class="hover:text-foreground transition-colors">Editions</a>
+        <a href="#gallery" class="hover:text-foreground transition-colors">Gallery</a>
+        <a href={GITHUB_REPO} target="_blank" rel="noopener" class="hover:text-foreground transition-colors">GitHub</a>
+      </nav>
+
+      <a href={ISO_RELEASES} target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-medium bg-primary text-white hover:bg-secondary transition-colors">
+        Download
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-20 pb-16 md:pt-28 md:pb-24 bg-background text-center px-6 overflow-hidden">
+    <div class="max-w-4xl mx-auto">
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Introducing PulsarOS</p>
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.08] mb-6">
+        The macOS experience.<br />Reimagined on Linux.
+      </h1>
+      <p class="text-lg md:text-xl text-muted-foreground font-normal max-w-2xl mx-auto leading-relaxed mb-8">
+        Built from the ground up to unite the elegant precision of macOS with the speed, privacy, and freedom of Linux.
+      </p>
+
+      <!-- Action Group (Apple paired pill pattern) -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a href={ISO_RELEASES} target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3 rounded-full bg-primary text-white font-medium text-sm hover:bg-secondary transition-colors min-h-[44px]">
+          Download PulsarOS
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a href="#features" class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3 rounded-full border border-primary text-primary font-medium text-sm hover:bg-primary/5 transition-colors min-h-[44px]">
+          Explore Features
+        </a>
+      </div>
+
+      <!-- Hero Desktop Screenshot -->
+      <div class="relative max-w-5xl mx-auto rounded-2xl overflow-hidden border border-border shadow-2xl bg-tertiary">
+        <div class="h-8 bg-neutral-100 dark:bg-neutral-900 border-b border-border flex items-center px-4 gap-2">
+          <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+          <span class="mx-auto text-[11px] text-muted-foreground font-medium">PulsarOS Desktop</span>
+        </div>
+        <img 
+          src="/assets/desktop.png" 
+          alt="PulsarOS Desktop Environment" 
+          class="w-full h-auto object-cover"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid / Bento Section -->
+  <section id="features" class="py-20 md:py-28 bg-tertiary">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-2">Engineered with Purpose</p>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+          Not a skin. A complete OS.
+        </h2>
+        <p class="text-base md:text-lg text-muted-foreground mt-4 leading-relaxed">
+          Every component in PulsarOS is natively integrated for performance, security, and effortless usability.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {BENTO_FEATURES.map((feat) => (
+          <div class={`${feat.span} bg-card rounded-2xl border border-border p-8 flex flex-col justify-between overflow-hidden group hover:border-primary/30 transition-all`}>
+            <div>
+              <span class="text-xs font-semibold text-primary uppercase tracking-wider">{feat.category}</span>
+              <h3 class="text-2xl font-bold text-foreground mt-2 mb-3">{feat.title}</h3>
+              <p class="text-muted-foreground text-sm leading-relaxed mb-6">{feat.desc}</p>
+            </div>
+            <div class="mt-4 rounded-xl overflow-hidden border border-border bg-tertiary">
+              <img src={feat.image} alt={feat.alt} class="w-full h-48 sm:h-64 object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Connectivity / Ecosystem Section -->
+  <section id="connectivity" class="py-20 md:py-28 bg-background">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-2">Cross-Platform Suite</p>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+          Connected to everything.
+        </h2>
+        <p class="text-base md:text-lg text-muted-foreground mt-4 leading-relaxed">
+          PulsarOS breaks down platform walls so you can access software across macOS, Windows, and Android natively.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {CROSS_PLATFORM.map((item) => (
+          <div class="bg-tertiary rounded-2xl border border-border p-6 flex flex-col justify-between hover:border-primary/30 transition-colors">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center text-primary mb-5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+                </svg>
+              </div>
+              <span class="text-xs font-medium text-muted-foreground">{item.tagline}</span>
+              <h3 class="text-xl font-bold text-foreground mt-1 mb-2">{item.name}</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Editions Section -->
+  <section id="editions" class="py-20 md:py-28 bg-tertiary">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-2">Choice of Core</p>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+          Which PulsarOS fits you?
+        </h2>
+        <p class="text-base md:text-lg text-muted-foreground mt-4 leading-relaxed">
+          Select between rock-solid Debian reliability or cutting-edge Arch rolling releases.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {EDITIONS.map((ed) => (
+          <div class="bg-card rounded-2xl border border-border p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary">{ed.badge}</span>
+                <span class="text-xs text-muted-foreground font-medium">{ed.tagline}</span>
+              </div>
+              <h3 class="text-3xl font-bold text-foreground mb-3">{ed.name}</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-6">{ed.desc}</p>
+              
+              <ul class="space-y-2.5 mb-8">
+                {ed.highlights.map((h) => (
+                  <li class="flex items-center text-sm text-foreground">
+                    <svg class="w-4 h-4 text-primary mr-2.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <a href={ISO_RELEASES} target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-white font-medium text-sm hover:bg-secondary transition-colors min-h-[44px]">
+              Download {ed.name}
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="py-20 md:py-28 bg-background">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary mb-2">Visual Tour</p>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+          Crafted to the smallest detail.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {GALLERY.map((g) => (
+          <div class="group rounded-2xl overflow-hidden border border-border bg-tertiary">
+            <img src={g.src} alt={g.label} class="w-full h-52 object-cover object-top group-hover:scale-[1.03] transition-transform duration-500" loading="lazy" />
+            <div class="p-4 bg-card border-t border-border flex items-center justify-between">
+              <span class="text-xs font-medium text-foreground">{g.label}</span>
+              <span class="text-[11px] text-muted-foreground uppercase tracking-wider">Preview</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Call to Action -->
+  <section class="py-24 bg-tertiary text-center px-6 border-t border-border">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-4">
+        Ready for a better desktop?
+      </h2>
+      <p class="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
+        PulsarOS is completely free and open source. Download the latest ISO and try it live without modifying your hard drive.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href={ISO_RELEASES} target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary text-white font-medium text-sm hover:bg-secondary transition-colors min-h-[44px]">
+          Download ISO
+        </a>
+        <a href={GITHUB_REPO} target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-border text-foreground font-medium text-sm hover:bg-background transition-colors min-h-[44px]">
+          View Source on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (Apple Style Minimalist) -->
+  <footer class="bg-background border-t border-border text-muted-foreground text-xs py-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="mb-6 leading-relaxed text-[11px] border-b border-border pb-6">
+        1. PulsarOS is an independent open-source distribution. macOS and Apple are registered trademarks of Apple Inc. PulsarOS is built by community contributors and is not affiliated with or endorsed by Apple Inc.
+      </p>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p>Copyright &copy; {new Date().getFullYear()} PulsarOS Project. Built by the community under GPLv3.</p>
+        <div class="flex items-center gap-6">
+          <a href={GITHUB_REPO} target="_blank" rel="noopener" class="hover:text-foreground transition-colors">GitHub Repository</a>
+          <a href={ISO_RELEASES} target="_blank" rel="noopener" class="hover:text-foreground transition-colors">Releases</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </Layout>

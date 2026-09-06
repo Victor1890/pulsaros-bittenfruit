@@ -1,17 +1,27 @@
 ---
 import '../styles/global.css'
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "PulsarOS — The macOS experience, without a Mac",
+  description = "PulsarOS captures the UI and UX of macOS with the most innovative features on Linux. Free, open source, and built by the community."
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content={description} />
+		<title>{title}</title>
 	</head>
-	<body>
+	<body class="bg-background text-foreground antialiased">
 		<slot />
 	</body>
 </html>
