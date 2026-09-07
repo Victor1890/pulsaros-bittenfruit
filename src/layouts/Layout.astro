@@ -20,7 +20,7 @@ const ogImageUrl = new URL('/assets/desktop.png', canonicalURL).href;
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "PulsarOS Bitten Fruit",
+  "name": title,
   "operatingSystem": "Linux",
   "applicationCategory": "Desktop Environment / Operating System",
   "description": description,
@@ -81,7 +81,7 @@ const faqSchema = {
 		<title>{title}</title>
 	</head>
 	<body class="bg-surface-default text-on-surface-default font-text antialiased selection:bg-primary/20 selection:text-primary min-h-screen">
-		<!-- WCAG 2.2 Skip Navigation Link -->
+
 		<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-full focus:shadow-lg focus:outline-none">
 			Skip to main content
 		</a>

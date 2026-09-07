@@ -64,7 +64,7 @@ export const INTELLIGENCE_FEATURES: VideoFeature[] = [
     description: "An intelligent assistant that runs local models of your choice. Completely private, fast, and secure on your hardware.",
     video: "/videos/sayri.mp4",
     poster: "/assets/spotlight.png",
-    logo: "/logos/sayri.png",
+    logo: "/logos/sayri.webp",
     badge: "Local AI",
   },
 ];
@@ -115,7 +115,7 @@ export const BENTO_CARDS: BentoCard[] = [
     category: "macOS Virtualization",
     title: "MacBoat Integration",
     description: "Run macOS in preconfigured OpenCore Virtual Machines directly using official Apple recovery servers with native GPU passthrough performance.",
-    logo: "/logos/macboat.png",
+    logo: "/logos/macboat.webp",
     previewType: "image",
     previewSrc: "/assets/boot.png",
     previewAlt: "MacBoat OpenCore Boot Preview",
@@ -141,7 +141,7 @@ export const BENTO_CARDS: BentoCard[] = [
     category: "Android Ecosystem",
     title: "DroidTux Mobile Suite",
     description: "Run mobile Android apps side-by-side with full mouse, trackpad, and keyboard shortcuts.",
-    logo: "/logos/droidtux.png",
+    logo: "/logos/droidtux.webp",
     previewType: "window-preview",
     previewSrc: "/assets/quick-setting.png",
     previewAlt: "DroidTux Mobile Preview",
@@ -198,7 +198,7 @@ export const ECOSYSTEM: EcosystemCard[] = [
     headline: "Run macOS in OpenCore VMs",
     description: "Seamless integration using official Apple recovery servers. OpenCore preconfigured out of the box.",
     tag: "macOS Integration",
-    logo: "/logos/macboat.png",
+    logo: "/logos/macboat.webp",
   },
   {
     name: "WinBoat",
@@ -212,14 +212,14 @@ export const ECOSYSTEM: EcosystemCard[] = [
     headline: "Android apps on desktop",
     description: "Run mobile Android applications side-by-side with full keyboard, trackpad, and touch support.",
     tag: "Android Apps",
-    logo: "/logos/droidtux.png",
+    logo: "/logos/droidtux.webp",
   },
   {
     name: "GSConnect",
     headline: "Universal device sync",
     description: "Instant notification sync, shared clipboard, SMS integration, and trackpad remote between your phone and PC.",
     tag: "iOS & Android",
-    logo: "/logos/gsconnect.png",
+    logo: "/logos/gsconnect.webp",
   },
 ];
 

@@ -2,6 +2,10 @@
 import { SITE_CONFIG } from '@/config/site';
 ---
 
+<!-- Preload instructions hoisted to head -->
+<link rel="preload" as="image" href="/assets/desktop.png" fetchpriority="high" slot="head" />
+<link rel="preload" as="video" href="/videos/session-restore.mp4" type="video/mp4" fetchpriority="high" slot="head" />
+
 <section id="hero-trigger" aria-label="Hero Overview" class="relative min-h-screen flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 sm:px-6 text-center bg-surface-default border-b border-neutral-100">
   
   <!-- Hero Text Group -->
@@ -42,9 +46,9 @@ import { SITE_CONFIG } from '@/config/site';
           id="hero-video"
           src="/videos/session-restore.mp4" 
           poster="/assets/desktop.png"
-          autoplay 
-          loop 
-          muted 
+          autoplay
+          loop
+          muted
           playsinline
           aria-label="Live Desktop Preview of PulsarOS Session Restore"
           class="w-full h-full object-cover object-top"
