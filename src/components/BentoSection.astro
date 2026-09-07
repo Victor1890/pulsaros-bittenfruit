@@ -1,0 +1,144 @@
+---
+import type { BentoCard } from '@/types';
+import { BENTO_CARDS } from '@/config/site';
+
+interface Props {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  cards?: BentoCard[];
+}
+
+const {
+  badge = "Comprehensive Suite",
+  title = "Built for every workflow.",
+  subtitle = "Explore the core technologies powering PulsarOS Bittenfruit.",
+  cards = BENTO_CARDS
+} = Astro.props;
+
+const heroCard = cards.find(c => c.layout === 'full');
+const halfCards = cards.filter(c => c.layout === 'half');
+const darkCard = cards.find(c => c.layout === 'dark-full');
+---
+
+<section id="bento-section" aria-label="Core Technology Features" class="py-24 sm:py-36 bg-surface-muted text-on-surface-default px-4 sm:px-6 relative border-t border-neutral-100">
+  <div class="max-w-7xl mx-auto space-y-12">
+    
+    <header class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+      <span class="text-xs font-semibold uppercase tracking-widest text-primary mb-2 block">{badge}</span>
+      <h2 class="gsap-text-reveal text-4xl sm:text-6xl font-bold font-display tracking-tight">
+        {title}
+      </h2>
+      <p class="gsap-text-reveal text-on-surface-muted text-lg sm:text-xl mt-4">
+        {subtitle}
+      </p>
+    </header>
+
+    <!-- Feature Panel 1: Full Width Hero Card -->
+    {heroCard && (
+      <article class="gsap-bento-card bg-surface-default rounded-lg p-8 sm:p-14 border border-neutral-100 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden group hover:border-primary/40 transition-colors">
+        <div class="max-w-xl">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xs font-mono text-primary uppercase tracking-wider">{heroCard.stepNumber} — {heroCard.category}</span>
+            {heroCard.logo && <img src={heroCard.logo} alt="" class="size-6 object-contain" aria-hidden="true" />}
+          </div>
+          <h3 class="text-3xl sm:text-5xl font-bold font-display mb-4 leading-tight">
+            {heroCard.title}<sup class="text-primary text-sm font-medium ml-1"><a href="#fn-2" class="hover:underline">2</a></sup>
+          </h3>
+          <p class="text-on-surface-muted text-base sm:text-lg leading-relaxed mb-8">
+            {heroCard.description}
+          </p>
+          {heroCard.tags && (
+            <div class="flex items-center gap-4">
+              {heroCard.tags.map((tag, i) => (
+                <span
+                  class:list={[
+                    "px-3 py-1 rounded-full text-xs font-medium",
+                    {
+                      "bg-primary/10 text-primary": i === 0,
+                      "bg-neutral-100 text-on-surface-muted": i !== 0
+                    }
+                  ]}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <figure class="w-full lg:w-1/2 rounded-md overflow-hidden border border-neutral-100 bg-black shadow-lg aspect-video">
+          <img src={heroCard.previewSrc} alt={heroCard.previewAlt || heroCard.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <figcaption class="sr-only">{heroCard.previewAlt || heroCard.title}</figcaption>
+        </figure>
+      </article>
+    )}
+
+    <!-- Feature Panel 2 & 3: Twin 50/50 Split Cards -->
+    {halfCards.length > 0 && (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {halfCards.map((card) => (
+          <article class="gsap-bento-card bg-surface-default rounded-lg p-8 sm:p-10 border border-neutral-100 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-mono text-primary uppercase tracking-wider">{card.stepNumber} — {card.category}</span>
+                {card.logo && <img src={card.logo} alt="" class="size-7 object-contain" aria-hidden="true" />}
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-semibold font-display mb-3">{card.title}</h3>
+              <p class="text-on-surface-muted text-base leading-relaxed mb-8">
+                {card.description}
+              </p>
+            </div>
+
+            <figure class="rounded-t-md border-t border-x border-neutral-100 bg-surface-muted shadow-sm overflow-hidden group-hover:-translate-y-2 transition-transform duration-500">
+              <div class="bg-black/80 px-3 py-1.5 border-b border-white/10 flex items-center gap-1.5">
+                <span class="size-2 rounded-full bg-[#ff5f56]" aria-hidden="true"></span>
+                <span class="size-2 rounded-full bg-[#ffbd2e]" aria-hidden="true"></span>
+                <span class="size-2 rounded-full bg-[#27c93f]" aria-hidden="true"></span>
+                <span class="text-[10px] text-white/50 ml-2 font-mono">{card.containerLabel || card.title}</span>
+              </div>
+              <img src={card.previewSrc} alt={card.previewAlt || card.title} class="w-full h-48 object-cover object-top" />
+              <figcaption class="sr-only">{card.previewAlt || card.title}</figcaption>
+            </figure>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <!-- Feature Panel 4: Clean Full Surface Card -->
+    {darkCard && (
+      <article class="gsap-bento-card bg-surface-default text-on-surface-default rounded-lg p-8 sm:p-14 border border-neutral-100 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden group hover:border-primary/50 transition-colors">
+        <div class="max-w-xl">
+          <span class="text-xs font-mono text-primary uppercase tracking-wider block mb-3">{darkCard.stepNumber} — {darkCard.category}</span>
+          <h3 class="text-3xl sm:text-5xl font-bold font-display text-on-surface-default mb-4 leading-tight">{darkCard.title}</h3>
+          <p class="text-on-surface-muted text-base sm:text-lg leading-relaxed mb-8">
+            {darkCard.description}
+          </p>
+          {darkCard.tags && (
+            <div class="flex items-center gap-3">
+              {darkCard.tags.map((tag, i) => (
+                <span
+                  class:list={[
+                    "px-3.5 py-1.5 rounded-full text-xs font-medium border",
+                    {
+                      "bg-neutral-100 text-on-surface-muted border-neutral-100": i === 0,
+                      "bg-primary/10 text-primary border-primary/20": i !== 0
+                    }
+                  ]}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <figure class="w-full lg:w-1/2 rounded-md overflow-hidden border border-neutral-100 bg-black aspect-video shadow-lg">
+          <video src={darkCard.previewSrc} autoplay loop muted playsinline aria-label={`Preview video for ${darkCard.title}`} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+          <figcaption class="sr-only">Preview video for {darkCard.title}</figcaption>
+        </figure>
+      </article>
+    )}
+
+  </div>
+</section>

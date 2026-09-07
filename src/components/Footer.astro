@@ -1,0 +1,165 @@
+---
+import { SITE_CONFIG } from '@/config/site';
+
+const currentYear = new Date().getFullYear();
+
+const footerDirectory = [
+  {
+    title: "Explore PulsarOS",
+    links: [
+      { label: "Bitten Fruit Edition", href: "#overview" },
+      { label: "Session Restore", href: "#session-restore" },
+      { label: "Sayri AI Assistant", href: "#sayri-ai" },
+      { label: "Spotlight Search", href: "#spotlight-search" },
+      { label: "Control Center", href: "#window-management" },
+    ]
+  },
+  {
+    title: "Virtualization",
+    links: [
+      { label: "MacBoat (OpenCore)", href: "#connectivity" },
+      { label: "WinBoat App Runtime", href: "#connectivity" },
+      { label: "DroidTux Mobile", href: "#connectivity" },
+      { label: "GSConnect Device Sync", href: "#connectivity" },
+      { label: "Native KVM Passthrough", href: "#bento-section" },
+    ]
+  },
+  {
+    title: "Ecosystem & Apps",
+    links: [
+      { label: "App Store (Flathub & AUR)", href: "#features" },
+      { label: "55 Cloud Providers", href: "#features" },
+      { label: "Dynamic Wallpapers", href: "#bento-section" },
+      { label: "macOS Key Remapper", href: "#bento-section" },
+    ]
+  },
+  {
+    title: "Editions & Downloads",
+    links: [
+      { label: "Debian Stable Core", href: "#editions" },
+      { label: "Arch Rolling Core", href: "#editions" },
+      { label: "Download Bitten Fruit ISO", href: SITE_CONFIG.releasesUrl, external: true },
+      { label: "Release Notes", href: SITE_CONFIG.releasesUrl, external: true },
+    ]
+  },
+  {
+    title: "Community & Values",
+    links: [
+      { label: "GitHub Repository", href: SITE_CONFIG.githubUrl, external: true },
+      { label: "Open Source (GPL-3.0)", href: SITE_CONFIG.githubUrl, external: true },
+      { label: "Privacy First Architecture", href: "#intelligence" },
+      { label: "Hardware Support", href: "#overview" },
+    ]
+  }
+];
+
+const footnotesParagraphs = [
+  "1. PulsarOS Bitten Fruit is an independent open-source Linux distribution project. macOS, Mac, OpenCore, and Apple logo design elements are trademarks of Apple Inc., registered in the U.S. and other countries and regions.",
+  "2. Hardware virtualization features (MacBoat, WinBoat, DroidTux) require compatible CPU hardware virtualization support (Intel VT-x or AMD-V) enabled in your BIOS/UEFI firmware.",
+  "3. Sayri AI operates 100% locally on user hardware. No personal data, queries, or telemetry leave your local device."
+];
+---
+
+<!-- Apple Signature Editorial Footer -->
+<footer class="bg-surface-muted text-on-surface-muted text-[12px] leading-[1.33337] font-normal py-10 px-4 sm:px-6 border-t border-neutral-100 transition-colors font-text select-none">
+  <div class="max-w-6xl mx-auto space-y-4">
+    
+    <!-- Section 1: Footnotes Paragraph -->
+    <div class="space-y-2.5 pb-4 border-b border-neutral-100 text-[11px] leading-normal text-on-surface-muted/90">
+      {footnotesParagraphs.map((item, idx) => (
+        <p id={`fn-${idx + 1}`} class="target:bg-primary/10 target:p-1.5 target:rounded-md transition-colors">
+          {item}
+        </p>
+      ))}
+    </div>
+
+    <!-- Section 2: Apple Breadcrumb Trail Bar -->
+    <div class="py-2.5 border-b border-neutral-100 flex items-center gap-2 text-[12px]">
+      <a href="/" class="text-on-surface-default hover:text-primary transition-colors flex items-center font-medium">
+        <img src="/favicon.png" alt="PulsarOS" class="size-8 object-contain" />
+        <span>PulsarOS</span>
+      </a>
+      <span class="text-on-surface-muted/50">›</span>
+      <span class="text-on-surface-default font-normal">{SITE_CONFIG.edition}</span>
+    </div>
+
+    <!-- Section 3: Desktop 5-Column Directory Grid / Mobile Accordions -->
+    <nav aria-label="Footer Directory Navigation" class="py-4">
+      
+      <!-- Desktop Grid (md and up) -->
+      <div class="hidden md:grid md:grid-cols-5 gap-8">
+        {footerDirectory.map((col) => (
+          <div>
+            <h3 class="font-semibold text-on-surface-default mb-3 text-[12px] tracking-tight">{col.title}</h3>
+            <ul class="space-y-2">
+              {col.links.map((link) => (
+                <li>
+                  <a 
+                    href={link.href} 
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    class="hover:text-on-surface-default hover:underline transition-colors block text-[12px]"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Mobile Accordions (below md) -->
+      <div class="block md:hidden border-t border-neutral-100 divide-y divide-neutral-100">
+        {footerDirectory.map((col) => (
+          <details class="group py-3 cursor-pointer">
+            <summary class="flex items-center justify-between text-[12px] font-semibold text-on-surface-default list-none py-1">
+              <span>{col.title}</span>
+              <span class="text-on-surface-muted text-xs group-open:rotate-180 transition-transform duration-200">
+                ▾
+              </span>
+            </summary>
+            <ul class="pt-2 pb-3 space-y-2.5 pl-2">
+              {col.links.map((link) => (
+                <li>
+                  <a 
+                    href={link.href} 
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    class="hover:text-on-surface-default transition-colors block text-[12px] text-on-surface-muted"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
+
+    </nav>
+
+    <!-- Section 4: Shop / Ways to Get Action Bar -->
+    <div class="py-3 border-b border-neutral-100 text-[12px] text-on-surface-muted">
+      More ways to get PulsarOS: <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="text-primary hover:underline font-normal">Download Bittenfruit ISO</a> or <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="text-primary hover:underline font-normal">contribute on GitHub</a>.
+    </div>
+
+    <!-- Section 5: Copyright & Legal Bar -->
+    <div class="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] text-on-surface-muted">
+      <div>
+        Copyright © {currentYear} {SITE_CONFIG.name}. Built by the open-source community.
+      </div>
+
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="hover:text-on-surface-default hover:underline">GitHub</a>
+        <span>|</span>
+        <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="hover:text-on-surface-default hover:underline">Releases</a>
+        <span>|</span>
+        <span>GPL-3.0 License</span>
+        <span>|</span>
+        <span class="text-on-surface-default font-medium">Global / Open Source</span>
+      </div>
+    </div>
+
+  </div>
+</footer>

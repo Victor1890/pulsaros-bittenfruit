@@ -1,0 +1,133 @@
+---
+import { VIDEO_SHOWCASES, INTELLIGENCE_FEATURES } from '@/config/site';
+
+const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
+---
+
+<section id="gallery" class="py-24 sm:py-32 bg-[#f5f5f7] text-[#1d1d1f] overflow-hidden border-t border-neutral-100 transition-colors">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+    
+    <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary mb-2 block">
+      All-Access Pass
+    </span>
+
+    <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#1d1d1f] leading-tight max-w-3xl">
+      Get to know PulsarOS Bitten Fruit.
+    </h2>
+  </div>
+
+  <!-- Horizontal Scrollable Track Container -->
+  <div class="relative w-full overflow-x-auto scrollbar-none pb-8 px-4 sm:px-6">
+    <div id="media-card-track" class="flex gap-6 w-max items-stretch">
+      {galleryItems.map((item, index) => (
+        <article 
+          class="group relative w-75 sm:w-100 md:w-120 h-130 sm:h-145 rounded-[24px] sm:rounded-4xl overflow-hidden bg-[#1d1d1f] text-white shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer shrink-0 flex flex-col justify-between p-8 sm:p-10 select-none"
+          data-gallery-card={index}
+        >
+          <!-- Video Background Layer -->
+          <div class="absolute inset-0 z-0 bg-black">
+            <video 
+              data-gallery-video={index}
+              src={item.video} 
+              poster={item.poster}
+              playsinline 
+              muted
+              preload="metadata"
+              class="w-full h-full object-cover object-center transition-transform duration-1000 scale-100 group-hover:scale-105"
+            ></video>
+            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-black/40"></div>
+          </div>
+
+          <!-- Card Top Overlay Meta -->
+          <div class="relative z-10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              {item.badge && (
+                <span class="px-3 py-1 rounded-full bg-primary/80 backdrop-blur-md text-white text-xs font-semibold tracking-wide">
+                  {item.badge}
+                </span>
+              )}
+              {item.subtitle && (
+                <span class="text-xs font-medium text-white/80 uppercase tracking-wider drop-shadow-sm">
+                  {item.subtitle}
+                </span>
+              )}
+            </div>
+
+            <!-- Play / Pause Indicator Pill -->
+            <button 
+              type="button"
+              data-play-btn={index}
+              aria-label={`Play preview for ${item.title}`}
+              class="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all group-hover:scale-110"
+            >
+              <svg class="size-4 fill-current ml-0.5" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Card Bottom Overlay Content -->
+          <div class="relative z-10 space-y-3">
+            {item.logo && (
+              <img src={item.logo} alt="" class="h-8 w-auto object-contain mb-2 filter drop-shadow" />
+            )}
+            <h3 class="text-2xl sm:text-4xl font-bold tracking-tight text-white leading-tight drop-shadow-md">
+              {item.title}
+            </h3>
+            <p class="text-sm sm:text-base text-white/80 font-normal leading-relaxed line-clamp-3 drop-shadow">
+              {item.description}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function initMediaGallery() {
+    const cards = document.querySelectorAll<HTMLElement>('[data-gallery-card]');
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
+      const video = card.querySelector<HTMLVideoElement>('video');
+      const playBtn = card.querySelector<HTMLButtonElement>('[data-play-btn]');
+
+      if (!video) return;
+
+      const togglePlay = () => {
+        if (video.paused) {
+          document.querySelectorAll<HTMLVideoElement>('[data-gallery-video]').forEach((v) => {
+            if (v !== video) v.pause();
+          });
+          video.play().catch(() => {});
+          card.classList.add('ring-2', 'ring-primary');
+        } else {
+          video.pause();
+          card.classList.remove('ring-2', 'ring-primary');
+        }
+      };
+
+      card.addEventListener('mouseenter', () => {
+        video.play().catch(() => {});
+      });
+
+      card.addEventListener('mouseleave', () => {
+        video.pause();
+      });
+
+      card.addEventListener('click', togglePlay);
+      playBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePlay();
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initMediaGallery);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMediaGallery);
+  } else {
+    initMediaGallery();
+  }
+</script>

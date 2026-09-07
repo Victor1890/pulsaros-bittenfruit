@@ -1,0 +1,45 @@
+---
+import type { VideoFeature } from '@/types';
+import { VIDEO_SHOWCASES } from '@/config/site';
+
+interface Props {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  videos?: VideoFeature[];
+}
+
+const {
+  badge = "Video Reel Showcase",
+  title = "PulsarOS Bittenfruit Live Demos.",
+  subtitle = "Scroll horizontally to inspect each live video feature.",
+  videos = VIDEO_SHOWCASES
+} = Astro.props;
+---
+
+<section id="horizontal-section" class="py-24 bg-surface-default overflow-hidden border-t border-neutral-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+    <span class="text-xs font-semibold uppercase tracking-widest text-primary block mb-2">{badge}</span>
+    <h2 class="text-3xl sm:text-5xl font-bold font-display tracking-tight">{title}</h2>
+    <p class="text-on-surface-muted text-base mt-2">{subtitle}</p>
+  </div>
+
+  <!-- Horizontal Video Track -->
+  <div id="horizontal-track-wrapper" class="w-full">
+    <div id="horizontal-track" class="flex gap-6 px-6 w-max">
+      {videos.map((tile, i) => (
+        <div class="w-[360px] sm:w-[480px] bg-surface-muted rounded-lg p-8 border border-neutral-100 flex flex-col justify-between shrink-0 hover:border-primary/40 transition-colors">
+          <div>
+            <span class="text-xs font-mono text-primary">0{i + 1}</span>
+            <h3 class="text-2xl sm:text-3xl font-semibold font-display mt-1">{tile.title}</h3>
+            <p class="text-sm text-secondary font-medium mt-1 mb-3">{tile.subtitle}</p>
+            <p class="text-on-surface-muted text-sm leading-relaxed mb-6">{tile.description}</p>
+          </div>
+          <div class="rounded-md overflow-hidden border border-neutral-100 aspect-video bg-black">
+            <video src={tile.video} poster={tile.poster} autoplay loop muted playsinline class="w-full h-full object-cover"></video>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
