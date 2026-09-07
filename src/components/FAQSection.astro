@@ -1,14 +1,25 @@
 ---
+import type { FAQItem } from '../types';
 import { FAQS } from '../config/site';
+
+interface Props {
+  title?: string;
+  items?: FAQItem[];
+}
+
+const {
+  title = "Frequently Asked Questions",
+  items = FAQS
+} = Astro.props;
 ---
 
 <section class="py-24 sm:py-32 bg-surface-muted px-4 sm:px-6 border-t border-neutral-100">
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold font-display tracking-tight">Frequently Asked Questions</h2>
+      <h2 class="text-4xl sm:text-5xl font-bold font-display tracking-tight">{title}</h2>
     </div>
     <div class="space-y-6">
-      {FAQS.map((item) => (
+      {items.map((item) => (
         <div class="bg-surface-default rounded-md p-8 border border-neutral-100 hover:border-neutral-100/80 transition-colors">
           <h3 class="text-xl font-semibold font-display mb-3">{item.question}</h3>
           <p class="text-base text-on-surface-muted leading-relaxed">{item.answer}</p>

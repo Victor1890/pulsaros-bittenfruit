@@ -1,15 +1,26 @@
 ---
+import type { EditionCard } from '../types';
 import { SITE_CONFIG, EDITIONS } from '../config/site';
+
+interface Props {
+  title?: string;
+  editions?: EditionCard[];
+}
+
+const {
+  title = "Which Edition Fits You?",
+  editions = EDITIONS
+} = Astro.props;
 ---
 
 <section id="editions-section" class="py-24 sm:py-32 bg-surface-default px-4 sm:px-6 border-t border-neutral-100">
   <div class="max-w-5xl mx-auto">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-4xl sm:text-6xl font-bold font-display tracking-tight">Which Edition Fits You?</h2>
+      <h2 class="text-4xl sm:text-6xl font-bold font-display tracking-tight">{title}</h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {EDITIONS.map((ed) => (
+      {editions.map((ed) => (
         <div class="bg-surface-muted rounded-lg p-8 sm:p-12 border border-neutral-100 flex flex-col justify-between hover:border-primary/40 transition-colors">
           <div>
             <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary uppercase tracking-wider inline-block mb-4">{ed.badge}</span>

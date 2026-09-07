@@ -38,7 +38,13 @@ export const ALL_GALLERY_CARDS = [
       <div class="media-card-stage relative rounded-3xl overflow-hidden bg-[#161617] border border-white/15 shadow-2xl aspect-[16/10] sm:aspect-[16/9]">
         {ALL_GALLERY_CARDS.map((item, index) => (
           <div 
-            class={`gallery-card-item absolute inset-0 transition-all duration-700 ease-out flex flex-col justify-between p-6 sm:p-10 ${index === 0 ? 'opacity-100 z-10 pointer-events-auto scale-100' : 'opacity-0 z-0 pointer-events-none scale-95'}`}
+            class:list={[
+              "gallery-card-item absolute inset-0 transition-all duration-700 ease-out flex flex-col justify-between p-6 sm:p-10",
+              {
+                'opacity-100 z-10 pointer-events-auto scale-100': index === 0,
+                'opacity-0 z-0 pointer-events-none scale-95': index !== 0
+              }
+            ]}
             data-index={index}
           >
             <!-- Background Video -->
@@ -122,7 +128,12 @@ export const ALL_GALLERY_CARDS = [
           <ul class="dotnav-items flex items-center gap-2.5 sm:gap-3" role="tablist" aria-label="Media gallery items">
             {ALL_GALLERY_CARDS.map((item, index) => (
               <li 
-                class={`dotnav-item cursor-pointer transition-all duration-300 ${index === 0 ? 'current' : ''}`}
+                class:list={[
+                  "dotnav-item cursor-pointer transition-all duration-300",
+                  {
+                    'current': index === 0
+                  }
+                ]}
                 data-dot-index={index}
                 role="presentation"
               >

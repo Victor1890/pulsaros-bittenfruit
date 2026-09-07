@@ -1,22 +1,37 @@
 ---
+import type { CloudProvider } from '../types';
 import { CLOUD_PROVIDERS } from '../config/site';
+
+interface Props {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  providers?: CloudProvider[];
+}
+
+const {
+  badge = "Finder Integration",
+  title = "Native Support for 55 Cloud Providers",
+  subtitle = "Access OneDrive, Google Drive, iCloud, Dropbox, Nextcloud, and Proton Drive directly inside Finder with zero sync latency.",
+  providers = CLOUD_PROVIDERS
+} = Astro.props;
 ---
 
 <section class="py-20 bg-surface-muted px-4 sm:px-6 border-t border-neutral-100">
   <div class="max-w-5xl mx-auto text-center">
     <span class="text-xs font-semibold uppercase tracking-widest text-primary mb-3 block">
-      Finder Integration
+      {badge}
     </span>
     <h3 class="text-3xl sm:text-5xl font-bold font-display tracking-tight text-on-surface-default mb-4">
-      Native Support for 55 Cloud Providers
+      {title}
     </h3>
     <p class="text-[17px] text-on-surface-muted max-w-xl mx-auto mb-10 leading-[1.35]">
-      Access OneDrive, Google Drive, iCloud, Dropbox, Nextcloud, and Proton Drive directly inside Finder with zero sync latency.
+      {subtitle}
     </p>
 
     <!-- Apple Signature Ecosystem Pills -->
     <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-4xl mx-auto">
-      {CLOUD_PROVIDERS.map((provider) => (
+      {providers.map((provider) => (
         <div class="flex items-center gap-3 px-5 py-3 rounded-full bg-surface-default border border-neutral-100 shadow-xs hover:shadow-md hover:scale-[1.03] hover:border-primary/30 transition-all duration-300 cursor-default">
           <img src={provider.logo} alt={provider.name} class="size-5 object-contain" />
           <span class="text-[15px] font-medium font-text text-on-surface-default tracking-tight">{provider.name}</span>

@@ -1,3 +1,14 @@
+import type {
+  FAQItem,
+  VideoFeature,
+  CloudProvider,
+  EcosystemCard,
+  EditionCard,
+  StoryFeature,
+  BentoCard,
+} from '../types';
+
+
 export const SITE_CONFIG = {
   name: "PulsarOS Bitten Fruit",
   edition: "Bitten Fruit Edition",
@@ -7,42 +18,6 @@ export const SITE_CONFIG = {
   releasesUrl: "https://github.com/Inled-Pulsar-OS/ISO/releases/latest",
   license: "GPL-3.0",
 } as const;
-
-export interface FAQItem {
-  question: string;
-  answer: string;
-}
-
-export interface VideoFeature {
-  title: string;
-  subtitle: string;
-  description: string;
-  video: string;
-  poster?: string;
-  logo?: string;
-  badge?: string;
-}
-
-export interface CloudProvider {
-  name: string;
-  logo: string;
-}
-
-export interface EcosystemCard {
-  name: string;
-  headline: string;
-  description: string;
-  tag: string;
-  logo: string;
-}
-
-export interface EditionCard {
-  name: string;
-  headline: string;
-  description: string;
-  badge: string;
-  highlights: string[];
-}
 
 export const FAQS: FAQItem[] = [
   {
@@ -91,6 +66,98 @@ export const INTELLIGENCE_FEATURES: VideoFeature[] = [
     poster: "/assets/spotlight.png",
     logo: "/logos/sayri.png",
     badge: "Local AI",
+  },
+];
+
+export const STORY_FEATURES: StoryFeature[] = [
+  {
+    id: "session-restore",
+    stepNumber: "01",
+    category: "Continuity",
+    title: "Session Restore",
+    description: "Reboot or power on, and every application, window arrangement, and open document reopens instantly where you left off.",
+    video: "/videos/session-restore.mp4",
+    poster: "/assets/desktop.png",
+  },
+  {
+    id: "sayri-ai",
+    stepNumber: "02",
+    category: "Private Intelligence",
+    title: "Sayri AI Assistant",
+    description: "An intelligent assistant powered by local LLMs running straight on your GPU. 100% private, no telemetry, no cloud lock-in.",
+    video: "/videos/sayri.mp4",
+    poster: "/assets/spotlight.png",
+  },
+  {
+    id: "spotlight-search",
+    stepNumber: "03",
+    category: "Search & Action",
+    title: "Spotlight Search",
+    description: "Command center for your machine. Search files, launch applications, calculate math, check clipboard history, or trigger system scripts.",
+    video: "/videos/spotlight.mp4",
+    poster: "/assets/spotlight.png",
+  },
+  {
+    id: "window-management",
+    stepNumber: "04",
+    category: "Workspaces",
+    title: "Window Management",
+    description: "Split view, Mission Control gestures, full screen on dynamic workspaces, and fluid window snapping built for power users.",
+    video: "/videos/window-mode.mp4",
+    poster: "/assets/desktop.png",
+  },
+];
+
+export const BENTO_CARDS: BentoCard[] = [
+  {
+    id: "macboat",
+    stepNumber: "01",
+    category: "macOS Virtualization",
+    title: "MacBoat Integration",
+    description: "Run macOS in preconfigured OpenCore Virtual Machines directly using official Apple recovery servers with native GPU passthrough performance.",
+    logo: "/logos/macboat.png",
+    previewType: "image",
+    previewSrc: "/assets/boot.png",
+    previewAlt: "MacBoat OpenCore Boot Preview",
+    tags: ["OpenCore Ready", "Native KVM"],
+    layout: "full",
+  },
+  {
+    id: "winboat",
+    stepNumber: "02",
+    category: "Windows Apps",
+    title: "WinBoat Virtualizer",
+    description: "Execute Windows software as native desktop windows with zero configuration or Wine headache.",
+    logo: "/logos/winboat.svg",
+    previewType: "window-preview",
+    previewSrc: "/assets/wizard.png",
+    previewAlt: "WinBoat Setup Preview",
+    containerLabel: "WinBoat App Container",
+    layout: "half",
+  },
+  {
+    id: "droidtux",
+    stepNumber: "03",
+    category: "Android Ecosystem",
+    title: "DroidTux Mobile Suite",
+    description: "Run mobile Android apps side-by-side with full mouse, trackpad, and keyboard shortcuts.",
+    logo: "/logos/droidtux.png",
+    previewType: "window-preview",
+    previewSrc: "/assets/quick-setting.png",
+    previewAlt: "DroidTux Mobile Preview",
+    containerLabel: "DroidTux Mobile Runtime",
+    layout: "half",
+  },
+  {
+    id: "input-visuals",
+    stepNumber: "04",
+    category: "Input & Visuals",
+    title: "Dynamic Wallpapers & Key Remap",
+    description: "Live moving wallpapers on lockscreen and desktop paired with native macOS command key bindings out of the box.",
+    previewType: "video",
+    previewSrc: "/videos/remap-live-wallpaper.mp4",
+    tags: ["Cmd + C / Cmd + V Remapped", "60 FPS Motion"],
+    layout: "dark-full",
   },
 ];
 
