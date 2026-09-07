@@ -10,7 +10,6 @@ export function initInteractiveStory(root: HTMLElement): void {
     const cardsColumn = root.querySelector<HTMLElement>('#story-cards-column');
     const videoContainer = root.querySelector<HTMLElement>('#story-video-container');
     const activeVideo = root.querySelector<HTMLVideoElement>('#story-active-video');
-    const videoLabel = root.querySelector<HTMLElement>('#story-video-label');
 
     if (storyCards.length === 0 || !cardsColumn || !videoContainer) return;
 
@@ -37,7 +36,6 @@ export function initInteractiveStory(root: HTMLElement): void {
         if (!card) return;
 
         const videoSrc = card.getAttribute('data-story-video');
-        const cardTitle = card.querySelector('h3')?.textContent?.trim() || `Feature 0${index + 1}`;
 
         if (activeVideo && videoSrc && activeVideo.getAttribute('src') !== videoSrc) {
           activeVideo.style.opacity = '0';
@@ -46,10 +44,6 @@ export function initInteractiveStory(root: HTMLElement): void {
             activeVideo.play().catch(() => {});
             activeVideo.style.opacity = '1';
           }, 150);
-        }
-
-        if (videoLabel) {
-          videoLabel.textContent = `Live Feature Preview: ${cardTitle}`;
         }
 
         storyCards.forEach((c, i) => {

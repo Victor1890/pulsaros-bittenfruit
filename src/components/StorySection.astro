@@ -10,7 +10,6 @@ interface Props {
 }
 
 const {
-  badge = "Design & Engineering",
   title = "Designed down to the smallest pixel.",
   subtitle = "Every detail is modeled after commercial desktop operating systems.",
   features = STORY_FEATURES
@@ -18,7 +17,6 @@ const {
 
 const defaultVideo = features[0]?.video || "/videos/session-restore.mp4";
 const defaultPoster = features[0]?.poster || "/assets/desktop.png";
-const defaultLabel = features[0]?.title || "Session Restore";
 ---
 
 <section id="interactive-story-section" aria-label="Interactive Story Section" class="hidden lg:block py-24 sm:py-36 bg-surface-default text-on-surface-default px-4 sm:px-6 relative border-t border-neutral-100">
@@ -26,9 +24,6 @@ const defaultLabel = features[0]?.title || "Session Restore";
     
     <!-- Section Header -->
     <header class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-      <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary mb-3 block">
-        {badge}
-      </span>
       <h2 class="gsap-text-reveal text-4xl sm:text-6xl font-bold font-display tracking-tight leading-tight">
         {title}
       </h2>
@@ -54,9 +49,6 @@ const defaultLabel = features[0]?.title || "Session Restore";
             ]}
             data-story-video={item.video}
           >
-            <span class="text-xs font-mono text-primary uppercase tracking-wider block mb-2">
-              {item.stepNumber} — {item.category}
-            </span>
             <h3 class="text-2xl sm:text-3xl font-semibold font-display mb-3">{item.title}</h3>
             <p class="text-on-surface-muted leading-relaxed text-base">
               {item.description}
@@ -78,10 +70,6 @@ const defaultLabel = features[0]?.title || "Session Restore";
           aria-label="Active Story Feature Video Preview"
           class="w-full h-full object-cover transition-opacity duration-300"
         ></video>
-        <figcaption class="absolute bottom-4 left-4 bg-black/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-medium text-white flex items-center gap-2">
-          <span class="size-2 rounded-full bg-primary animate-ping" aria-hidden="true"></span>
-          <span id="story-video-label">Live Feature Preview: {defaultLabel}</span>
-        </figcaption>
       </figure>
 
     </div>
@@ -93,7 +81,6 @@ const defaultLabel = features[0]?.title || "Session Restore";
   <div class="max-w-6xl mx-auto">
     
     <header class="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
-      <span class="text-xs font-semibold uppercase tracking-widest text-primary mb-3 block">Next-Generation Desktop</span>
       <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-on-surface-default leading-tight">
         Intelligence built right in.
       </h2>
@@ -107,9 +94,6 @@ const defaultLabel = features[0]?.title || "Session Restore";
       {features.map((feat) => (
         <article class="bg-surface-muted rounded-3xl p-8 sm:p-12 border border-neutral-100 flex flex-col justify-between overflow-hidden group shadow-xs hover:border-primary/40 transition-colors">
           <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-semibold uppercase tracking-widest text-primary">{feat.title}</span>
-            </div>
             <h3 class="text-3xl sm:text-4xl font-semibold text-on-surface-default mb-4">{feat.title}</h3>
             <p class="text-on-surface-muted text-base sm:text-lg leading-relaxed mb-8">
               {feat.description}

@@ -21,6 +21,10 @@ export interface VideoFeature {
   poster?: string;
   logo?: string;
   badge?: string;
+  /** Restrict playback to a segment of the source video. `head` plays from 0 up
+   *  to `offsetFromEnd` seconds before the end; `tail` loops only the final
+   *  `offsetFromEnd` seconds. */
+  videoRange?: { mode: 'head' | 'tail'; offsetFromEnd: number };
 }
 
 export interface CloudProvider {
@@ -41,7 +45,7 @@ export interface EditionCard {
   headline: string;
   description: string;
   badge: string;
-  highlights: string[];
+  bootVariants: string[];
 }
 
 export interface StoryFeature {
@@ -56,15 +60,7 @@ export interface StoryFeature {
 
 export interface BentoCard {
   id: string;
-  stepNumber: string;
-  category: string;
   title: string;
   description: string;
   logo?: string;
-  previewType: 'image' | 'window-preview' | 'video';
-  previewSrc: string;
-  previewAlt?: string;
-  containerLabel?: string;
-  tags?: string[];
-  layout: 'full' | 'half' | 'dark-full';
 }

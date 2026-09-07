@@ -1,37 +1,38 @@
 ---
-import { VIDEO_SHOWCASES, INTELLIGENCE_FEATURES } from '@/config/site';
+import { GALLERY_FEATURES } from '@/config/site';
 
-const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
+const galleryItems = GALLERY_FEATURES;
 ---
 
-<section id="gallery" class="py-24 sm:py-32 bg-[#f5f5f7] text-[#1d1d1f] overflow-hidden border-t border-neutral-100 transition-colors">
+<section id="gallery-section" class="py-24 sm:py-32 bg-[#f5f5f7] text-[#1d1d1f] overflow-hidden border-t border-neutral-100 transition-colors">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
-    
-    <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary mb-2 block">
-      All-Access Pass
-    </span>
-
     <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#1d1d1f] leading-tight max-w-3xl">
       Get to know PulsarOS Bitten Fruit.
     </h2>
   </div>
 
-  <!-- Horizontal Scrollable Track Container -->
-  <div class="relative w-full overflow-x-auto scrollbar-none pb-8 px-4 sm:px-6">
-    <div id="media-card-track" class="flex gap-6 w-max items-stretch">
+  <!-- Horizontal Pinned Scroll Track -->
+  <div id="gallery-track-wrapper" class="w-full overflow-x-auto lg:overflow-x-visible pb-10">
+    <div id="media-card-track" class="flex gap-6 w-max items-stretch px-6 lg:px-0">
       {galleryItems.map((item, index) => (
-        <article 
+        <article
           class="group relative w-75 sm:w-100 md:w-120 h-130 sm:h-145 rounded-[24px] sm:rounded-4xl overflow-hidden bg-[#1d1d1f] text-white shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer shrink-0 flex flex-col justify-between p-8 sm:p-10 select-none"
           data-gallery-card={index}
+          data-gallery-video-src={item.video}
+          data-gallery-poster={item.poster}
+          data-gallery-title={item.title}
+          data-clip-mode={item.videoRange?.mode}
+          data-clip-offset={item.videoRange?.offsetFromEnd}
         >
           <!-- Video Background Layer -->
           <div class="absolute inset-0 z-0 bg-black">
-            <video 
+            <video
               data-gallery-video={index}
-              src={item.video} 
+              src={item.video}
               poster={item.poster}
-              playsinline 
+              playsinline
               muted
+              loop
               preload="metadata"
               class="w-full h-full object-cover object-center transition-transform duration-1000 scale-100 group-hover:scale-105"
             ></video>
@@ -39,29 +40,19 @@ const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
           </div>
 
           <!-- Card Top Overlay Meta -->
-          <div class="relative z-10 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              {item.badge && (
-                <span class="px-3 py-1 rounded-full bg-primary/80 backdrop-blur-md text-white text-xs font-semibold tracking-wide">
-                  {item.badge}
-                </span>
-              )}
-              {item.subtitle && (
-                <span class="text-xs font-medium text-white/80 uppercase tracking-wider drop-shadow-sm">
-                  {item.subtitle}
-                </span>
-              )}
-            </div>
-
-            <!-- Play / Pause Indicator Pill -->
-            <button 
+          <div class="relative z-10 flex items-center justify-end">
+            <!-- Maximize Indicator -->
+            <button
               type="button"
-              data-play-btn={index}
-              aria-label={`Play preview for ${item.title}`}
+              data-maximize-btn={index}
+              aria-label={`Maximize ${item.title} video`}
               class="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all group-hover:scale-110"
             >
-              <svg class="size-4 fill-current ml-0.5" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
               </svg>
             </button>
           </div>
@@ -70,6 +61,11 @@ const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
           <div class="relative z-10 space-y-3">
             {item.logo && (
               <img src={item.logo} alt="" class="h-8 w-auto object-contain mb-2 filter drop-shadow" />
+            )}
+            {item.subtitle && (
+              <span class="block text-xs font-medium text-white/70 uppercase tracking-wider drop-shadow-sm">
+                {item.subtitle}
+              </span>
             )}
             <h3 class="text-2xl sm:text-4xl font-bold tracking-tight text-white leading-tight drop-shadow-md">
               {item.title}
@@ -84,44 +80,157 @@ const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
   </div>
 </section>
 
+<!-- Lightbox: click any card to maximize its video -->
+<dialog id="gallery-lightbox" class="gallery-lightbox">
+  <div class="relative w-[min(92vw,1200px)]">
+    <video
+      id="gallery-lightbox-video"
+      playsinline
+      controls
+      preload="metadata"
+      class="w-full aspect-video rounded-2xl bg-black shadow-2xl"
+    ></video>
+    <button
+      type="button"
+      data-lightbox-close
+      aria-label="Close video"
+      class="absolute -top-12 right-0 size-10 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-colors"
+    >
+      <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+</dialog>
+
+<style>
+  .gallery-lightbox {
+    border: none;
+    background: transparent;
+    padding: 0;
+    max-width: none;
+    max-height: none;
+  }
+  .gallery-lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+  }
+</style>
+
 <script>
+  /** Keep a video looping inside its assigned segment of the source file.
+   *  mode="head": plays from 0 and wraps before the final `offset` seconds.
+   *  mode="tail": starts `offset` seconds before the end and loops that tail. */
+  function attachVideoClip(video: HTMLVideoElement, mode: string, offset: number) {
+    const enforce = () => {
+      const duration = video.duration;
+      if (!Number.isFinite(duration) || duration <= 0) return;
+      const offsetSafe = Math.max(0, Math.min(offset, duration - 0.5));
+      const start = mode === 'tail' ? duration - offsetSafe : 0;
+      const end = mode === 'tail' ? duration : duration - offsetSafe;
+      if (video.currentTime < start - 0.3 || video.currentTime >= end) {
+        video.currentTime = start;
+      }
+    };
+    video.addEventListener('loadedmetadata', enforce);
+    video.addEventListener('timeupdate', enforce);
+    video.addEventListener('seeked', enforce);
+    enforce();
+  }
+
   function initMediaGallery() {
-    const cards = document.querySelectorAll<HTMLElement>('[data-gallery-card]');
-    if (!cards.length) return;
+    const lightbox = document.getElementById('gallery-lightbox') as HTMLDialogElement | null;
+    const lightboxVideo = document.getElementById('gallery-lightbox-video') as HTMLVideoElement | null;
+    if (!lightbox || !lightboxVideo) return;
 
-    cards.forEach((card) => {
+    let openedCard: HTMLElement | null = null;
+
+    // One persistent clip enforcement for the lightbox, driven by the opened card
+    let lightboxClip: { mode: string; offset: number } | null = null;
+    const enforceLightboxClip = () => {
+      if (!lightboxClip) return;
+      const { mode, offset } = lightboxClip;
+      const duration = lightboxVideo.duration;
+      if (!Number.isFinite(duration) || duration <= 0) return;
+      const offsetSafe = Math.max(0, Math.min(offset, duration - 0.5));
+      const start = mode === 'tail' ? duration - offsetSafe : 0;
+      const end = mode === 'tail' ? duration : duration - offsetSafe;
+      if (lightboxVideo.currentTime < start - 0.3 || lightboxVideo.currentTime >= end) {
+        lightboxVideo.currentTime = start;
+      }
+    };
+    lightboxVideo.addEventListener('loadedmetadata', enforceLightboxClip);
+    lightboxVideo.addEventListener('timeupdate', enforceLightboxClip);
+
+    const openLightbox = (card: HTMLElement) => {
+      const src = card.getAttribute('data-gallery-video-src');
+      const poster = card.getAttribute('data-gallery-poster');
+      const title = card.getAttribute('data-gallery-title') || 'Feature video';
+      if (!src) return;
+
+      openedCard = card;
+      // Pause inline preview while maximized
+      card.querySelector('video')?.pause();
+
+      lightboxVideo.src = src;
+      lightboxVideo.poster = poster || '';
+      lightboxVideo.setAttribute('aria-label', `Video demo for ${title}`);
+      lightboxVideo.muted = false;
+      lightboxVideo.currentTime = 0;
+      lightbox.showModal();
+      lightboxVideo.play().catch(() => {});
+
+      // Lightbox playback honors the same clip range as the card preview
+      const mode = card.dataset.clipMode;
+      const offset = Number(card.dataset.clipOffset);
+      lightboxClip = mode && Number.isFinite(offset) && offset > 0 ? { mode, offset } : null;
+    };
+
+    // Inline preview videos: respect the head/tail clip range of each card
+    document.querySelectorAll<HTMLElement>('[data-gallery-card]').forEach((card) => {
       const video = card.querySelector<HTMLVideoElement>('video');
-      const playBtn = card.querySelector<HTMLButtonElement>('[data-play-btn]');
+      const mode = card.dataset.clipMode;
+      const offset = Number(card.dataset.clipOffset);
+      if (video && mode && Number.isFinite(offset) && offset > 0) {
+        attachVideoClip(video, mode, offset);
+      }
+    });
 
-      if (!video) return;
+    const closeLightbox = () => {
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute('src');
+      lightboxVideo.load();
+      openedCard = null;
+      lightboxClip = null;
+    };
 
-      const togglePlay = () => {
-        if (video.paused) {
-          document.querySelectorAll<HTMLVideoElement>('[data-gallery-video]').forEach((v) => {
-            if (v !== video) v.pause();
-          });
-          video.play().catch(() => {});
-          card.classList.add('ring-2', 'ring-primary');
-        } else {
-          video.pause();
-          card.classList.remove('ring-2', 'ring-primary');
-        }
-      };
+    document.querySelectorAll<HTMLElement>('[data-gallery-card]').forEach((card) => {
+      const video = card.querySelector<HTMLVideoElement>('video');
 
-      card.addEventListener('mouseenter', () => {
-        video.play().catch(() => {});
-      });
-
+      // Hover preview
+      card.addEventListener('mouseenter', () => video?.play().catch(() => {}));
       card.addEventListener('mouseleave', () => {
-        video.pause();
+        if (!lightbox.open) video?.pause();
       });
 
-      card.addEventListener('click', togglePlay);
-      playBtn?.addEventListener('click', (e) => {
+      // Click anywhere on the card to maximize
+      card.addEventListener('click', () => openLightbox(card));
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-maximize-btn]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        togglePlay();
+        const card = btn.closest<HTMLElement>('[data-gallery-card]');
+        if (card) openLightbox(card);
       });
     });
+
+    document.querySelectorAll<HTMLElement>('[data-lightbox-close]').forEach((btn) => {
+      btn.addEventListener('click', () => lightbox.close());
+    });
+
+    lightbox.addEventListener('close', closeLightbox);
   }
 
   document.addEventListener('astro:page-load', initMediaGallery);

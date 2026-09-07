@@ -1,0 +1,171 @@
+---
+import { RELEASES_JSON_URL } from '@/config/site';
+
+interface IsoVariant {
+  iso: string;
+  sha256: string;
+  size_bytes: number;
+}
+
+interface ReleasesJson {
+  latest_version: string;
+  versions: Record<string, Record<string, Record<string, IsoVariant>>>;
+}
+
+interface KnownIso {
+  version: string;
+  base: string;
+  boot: string;
+  sha256: string;
+}
+
+const BOOT_LABELS: Record<string, string> = { grub: "GRUB (BIOS)", refind: "rEFInd (UEFI)" };
+const BASE_LABELS: Record<string, string> = { debian: "Debian", arch: "Arch" };
+
+let knownIsos: KnownIso[] = [];
+try {
+  const res = await fetch(RELEASES_JSON_URL);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data: ReleasesJson = await res.json();
+  knownIsos = Object.entries(data.versions ?? {}).flatMap(([version, bases]) =>
+    Object.entries(bases).flatMap(([base, boots]) =>
+      Object.entries(boots)
+        .filter(([, variant]) => variant.sha256)
+        .map(([boot, variant]) => ({
+          version,
+          base: BASE_LABELS[base] ?? base,
+          boot: BOOT_LABELS[boot] ?? boot,
+          sha256: variant.sha256,
+        }))
+    )
+  );
+} catch {
+  knownIsos = [];
+}
+---
+
+<section id="verify-section" aria-label="Verify your downloaded ISO" class="py-24 sm:py-32 bg-surface-muted px-4 sm:px-6 border-t border-neutral-100">
+  <div class="max-w-4xl mx-auto">
+    <header class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-4xl sm:text-6xl font-bold font-display tracking-tight">Check your download</h2>
+      <p class="text-on-surface-muted text-lg sm:text-xl mt-4">
+        Pick the ISO you downloaded and we will check its signature right here in your browser.
+        <strong>Your file never leaves your computer</strong> — nothing is uploaded anywhere.
+      </p>
+    </header>
+
+    <div class="bg-surface-default rounded-lg border border-neutral-100 p-8 sm:p-10">
+      <label
+        for="iso-input"
+        class="flex flex-col items-center justify-center gap-3 rounded-[var(--radius-md)] border-2 border-dashed border-neutral-100 bg-surface-muted px-6 py-12 text-center cursor-pointer hover:border-primary/50 transition-colors"
+      >
+        <svg class="size-8 text-primary" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 16V4m0 0L8 8m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+        </svg>
+        <span class="font-display text-lg font-semibold">Click to choose your ISO file</span>
+        <span class="text-sm text-on-surface-muted">The check runs entirely on this device and may take a couple of minutes for large files.</span>
+      </label>
+      <input id="iso-input" type="file" accept=".iso,application/octet-stream" class="sr-only" />
+
+      <div id="iso-progress" class="hidden mt-8">
+        <div class="flex items-center justify-between text-sm font-medium mb-2">
+          <span id="iso-progress-label">Reading file…</span>
+          <span id="iso-progress-percent">0%</span>
+        </div>
+        <div class="h-2 rounded-full bg-surface-muted overflow-hidden">
+          <div id="iso-progress-bar" class="h-full bg-primary rounded-full transition-[width] duration-200" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div id="iso-result" class="hidden mt-8" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { SHA256 } from '@/lib/sha256';
+
+  interface KnownIso {
+    version: string;
+    base: string;
+    boot: string;
+    sha256: string;
+  }
+
+  // Known signatures are injected at build time from the official releases index
+  const KNOWN_ISOS: KnownIso[] = JSON.parse(
+    document.getElementById('iso-known-hashes')?.textContent || '[]'
+  );
+
+  function initVerifyIso() {
+    const input = document.getElementById('iso-input') as HTMLInputElement | null;
+    const progress = document.getElementById('iso-progress');
+    const progressBar = document.getElementById('iso-progress-bar');
+    const progressPercent = document.getElementById('iso-progress-percent');
+    const progressLabel = document.getElementById('iso-progress-label');
+    const result = document.getElementById('iso-result');
+    if (!input || !progress || !progressBar || !progressPercent || !progressLabel || !result) return;
+
+    input.addEventListener('change', async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      result.classList.add('hidden');
+      result.innerHTML = '';
+      progress.classList.remove('hidden');
+      progressLabel.textContent = `Reading ${file.name}…`;
+
+      try {
+        const sha = new SHA256();
+        const chunkSize = 8 * 1024 * 1024;
+
+        for (let offset = 0; offset < file.size; offset += chunkSize) {
+          const chunk = await file.slice(offset, offset + chunkSize).arrayBuffer();
+          sha.update(new Uint8Array(chunk));
+          const percent = Math.min(100, Math.round(((offset + chunk.byteLength) / file.size) * 100));
+          progressBar.style.width = `${percent}%`;
+          progressPercent.textContent = `${percent}%`;
+        }
+
+        progressLabel.textContent = 'Finishing up…';
+        // Let the last paint land before the synchronous finalization
+        await new Promise((r) => setTimeout(r, 50));
+        const digest = sha.hex();
+
+        progressBar.style.width = '100%';
+        progressPercent.textContent = '100%';
+
+        const match = KNOWN_ISOS.find((iso) => iso.sha256.toLowerCase() === digest.toLowerCase());
+        result.classList.remove('hidden');
+        if (match) {
+          result.innerHTML = `
+            <div class="rounded-[var(--radius-md)] border border-neutral-100 bg-surface-muted p-6">
+              <p class="font-display text-lg font-semibold text-primary mb-1">Signature verified</p>
+              <p class="text-sm text-on-surface-muted">This ISO is the official <strong>${match.base} · ${match.boot}</strong> image of <strong>${match.version}</strong>. You are good to flash it.</p>
+            </div>`;
+        } else {
+          result.innerHTML = `
+            <div class="rounded-[var(--radius-md)] border border-neutral-100 bg-surface-muted p-6">
+              <p class="font-display text-lg font-semibold text-on-surface-default mb-1">Signature not recognized</p>
+              <p class="text-sm text-on-surface-muted mb-4">This file does not match any of the official signatures we know. It may be an older release, or the download may be incomplete. Downloading it again is the safest move.</p>
+              <p class="text-xs text-on-surface-muted font-mono break-all">SHA-256: ${digest}</p>
+            </div>`;
+        }
+      } catch {
+        progressLabel.textContent = 'Something went wrong reading the file. Try again.';
+      } finally {
+        input.value = '';
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initVerifyIso);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initVerifyIso);
+  } else {
+    initVerifyIso();
+  }
+</script>
+
+<!-- Build-time injected known signatures, consumed by the script above -->
+<script type="application/json" id="iso-known-hashes" set:html={JSON.stringify(knownIsos)}></script>

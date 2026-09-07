@@ -4,9 +4,10 @@ import HeroSection from '@/components/HeroSection.astro';
 import AppleMediaCardGallery from '@/components/AppleMediaCardGallery.astro';
 import StorySection from '@/components/StorySection.astro';
 import BentoSection from '@/components/BentoSection.astro';
-import VideoReelSection from '@/components/VideoReelSection.astro';
 import CloudProvidersSection from '@/components/CloudProvidersSection.astro';
 import EditionsSection from '@/components/EditionsSection.astro';
+import VerifyIsoSection from '@/components/VerifyIsoSection.astro';
+import BenefitsSection from '@/components/BenefitsSection.astro';
 import FAQSection from '@/components/FAQSection.astro';
 import { SITE_CONFIG } from '@/config/site';
 ---
@@ -16,9 +17,10 @@ import { SITE_CONFIG } from '@/config/site';
   <AppleMediaCardGallery />
   <StorySection />
   <BentoSection />
-  <VideoReelSection />
   <CloudProvidersSection />
   <EditionsSection />
+  <VerifyIsoSection />
+  <BenefitsSection />
   <FAQSection />
 </Layout>
 
@@ -26,7 +28,7 @@ import { SITE_CONFIG } from '@/config/site';
   import { initHeroReveal, cleanupHeroReveal } from '@/animations/hero-reveal';
   import { initScrollReveal, cleanupScrollReveal } from '@/animations/scroll-reveal';
   import { initInteractiveStory, cleanupInteractiveStory } from '@/animations/interactive-story';
-  import { initHorizontalTrack, cleanupHorizontalTrack } from '@/animations/horizontal-track';
+  import { initMediaGalleryScroll, cleanupMediaGalleryScroll } from '@/animations/media-gallery';
 
   function initPage() {
     const root = document.getElementById('main-root');
@@ -34,8 +36,11 @@ import { SITE_CONFIG } from '@/config/site';
 
     initHeroReveal(root);
     initScrollReveal(root);
+    // Media gallery must init before the story section: its pinned ScrollTrigger sits earlier in
+    // the page, and pins refresh in creation order — otherwise Story/Bento
+    // compute their start position before the gallery's pin spacing exists and overlap.
+    initMediaGalleryScroll(root);
     initInteractiveStory(root);
-    initHorizontalTrack(root);
 
     document.getElementById('btn-scroll-top')?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -46,7 +51,7 @@ import { SITE_CONFIG } from '@/config/site';
     cleanupHeroReveal();
     cleanupScrollReveal();
     cleanupInteractiveStory();
-    cleanupHorizontalTrack();
+    cleanupMediaGalleryScroll();
   }
 
   document.addEventListener('astro:page-load', initPage);

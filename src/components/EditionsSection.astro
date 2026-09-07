@@ -1,25 +1,109 @@
 ---
 import type { EditionCard } from '@/types';
-import { SITE_CONFIG, EDITIONS } from '@/config/site';
+import { EDITIONS, RELEASES_JSON_URL } from '@/config/site';
 
 interface Props {
   title?: string;
+  subtitle?: string;
   editions?: EditionCard[];
 }
 
+// Structure and texts mirror the "Choose your edition" section on https://os.inled.es/bitten-fruit/
 const {
-  title = "Which Edition Fits You?",
+  title = "Choose your edition",
+  subtitle = "Bitten Fruit comes in two base editions, Debian and Arch. Both include two boot variants: GRUB and rEFInd. rEFInd is the closest to the Mac experience and the most comfortable to use.",
   editions = EDITIONS
 } = Astro.props;
+
+interface IsoVariant {
+  iso: string;
+  sha256: string;
+  size_bytes: number;
+}
+
+interface ReleasesJson {
+  latest_version: string;
+  versions: Record<string, Record<string, Record<string, IsoVariant>>>;
+}
+
+interface ReleaseRow {
+  version: string;
+  base: string;
+  boot: string;
+  iso: string;
+  sha256: string;
+  size: string;
+  isLatest: boolean;
+}
+
+const BOOT_LABELS: Record<string, string> = { grub: "GRUB (BIOS)", refind: "rEFInd (UEFI)" };
+const BASE_LABELS: Record<string, string> = { debian: "Debian", arch: "Arch" };
+
+function formatSize(bytes: number): string {
+  if (!bytes) return "—";
+  return `${(bytes / 1024 ** 3).toFixed(1)} GB`;
+}
+
+let releaseRows: ReleaseRow[] = [];
+let releasesError = false;
+try {
+  const res = await fetch(RELEASES_JSON_URL);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data: ReleasesJson = await res.json();
+  const versions = Object.entries(data.versions ?? {});
+  releaseRows = versions.flatMap(([version, bases]) =>
+    Object.entries(bases).flatMap(([base, boots]) =>
+      Object.entries(boots).map(([boot, variant]) => ({
+        version,
+        base: BASE_LABELS[base] ?? base,
+        boot: BOOT_LABELS[boot] ?? boot,
+        iso: variant.iso,
+        sha256: variant.sha256,
+        size: formatSize(variant.size_bytes),
+        isLatest: version === data.latest_version,
+      }))
+    )
+  );
+} catch {
+  releasesError = true;
+}
+
+const requirements = [
+  "A 64-bit (AMD64) processor",
+  "4 GB of RAM",
+  "20 GB of free disk space",
+  "A 8 GB USB stick. Nothing more.",
+];
+
+const bootExplainers = [
+  {
+    title: "What is a 64-bit (AMD64) processor?",
+    body: "It is the type of processor almost every PC has used for the last 15 years. \u201cAMD64\u201d is the name of the 64-bit design, and it works with both AMD and Intel processors. If your computer runs Windows 8 or newer, it almost certainly qualifies.",
+  },
+  {
+    title: "What is BIOS?",
+    body: "BIOS is the older way computers start up, common in machines from before 2012. It shows a plain, text-only menu when the computer turns on. If your PC has BIOS, download the GRUB edition.",
+  },
+  {
+    title: "What is UEFI?",
+    body: "UEFI is the modern replacement for BIOS. Every computer sold in the last decade uses it. It starts the system with a friendly, graphical menu \u2014 with rEFInd, it feels closest to a Mac. If your PC has UEFI, download the rEFInd edition.",
+  },
+  {
+    title: "How do I tell them apart?",
+    body: "Simple rule: if your computer came with Windows 8, 10 or 11, it is UEFI \u2192 choose rEFInd. Only much older PCs (Windows 7 or earlier, roughly pre-2012) use BIOS \u2192 choose GRUB. Not sure? Ask the compatibility helper below.",
+  },
+];
 ---
 
-<section id="editions-section" aria-label="Available Operating System Editions" class="py-24 sm:py-32 bg-surface-default px-4 sm:px-6 border-t border-neutral-100">
+<section id="editions-section" aria-label="Available editions, bootloaders and downloads" class="py-24 sm:py-32 bg-surface-default px-4 sm:px-6 border-t border-neutral-100">
   <div class="max-w-5xl mx-auto">
     <header class="text-center max-w-3xl mx-auto mb-16">
       <h2 class="text-4xl sm:text-6xl font-bold font-display tracking-tight">{title}</h2>
+      <p class="text-on-surface-muted text-base sm:text-lg mt-4">{subtitle}</p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Base editions: Debian vs Arch -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
       {editions.map((ed) => (
         <article class="bg-surface-muted rounded-lg p-8 sm:p-12 border border-neutral-100 flex flex-col justify-between hover:border-primary/40 transition-colors">
           <div>
@@ -28,17 +112,187 @@ const {
             <p class="text-base font-medium text-secondary mb-4">{ed.headline}</p>
             <p class="text-sm text-on-surface-muted leading-relaxed mb-8">{ed.description}</p>
             <ul class="space-y-3 mb-10 border-t border-neutral-100 pt-6">
-              {ed.highlights.map((h) => (
+              {ed.bootVariants.map((v) => (
                 <li class="flex items-center text-sm font-medium">
                   <svg class="size-4 text-primary mr-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                  {h}
+                  {v}
                 </li>
               ))}
             </ul>
           </div>
-          <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary w-full text-center">Get {ed.name}</a>
         </article>
       ))}
     </div>
+
+    <!-- Bootloader compatibility: GRUB = BIOS only, rEFInd = UEFI -->
+    <div class="bg-surface-muted rounded-lg border border-neutral-100 p-8 sm:p-10 mb-12">
+      <h3 class="text-2xl font-semibold font-display mb-2">Which boot variant do I need?</h3>
+      <p class="text-sm text-on-surface-muted mb-6">The GRUB editions <strong>only work on BIOS computers</strong>. If your computer uses UEFI, use the rEFInd version.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {bootExplainers.map((ex) => (
+          <div class="rounded-md border border-neutral-100 bg-surface-default p-6">
+            <h4 class="font-semibold font-display mb-2">{ex.title}</h4>
+            <p class="text-sm text-on-surface-muted leading-relaxed" set:html={ex.body} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Compatibility helper: ask Google AI Mode about your exact PC -->
+    <div class="bg-surface-muted rounded-lg border border-neutral-100 p-8 sm:p-10 mb-12">
+      <h3 class="text-2xl font-semibold font-display mb-2">Will it work on your PC?</h3>
+      <p class="text-sm text-on-surface-muted mb-6">Type your PC model and we will ask Google AI whether it can run Pulsar OS, and which edition to download.</p>
+      <form id="compat-check-form" class="flex flex-col sm:flex-row gap-3" autocomplete="off">
+        <input
+          id="compat-check-input"
+          type="text"
+          required
+          placeholder="e.g. Lenovo ThinkPad T480, HP Pavilion 15, Dell Inspiron 3520…"
+          aria-label="Your PC model"
+          class="flex-1 min-h-11 rounded-[var(--radius-full)] border border-neutral-100 bg-surface-default px-[21px] py-[11px] font-[var(--font-text)] text-[17px] outline-none focus:border-primary transition-colors"
+        />
+        <button type="submit" class="apple-button-primary whitespace-nowrap">Check compatibility</button>
+      </form>
+      <p class="text-xs text-on-surface-muted mt-4">Opens a Google AI Mode search with your model, Pulsar OS requirements, and which edition fits.</p>
+    </div>
+
+    <!-- Minimum requirements -->
+    <div class="bg-surface-muted rounded-lg border border-neutral-100 p-8 sm:p-10 mb-12">
+      <h3 class="text-2xl font-semibold font-display mb-6">What you need</h3>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 mb-6">
+        {requirements.map((r) => (
+          <li class="flex items-center text-sm font-medium">
+            <svg class="size-4 text-primary mr-3 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            {r}
+          </li>
+        ))}
+      </ul>
+      <p class="text-sm text-on-surface-muted leading-relaxed">That is all. And the best way to find out how it feels? <strong>Try it on your own PC</strong> — you can run Pulsar OS live from the USB stick, without installing anything and without changing what is already on your computer.</p>
+    </div>
+
+    <!-- USB flashing advice -->
+    <div class="rounded-lg border border-neutral-100 bg-[var(--color-tertiary)] p-8 sm:p-10 mb-12">
+      <h3 class="text-2xl font-semibold font-display mb-4">Putting Pulsar OS on the USB</h3>
+      <p class="text-sm text-on-surface-muted leading-relaxed">
+        On Windows, use <a class="text-secondary hover:underline" href="https://rufus.ie" target="_blank" rel="noopener">Rufus</a> — and when it asks, choose <strong>DD mode</strong>.
+        On Linux, use <strong>GNOME Disks</strong> (“Restore Disk Image”).
+        We recommend <strong>not using Etcher</strong>, and <strong>not using Ventoy</strong> (still experimental with these ISOs).
+      </p>
+    </div>
+
+    <!-- Releases, fetched from pulsaros-releases.pages.dev/isos.json -->
+    <div class="bg-surface-muted rounded-lg border border-neutral-100 p-8 sm:p-10">
+      <h3 class="text-2xl font-semibold font-display mb-6">Downloads</h3>
+      {releasesError && (
+        <p class="text-sm text-on-surface-muted">Releases could not be loaded right now. Check them directly on the <a class="text-secondary hover:underline" href="https://pulsaros-releases.pages.dev/isos.json">releases index</a>.</p>
+      )}
+      {!releasesError && releaseRows.length > 0 && (
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-on-surface-muted border-b border-neutral-100">
+                <th class="py-3 pr-4 font-medium">Version</th>
+                <th class="py-3 pr-4 font-medium">Base</th>
+                <th class="py-3 pr-4 font-medium">Boot</th>
+                <th class="py-3 pr-4 font-medium">Size</th>
+                <th class="py-3 pr-4 font-medium">SHA-256</th>
+                <th class="py-3 font-medium text-right">ISO</th>
+              </tr>
+            </thead>
+            <tbody>
+              {releaseRows.map((row) => (
+                <tr class="border-b border-neutral-100 last:border-0">
+                  <td class="py-3 pr-4 font-medium whitespace-nowrap">
+                    {row.version}
+                    {row.isLatest && <span class="ml-2 text-[10px] font-semibold uppercase tracking-wider text-primary">Latest</span>}
+                  </td>
+                  <td class="py-3 pr-4 whitespace-nowrap">{row.base}</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">{row.boot}</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">{row.size}</td>
+                  <td class="py-3 pr-4 max-w-40">
+                    {row.sha256 ? (
+                      <button
+                        type="button"
+                        data-copy-sha={row.sha256}
+                        title="Click to copy the signature"
+                        class="font-mono text-xs text-on-surface-muted max-w-40 truncate block hover:text-primary transition-colors cursor-pointer"
+                      >{row.sha256}</button>
+                    ) : (
+                      <span class="font-mono text-xs text-on-surface-muted">—</span>
+                    )}
+                  </td>
+                  <td class="py-3 text-right whitespace-nowrap">
+                    <a href={row.iso} class="text-secondary hover:underline font-medium">Download</a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      <p class="text-xs text-on-surface-muted mt-6">Verify the SHA-256 checksum of your download before flashing. ISOs are generated in GitHub Actions and hosted on SourceForge.</p>
+    </div>
   </div>
 </section>
+
+<script>
+  function initCompatCheck() {
+    const form = document.getElementById('compat-check-form') as HTMLFormElement | null;
+    const input = document.getElementById('compat-check-input') as HTMLInputElement | null;
+    if (!form || !input) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const model = input.value.trim();
+      if (!model) return;
+      const query =
+        `Can my computer run Pulsar OS Bitten Fruit? Model: ${model}. ` +
+        `Requirements: 64-bit (AMD64) processor, 4 GB RAM, 20 GB disk, 8 GB USB. ` +
+        `Which edition should I use, Debian or Arch, and which boot variant: ` +
+        `GRUB if the PC uses legacy BIOS, or rEFInd if it uses UEFI?`;
+      window.open(`https://www.google.com/search?udm=50&q=${encodeURIComponent(query)}`, '_blank', 'noopener');
+    });
+  }
+
+  document.addEventListener('astro:page-load', initCompatCheck);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCompatCheck);
+  } else {
+    initCompatCheck();
+  }
+
+  function initCopySha() {
+    document.querySelectorAll<HTMLButtonElement>('[data-copy-sha]').forEach((btn) => {
+      if (btn.dataset.copyShaBound) return;
+      btn.dataset.copyShaBound = '1';
+      btn.addEventListener('click', async () => {
+        const sha = btn.dataset.copySha || '';
+        try {
+          await navigator.clipboard.writeText(sha);
+        } catch {
+          // Fallback for browsers without the async clipboard API
+          const ta = document.createElement('textarea');
+          ta.value = sha;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+        }
+        const original = btn.textContent;
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('text-primary');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('text-primary');
+        }, 1800);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initCopySha);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCopySha);
+  } else {
+    initCopySha();
+  }
+</script>
