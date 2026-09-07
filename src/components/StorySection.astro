@@ -1,6 +1,6 @@
 ---
-import type { StoryFeature } from '../types';
-import { STORY_FEATURES } from '../config/site';
+import type { StoryFeature } from '@/types';
+import { STORY_FEATURES } from '@/config/site';
 
 interface Props {
   badge?: string;
@@ -43,14 +43,10 @@ const defaultLabel = features[0]?.title || "Session Restore";
       <!-- Left Column: Vertical Story Cards -->
       <div id="story-cards-column" class="lg:col-span-5 space-y-24 pt-4">
         {features.map((item, index) => (
-          <div
-            class:list={[
-              "story-card bg-surface-muted rounded-lg p-8 border transition-all duration-500 hover:border-primary cursor-pointer",
-              {
-                'border-primary opacity-100': index === 0,
-                'border-neutral-100 opacity-60': index !== 0
-              }
-            ]}
+          <div 
+            class={`story-card bg-surface-muted rounded-lg p-8 border transition-all duration-500 hover:border-primary cursor-pointer ${
+              index === 0 ? 'border-primary opacity-100' : 'border-neutral-100 opacity-60'
+            }`} 
             data-story-video={item.video}
           >
             <span class="text-xs font-mono text-primary uppercase tracking-wider block mb-2">

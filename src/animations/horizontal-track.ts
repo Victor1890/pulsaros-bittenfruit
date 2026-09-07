@@ -1,4 +1,4 @@
-import { gsap } from '../lib/gsap';
+import { gsap } from '@/lib/gsap';
 
 let ctx: gsap.Context | null = null;
 

@@ -1,4 +1,4 @@
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 let ctx: gsap.Context | null = null;
 

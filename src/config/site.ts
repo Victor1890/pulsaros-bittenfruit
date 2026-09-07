@@ -6,7 +6,7 @@ import type {
   EditionCard,
   StoryFeature,
   BentoCard,
-} from '../types';
+} from '@/types';
 
 
 export const SITE_CONFIG = {

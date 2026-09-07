@@ -1,14 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import HeroSection from '../components/HeroSection.astro';
-import AppleMediaCardGallery from '../components/AppleMediaCardGallery.astro';
-import StorySection from '../components/StorySection.astro';
-import BentoSection from '../components/BentoSection.astro';
-import VideoReelSection from '../components/VideoReelSection.astro';
-import CloudProvidersSection from '../components/CloudProvidersSection.astro';
-import EditionsSection from '../components/EditionsSection.astro';
-import FAQSection from '../components/FAQSection.astro';
-import { SITE_CONFIG } from '../config/site';
+import Layout from '@/layouts/Layout.astro';
+import HeroSection from '@/components/HeroSection.astro';
+import AppleMediaCardGallery from '@/components/AppleMediaCardGallery.astro';
+import StorySection from '@/components/StorySection.astro';
+import BentoSection from '@/components/BentoSection.astro';
+import VideoReelSection from '@/components/VideoReelSection.astro';
+import CloudProvidersSection from '@/components/CloudProvidersSection.astro';
+import EditionsSection from '@/components/EditionsSection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { SITE_CONFIG } from '@/config/site';
 ---
 
 <Layout title={`${SITE_CONFIG.name} — ${SITE_CONFIG.brandTagline}`}>
@@ -23,10 +23,10 @@ import { SITE_CONFIG } from '../config/site';
 </Layout>
 
 <script>
-  import { initHeroReveal, cleanupHeroReveal } from '../animations/hero-reveal';
-  import { initScrollReveal, cleanupScrollReveal } from '../animations/scroll-reveal';
-  import { initInteractiveStory, cleanupInteractiveStory } from '../animations/interactive-story';
-  import { initHorizontalTrack, cleanupHorizontalTrack } from '../animations/horizontal-track';
+  import { initHeroReveal, cleanupHeroReveal } from '@/animations/hero-reveal';
+  import { initScrollReveal, cleanupScrollReveal } from '@/animations/scroll-reveal';
+  import { initInteractiveStory, cleanupInteractiveStory } from '@/animations/interactive-story';
+  import { initHorizontalTrack, cleanupHorizontalTrack } from '@/animations/horizontal-track';
 
   function initPage() {
     const root = document.getElementById('main-root');

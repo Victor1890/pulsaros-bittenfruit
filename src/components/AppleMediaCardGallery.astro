@@ -1,318 +1,135 @@
 ---
-import { VIDEO_SHOWCASES, INTELLIGENCE_FEATURES } from '../config/site';
+import { VIDEO_SHOWCASES, INTELLIGENCE_FEATURES } from '@/config/site';
 
-// Combine all 6 video feature cards for the gallery showcase
-export const ALL_GALLERY_CARDS = [
-  ...INTELLIGENCE_FEATURES,
-  ...VIDEO_SHOWCASES,
-];
+const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
 ---
 
-<section id="media-card-gallery-section" class="py-24 sm:py-32 bg-[#000000] text-white relative overflow-hidden select-none border-t border-white/10">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Apple All-Access Media Card Gallery -->
+<section id="gallery" class="py-24 sm:py-32 bg-[#f5f5f7] dark:bg-[#000000] text-[#1d1d1f] dark:text-[#f5f5f7] overflow-hidden border-t border-[#e5e7eb] dark:border-white/10 transition-colors">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
     
-    <!-- Section Header -->
-    <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-      <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#2997ff] mb-3 block">
-        All-Access Pass
-      </span>
-      <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-white leading-tight">
-        See PulsarOS Bitten Fruit in Motion.
-      </h2>
-      <p class="mt-4 text-lg sm:text-xl text-[#86868b] leading-relaxed">
-        Experience macOS level design precision, seamless windowing, local AI intelligence, and dynamic workflows on Linux.
-      </p>
-    </div>
+    <!-- Editorial Category Tag -->
+    <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#0071e3] dark:text-[#2997ff] mb-2 block">
+      All-Access Pass
+    </span>
 
-    <!-- Apple Main Gallery Component Container -->
-    <div 
-      class="all-access-pass aap-media-card-gallery relative max-w-5xl mx-auto" 
-      id="aap-media-card-gallery" 
-      data-aap-type="media-card-gallery" 
-      data-aap-level="1" 
-      data-aap-enabled="true" 
-      data-component-list="MediaCardGalleryControl"
-    >
-      
-      <!-- Media Cards Stage / Track -->
-      <div class="media-card-stage relative rounded-3xl overflow-hidden bg-[#161617] border border-white/15 shadow-2xl aspect-[16/10] sm:aspect-[16/9]">
-        {ALL_GALLERY_CARDS.map((item, index) => (
-          <div 
-            class:list={[
-              "gallery-card-item absolute inset-0 transition-all duration-700 ease-out flex flex-col justify-between p-6 sm:p-10",
-              {
-                'opacity-100 z-10 pointer-events-auto scale-100': index === 0,
-                'opacity-0 z-0 pointer-events-none scale-95': index !== 0
-              }
-            ]}
-            data-index={index}
-          >
-            <!-- Background Video -->
-            <div class="absolute inset-0 z-0 bg-black">
-              <video 
-                data-gallery-video={index}
-                src={item.video} 
-                poster={item.poster}
-                playsinline 
-                muted
-                preload="metadata"
-                class="w-full h-full object-cover object-center transition-transform duration-1000 scale-100 group-hover:scale-105"
-              ></video>
-              <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-black/40"></div>
-            </div>
+    <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] leading-tight max-w-3xl">
+      Get to know PulsarOS Bitten Fruit.
+    </h2>
+  </div>
 
-            <!-- Card Top Overlay Meta -->
-            <div class="relative z-10 flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                {item.badge && (
-                  <span class="px-3 py-1 rounded-full bg-[#0071e3]/80 backdrop-blur-md text-white text-xs font-semibold tracking-wide">
-                    {item.badge}
-                  </span>
-                )}
-                {item.logo && (
-                  <img src={item.logo} alt={item.title} class="h-6 w-auto object-contain" />
-                )}
-              </div>
-              <span class="font-mono text-xs text-white/60 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
-                0{index + 1} / 0{ALL_GALLERY_CARDS.length}
-              </span>
-            </div>
-
-            <!-- Card Bottom Copy -->
-            <div class="relative z-10 max-w-2xl">
-              <h3 class="text-2xl sm:text-4xl font-semibold text-white tracking-tight mb-2">
-                {item.title}
-              </h3>
-              <p class="text-sm sm:text-lg text-white/80 leading-relaxed font-normal">
-                {item.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- Apple All-Access Pass Control Bar & DotNav Floating Wrapper -->
-      <div 
-        class="all-access-pass__background play-pause-button-wrapper mt-6 mx-auto flex items-center justify-center gap-4 bg-[#1d1d1f]/80 backdrop-blur-xl border border-white/20 px-6 py-3 rounded-full shadow-2xl max-w-fit"
-      >
-        <!-- Toggle Play / Pause / Replay Button -->
-        <button 
-          type="button"
-          class="play-pause-button all-access-pass__play-pause-button aap-media-card-gallery__button focus:outline-none focus:ring-2 focus:ring-[#2997ff] text-white p-1 rounded-full hover:scale-110 transition-transform cursor-pointer" 
-          id="aap-toggle-play"
-          aria-label="Pause media gallery"
-          data-state="playing"
+  <!-- Horizontal Scrollable Track Container -->
+  <div class="relative w-full overflow-x-auto scrollbar-none pb-8 px-4 sm:px-6">
+    <div id="media-card-track" class="flex gap-6 w-max items-stretch">
+      {galleryItems.map((item, index) => (
+        <article 
+          class="group relative w-[300px] sm:w-[400px] md:w-[480px] h-[520px] sm:h-[580px] rounded-[24px] sm:rounded-[32px] overflow-hidden bg-[#1d1d1f] text-white shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer shrink-0 flex flex-col justify-between p-8 sm:p-10 select-none"
+          data-gallery-card={index}
         >
-          <!-- Pause Icon (Default when playing) -->
-          <svg class="icon-pause size-5 fill-current" viewBox="0 0 24 24">
-            <rect x="6" y="4" width="4" height="16" rx="1.5"></rect>
-            <rect x="14" y="4" width="4" height="16" rx="1.5"></rect>
-          </svg>
-          
-          <!-- Play Icon (Hidden when playing) -->
-          <svg class="icon-play size-5 fill-current hidden" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"></path>
-          </svg>
+          <!-- Video Background Layer -->
+          <div class="absolute inset-0 z-0 bg-black">
+            <video 
+              data-gallery-video={index}
+              src={item.video} 
+              poster={item.poster}
+              playsinline 
+              muted
+              preload="metadata"
+              class="w-full h-full object-cover object-center transition-transform duration-1000 scale-100 group-hover:scale-105"
+            ></video>
+            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-black/40"></div>
+          </div>
 
-          <!-- Replay Icon (Hidden until end) -->
-          <svg class="icon-replay size-5 stroke-current fill-none hidden" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0115.3-4.3L20 9M4 15l.7 4.3A9 9 0 0020 15"></path>
-          </svg>
-        </button>
+          <!-- Card Top Overlay Meta -->
+          <div class="relative z-10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              {item.badge && (
+                <span class="px-3 py-1 rounded-full bg-[#0071e3]/80 backdrop-blur-md text-white text-xs font-semibold tracking-wide">
+                  {item.badge}
+                </span>
+              )}
+              {item.subtitle && (
+                <span class="text-xs font-medium text-white/80 uppercase tracking-wider drop-shadow-sm">
+                  {item.subtitle}
+                </span>
+              )}
+            </div>
 
-        <!-- Vertical Divider -->
-        <div class="h-4 w-px bg-white/20"></div>
+            <!-- Play / Pause Indicator Pill -->
+            <button 
+              type="button"
+              data-play-btn={index}
+              aria-label={`Play preview for ${item.title}`}
+              class="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all group-hover:scale-110"
+            >
+              <svg class="size-4 fill-current ml-0.5" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
+          </div>
 
-        <!-- Apple DotNav Indicator Items -->
-        <div class="dotnav">
-          <ul class="dotnav-items flex items-center gap-2.5 sm:gap-3" role="tablist" aria-label="Media gallery items">
-            {ALL_GALLERY_CARDS.map((item, index) => (
-              <li 
-                class:list={[
-                  "dotnav-item cursor-pointer transition-all duration-300",
-                  {
-                    'current': index === 0
-                  }
-                ]}
-                data-dot-index={index}
-                role="presentation"
-              >
-                <button
-                  type="button"
-                  class="dotnav-link block focus:outline-none rounded-full p-1 group"
-                  role="tab"
-                  aria-selected={index === 0 ? "true" : "false"}
-                  aria-label={`Go to slide ${index + 1}: ${item.title}`}
-                >
-                  <span class="dot-indicator relative block h-2 rounded-full bg-white/30 group-hover:bg-white/60 transition-all duration-300 w-2 [.current_&]:w-8 [.current_&]:bg-[#2997ff] overflow-hidden">
-                    <span class="dot-progress absolute inset-y-0 left-0 bg-white rounded-full w-0 transition-none"></span>
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
+          <!-- Card Bottom Overlay Content -->
+          <div class="relative z-10 space-y-3">
+            {item.logo && (
+              <img src={item.logo} alt="" class="h-8 w-auto object-contain mb-2 filter drop-shadow" />
+            )}
+            <h3 class="text-2xl sm:text-4xl font-bold tracking-tight text-white leading-tight drop-shadow-md">
+              {item.title}
+            </h3>
+            <p class="text-sm sm:text-base text-white/80 font-normal leading-relaxed line-clamp-3 drop-shadow">
+              {item.description}
+            </p>
+          </div>
+        </article>
+      ))}
     </div>
-
   </div>
 </section>
 
-<!-- Media Card Gallery Client Controller Script -->
 <script>
-  function initGallery() {
-    const gallery = document.getElementById('aap-media-card-gallery');
-    if (!gallery) return;
+  function initMediaGallery() {
+    const cards = document.querySelectorAll<HTMLElement>('[data-gallery-card]');
+    if (!cards.length) return;
 
-    const cards = Array.from(gallery.querySelectorAll<HTMLElement>('.gallery-card-item'));
-    const dotItems = Array.from(gallery.querySelectorAll<HTMLElement>('.dotnav-item'));
-    const playToggleBtn = gallery.querySelector<HTMLButtonElement>('#aap-toggle-play');
-    const videos = Array.from(gallery.querySelectorAll<HTMLVideoElement>('[data-gallery-video]'));
+    cards.forEach((card) => {
+      const video = card.querySelector<HTMLVideoElement>('video');
+      const playBtn = card.querySelector<HTMLButtonElement>('[data-play-btn]');
 
-    const iconPlay = playToggleBtn?.querySelector('.icon-play');
-    const iconPause = playToggleBtn?.querySelector('.icon-pause');
-    const iconReplay = playToggleBtn?.querySelector('.icon-replay');
+      if (!video) return;
 
-    let currentIndex = 0;
-    let isPlaying = true;
-
-    function updateSlide(index: number) {
-      if (index < 0 || index >= cards.length) return;
-      currentIndex = index;
-
-      // Update Card visibility
-      cards.forEach((card, i) => {
-        if (i === index) {
-          card.classList.remove('opacity-0', 'pointer-events-none', 'scale-95', 'z-0');
-          card.classList.add('opacity-100', 'pointer-events-auto', 'scale-100', 'z-10');
+      const togglePlay = () => {
+        if (video.paused) {
+          document.querySelectorAll<HTMLVideoElement>('[data-gallery-video]').forEach((v) => {
+            if (v !== video) v.pause();
+          });
+          video.play().catch(() => {});
+          card.classList.add('ring-2', 'ring-[#0071e3]');
         } else {
-          card.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100', 'z-10');
-          card.classList.add('opacity-0', 'pointer-events-none', 'scale-95', 'z-0');
+          video.pause();
+          card.classList.remove('ring-2', 'ring-[#0071e3]');
         }
+      };
+
+      card.addEventListener('mouseenter', () => {
+        video.play().catch(() => {});
       });
 
-      // Update DotNav items state
-      dotItems.forEach((dot, i) => {
-        const link = dot.querySelector<HTMLButtonElement>('.dotnav-link');
-        if (i === index) {
-          dot.classList.add('current');
-          link?.setAttribute('aria-selected', 'true');
-        } else {
-          dot.classList.remove('current');
-          link?.setAttribute('aria-selected', 'false');
-        }
+      card.addEventListener('mouseleave', () => {
+        video.pause();
       });
 
-      // Handle Videos playback
-      videos.forEach((vid, i) => {
-        if (i === index) {
-          vid.currentTime = 0;
-          if (isPlaying) {
-            vid.play().catch(() => {});
-          }
-        } else {
-          vid.pause();
-        }
-      });
-
-      updateButtonState();
-    }
-
-    function updateButtonState() {
-      if (!playToggleBtn) return;
-      
-      const currentVid = videos[currentIndex];
-      const isEnded = currentVid ? currentVid.ended : false;
-
-      if (isEnded) {
-        iconPlay?.classList.add('hidden');
-        iconPause?.classList.add('hidden');
-        iconReplay?.classList.remove('hidden');
-        playToggleBtn.setAttribute('aria-label', 'Replay video');
-      } else if (isPlaying) {
-        iconPlay?.classList.add('hidden');
-        iconPause?.classList.remove('hidden');
-        iconReplay?.classList.add('hidden');
-        playToggleBtn.setAttribute('aria-label', 'Pause media gallery');
-      } else {
-        iconPlay?.classList.remove('hidden');
-        iconPause?.classList.add('hidden');
-        iconReplay?.classList.add('hidden');
-        playToggleBtn.setAttribute('aria-label', 'Play media gallery');
-      }
-    }
-
-    // Play/Pause/Replay Button Click Handler
-    playToggleBtn?.addEventListener('click', () => {
-      const currentVid = videos[currentIndex];
-      if (!currentVid) return;
-
-      if (currentVid.ended) {
-        // Replay current video
-        currentVid.currentTime = 0;
-        isPlaying = true;
-        currentVid.play().catch(() => {});
-      } else if (isPlaying) {
-        // Pause
-        isPlaying = false;
-        currentVid.pause();
-      } else {
-        // Play
-        isPlaying = true;
-        currentVid.play().catch(() => {});
-      }
-      updateButtonState();
-    });
-
-    // DotNav Click Handlers
-    dotItems.forEach((dot, index) => {
-      dot.addEventListener('click', (e) => {
-        e.preventDefault();
-        isPlaying = true;
-        updateSlide(index);
+      card.addEventListener('click', togglePlay);
+      playBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePlay();
       });
     });
-
-    // Video Ended -> Auto Advance to Next Slide
-    videos.forEach((vid, index) => {
-      vid.addEventListener('ended', () => {
-        if (index === currentIndex) {
-          const nextIndex = (currentIndex + 1) % cards.length;
-          updateSlide(nextIndex);
-        }
-      });
-
-      vid.addEventListener('timeupdate', () => {
-        if (index === currentIndex && vid.duration) {
-          const activeDotProgress = dotItems[currentIndex]?.querySelector<HTMLElement>('.dot-progress');
-          if (activeDotProgress) {
-            const pct = (vid.currentTime / vid.duration) * 100;
-            activeDotProgress.style.width = `${pct}%`;
-          }
-        }
-      });
-    });
-
-    // Keyboard Arrow Navigation
-    gallery.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') {
-        updateSlide((currentIndex + 1) % cards.length);
-      } else if (e.key === 'ArrowLeft') {
-        updateSlide((currentIndex - 1 + cards.length) % cards.length);
-      } else if (e.key === ' ') {
-        e.preventDefault();
-        playToggleBtn?.click();
-      }
-    });
-
-    // Initialize initial slide
-    updateSlide(0);
   }
 
+  document.addEventListener('astro:page-load', initMediaGallery);
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGallery);
+    document.addEventListener('DOMContentLoaded', initMediaGallery);
   } else {
-    initGallery();
+    initMediaGallery();
   }
 </script>

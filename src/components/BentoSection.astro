@@ -1,6 +1,6 @@
 ---
-import type { BentoCard } from '../types';
-import { BENTO_CARDS } from '../config/site';
+import type { BentoCard } from '@/types';
+import { BENTO_CARDS } from '@/config/site';
 
 interface Props {
   badge?: string;
@@ -49,15 +49,7 @@ const darkCard = cards.find(c => c.layout === 'dark-full');
           {heroCard.tags && (
             <div class="flex items-center gap-4">
               {heroCard.tags.map((tag, i) => (
-                <span
-                  class:list={[
-                    "px-3 py-1 rounded-full text-xs font-medium",
-                    {
-                      'bg-primary/10 text-primary': i === 0,
-                      'bg-neutral-100 text-on-surface-muted': i !== 0
-                    }
-                  ]}
-                >
+                <span class={`px-3 py-1 rounded-full text-xs font-medium ${i === 0 ? 'bg-primary/10 text-primary' : 'bg-neutral-100 text-on-surface-muted'}`}>
                   {tag}
                 </span>
               ))}
@@ -113,15 +105,7 @@ const darkCard = cards.find(c => c.layout === 'dark-full');
           {darkCard.tags && (
             <div class="flex items-center gap-3">
               {darkCard.tags.map((tag, i) => (
-                <span
-                  class:list={[
-                    "px-3.5 py-1.5 rounded-full text-xs font-medium border",
-                    {
-                      'bg-white/10 text-white border-white/10': i === 0,
-                      'bg-[#2997ff]/20 text-[#2997ff] border-[#2997ff]/30': i !== 0
-                    }
-                  ]}
-                >
+                <span class={`px-3.5 py-1.5 rounded-full text-xs font-medium border ${i === 0 ? 'bg-white/10 text-white border-white/10' : 'bg-[#2997ff]/20 text-[#2997ff] border-[#2997ff]/30'}`}>
                   {tag}
                 </span>
               ))}
