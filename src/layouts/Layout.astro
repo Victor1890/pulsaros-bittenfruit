@@ -2,7 +2,7 @@
 import '@/styles/global.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-// import FloatingControlBar from '@/components/FloatingControlBar.astro';
+import { SITE_CONFIG, FAQS } from '@/config/site';
 
 interface Props {
   title?: string;
@@ -13,6 +13,40 @@ const {
   title = "PulsarOS — The macOS experience, without a Mac",
   description = "PulsarOS captures the UI and UX of macOS with the most innovative features on Linux. Free, open source, and built by the community."
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+const ogImageUrl = new URL('/assets/desktop.png', canonicalURL).href;
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PulsarOS Bitten Fruit",
+  "operatingSystem": "Linux",
+  "applicationCategory": "Desktop Environment / Operating System",
+  "description": description,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "downloadUrl": SITE_CONFIG.releasesUrl,
+  "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+  "sameAs": [SITE_CONFIG.githubUrl]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": FAQS.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -20,20 +54,46 @@ const {
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="canonical" href={canonicalURL} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#ffffff" />
+
+		<!-- OpenGraph Meta Tags -->
+		<meta property="og:site_name" content={SITE_CONFIG.name} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={ogImageUrl} />
+
+		<!-- Twitter Card Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
+		<!-- Structured Data (JSON-LD) -->
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(softwareSchema)} />
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
 		<title>{title}</title>
 	</head>
 	<body class="bg-surface-default text-on-surface-default font-text antialiased selection:bg-primary/20 selection:text-primary min-h-screen">
+		<!-- WCAG 2.2 Skip Navigation Link -->
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-full focus:shadow-lg focus:outline-none">
+			Skip to main content
+		</a>
+
 		<div id="main-root" class="min-h-screen flex flex-col justify-between">
 			<Header />
 
-			<main class="overflow-x-hidden flex-1">
+			<main id="main-content" class="overflow-x-hidden flex-1">
 				<slot />
 			</main>
 
 			<Footer />
-			<!-- <FloatingControlBar /> -->
 		</div>
 
 		<script>
