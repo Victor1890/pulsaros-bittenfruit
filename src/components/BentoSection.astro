@@ -42,7 +42,9 @@ const darkCard = cards.find(c => c.layout === 'dark-full');
             <span class="text-xs font-mono text-primary uppercase tracking-wider">{heroCard.stepNumber} — {heroCard.category}</span>
             {heroCard.logo && <img src={heroCard.logo} alt={heroCard.title} class="size-6 object-contain" />}
           </div>
-          <h3 class="text-3xl sm:text-5xl font-bold font-display mb-4 leading-tight">{heroCard.title}</h3>
+          <h3 class="text-3xl sm:text-5xl font-bold font-display mb-4 leading-tight">
+            {heroCard.title}<sup class="text-primary text-sm font-medium ml-1"><a href="#fn-2" class="hover:underline">2</a></sup>
+          </h3>
           <p class="text-on-surface-muted text-base sm:text-lg leading-relaxed mb-8">
             {heroCard.description}
           </p>

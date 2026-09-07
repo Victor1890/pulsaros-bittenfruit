@@ -8,19 +8,19 @@ const footerDirectory = [
     title: "Explore PulsarOS",
     links: [
       { label: "Bitten Fruit Edition", href: "#overview" },
-      { label: "Sayri AI Engine", href: "https://github.com/Inled-Pulsar-OS/PKG/tree/main/pulsar-store", external: true },
-      { label: "Session Restore", href: "https://github.com/Inled-Pulsar-OS/PKG/tree/main/pulsaros-recovery", external: true },
-      { label: "Spotlight Search", href: "https://github.com/Inled-Pulsar-OS/PKG/tree/main/pulsaros-spotlight-launcher", external: true },
-      { label: "Control Center", href: "https://github.com/Inled-Pulsar-OS/PKG/tree/main/pulsaros-control-center", external: true },
+      { label: "Sayri AI Engine", href: "#intelligence" },
+      { label: "Session Restore", href: "#interactive-story-section" },
+      { label: "Spotlight Search", href: "#features" },
+      { label: "Control Center", href: "#features" },
     ]
   },
   {
     title: "Virtualization",
     links: [
-      { label: "MacBoat (OpenCore)", href: "#bento-section" },
-      { label: "WinBoat App Runtime", href: "#bento-section" },
-      { label: "DroidTux Mobile", href: "#bento-section" },
-      { label: "GSConnect Device Sync", href: "#bento-section" },
+      { label: "MacBoat (OpenCore)", href: "#connectivity" },
+      { label: "WinBoat App Runtime", href: "#connectivity" },
+      { label: "DroidTux Mobile", href: "#connectivity" },
+      { label: "GSConnect Device Sync", href: "#connectivity" },
       { label: "Native KVM Passthrough", href: "#bento-section" },
     ]
   },
@@ -60,13 +60,13 @@ const footerDirectory = [
     
     <!-- Section 1: Footnotes Paragraph -->
     <div class="space-y-2.5 pb-4 border-b border-neutral-100 text-[11px] leading-normal text-on-surface-muted/90">
-      <p>
+      <p id="fn-1" class="target:bg-primary/10 target:p-1.5 target:rounded-md transition-colors">
         1. PulsarOS Bitten Fruit is an independent open-source Linux distribution project. macOS, Mac, OpenCore, and Apple logo design elements are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
       </p>
-      <p>
+      <p id="fn-2" class="target:bg-primary/10 target:p-1.5 target:rounded-md transition-colors">
         2. Hardware virtualization features (MacBoat, WinBoat, DroidTux) require compatible CPU hardware virtualization support (Intel VT-x or AMD-V) enabled in your BIOS/UEFI firmware.
       </p>
-      <p>
+      <p id="fn-3" class="target:bg-primary/10 target:p-1.5 target:rounded-md transition-colors">
         3. Sayri AI operates 100% locally on user hardware. No personal data, queries, or telemetry leave your local device.
       </p>
     </div>

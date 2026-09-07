@@ -26,7 +26,11 @@ import { INTELLIGENCE_FEATURES } from '@/config/site';
                 <img src={feat.logo} alt={feat.title} class="h-7 w-auto object-contain" />
               )}
             </div>
-            <h3 class="text-3xl sm:text-4xl font-semibold text-on-surface-default mb-4">{feat.title}</h3>
+            <h3 class="text-3xl sm:text-4xl font-semibold text-on-surface-default mb-4">
+              {feat.title}
+              {feat.title.includes('Sayri') && <sup class="text-primary text-sm font-medium ml-1"><a href="#fn-3" class="hover:underline">3</a></sup>}
+              {feat.title.includes('Session') && <sup class="text-primary text-sm font-medium ml-1"><a href="#fn-2" class="hover:underline">2</a></sup>}
+            </h3>
             <p class="text-on-surface-muted text-base sm:text-lg leading-relaxed mb-8">
               {feat.description}
             </p>
