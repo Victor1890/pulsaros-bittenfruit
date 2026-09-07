@@ -35,5 +35,40 @@ const {
 			<Footer />
 			<FloatingControlBar />
 		</div>
+
+		<script>
+			function initSmoothAnchors() {
+				document.addEventListener('click', (e) => {
+					const target = e.target as HTMLElement | null;
+					const anchor = target?.closest<HTMLAnchorElement>('a[href^="#"]');
+					if (!anchor) return;
+
+					const href = anchor.getAttribute('href');
+					if (!href || href === '#') return;
+
+					const targetElement = document.querySelector(href);
+					if (targetElement) {
+						e.preventDefault();
+						const headerOffset = 80;
+						const elementPosition = targetElement.getBoundingClientRect().top;
+						const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+						window.scrollTo({
+							top: offsetPosition,
+							behavior: 'smooth'
+						});
+
+						history.pushState(null, '', href);
+					}
+				});
+			}
+
+			document.addEventListener('astro:page-load', initSmoothAnchors);
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', initSmoothAnchors);
+			} else {
+				initSmoothAnchors();
+			}
+		</script>
 	</body>
 </html>
