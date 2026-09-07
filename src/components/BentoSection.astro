@@ -1,0 +1,117 @@
+---
+// Comprehensive Suite (Bento Feature Grid)
+---
+
+<section id="bento-section" class="py-24 sm:py-36 bg-surface-muted text-on-surface-default px-4 sm:px-6 relative border-t border-neutral-100">
+  <div class="max-w-7xl mx-auto space-y-12">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+      <span class="text-xs font-semibold uppercase tracking-widest text-primary mb-2 block">Comprehensive Suite</span>
+      <h2 class="gsap-text-reveal text-4xl sm:text-6xl font-bold font-display tracking-tight">
+        Built for every workflow.
+      </h2>
+      <p class="gsap-text-reveal text-on-surface-muted text-lg sm:text-xl mt-4">
+        Explore the core technologies powering PulsarOS Bittenfruit.
+      </p>
+    </div>
+
+    <!-- Feature Panel 1: MacBoat Integration (Full Width Hero) -->
+    <div class="gsap-bento-card bg-surface-default rounded-lg p-8 sm:p-14 border border-neutral-100 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden group hover:border-primary/40 transition-colors">
+      <div class="max-w-xl">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs font-mono text-primary uppercase tracking-wider">01 — macOS Virtualization</span>
+          <img src="/logos/macboat.png" alt="MacBoat" class="size-6 object-contain" />
+        </div>
+        <h3 class="text-3xl sm:text-5xl font-bold font-display mb-4 leading-tight">MacBoat Integration</h3>
+        <p class="text-on-surface-muted text-base sm:text-lg leading-relaxed mb-8">
+          Run macOS in preconfigured OpenCore Virtual Machines directly using official Apple recovery servers with native GPU passthrough performance.
+        </p>
+        <div class="flex items-center gap-4">
+          <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">OpenCore Ready</span>
+          <span class="px-3 py-1 rounded-full bg-neutral-100 text-on-surface-muted text-xs font-medium">Native KVM</span>
+        </div>
+      </div>
+
+      <!-- Visual Frame -->
+      <div class="w-full lg:w-1/2 rounded-md overflow-hidden border border-neutral-100 bg-black shadow-lg aspect-video">
+        <img src="/assets/boot.png" alt="MacBoat OpenCore Boot Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+      </div>
+    </div>
+
+    <!-- Feature Panel 2 & 3: WinBoat & DroidTux (Twin 50/50 Split) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- WinBoat Card -->
+      <div class="gsap-bento-card bg-surface-default rounded-lg p-8 sm:p-10 border border-neutral-100 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-colors">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-primary uppercase tracking-wider">02 — Windows Apps</span>
+            <img src="/logos/winboat.svg" alt="WinBoat" class="size-7 object-contain" />
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-semibold font-display mb-3">WinBoat Virtualizer</h3>
+          <p class="text-on-surface-muted text-base leading-relaxed mb-8">
+            Execute Windows software as native desktop windows with zero configuration or Wine headache.
+          </p>
+        </div>
+
+        <!-- Floating Window Preview -->
+        <div class="rounded-t-md border-t border-x border-neutral-100 bg-surface-muted shadow-sm overflow-hidden group-hover:-translate-y-2 transition-transform duration-500">
+          <div class="bg-black/80 px-3 py-1.5 border-b border-white/10 flex items-center gap-1.5">
+            <span class="size-2 rounded-full bg-[#ff5f56]"></span>
+            <span class="size-2 rounded-full bg-[#ffbd2e]"></span>
+            <span class="size-2 rounded-full bg-[#27c93f]"></span>
+            <span class="text-[10px] text-white/50 ml-2 font-mono">WinBoat App Container</span>
+          </div>
+          <img src="/assets/wizard.png" alt="WinBoat Setup Preview" class="w-full h-48 object-cover object-top" />
+        </div>
+      </div>
+
+      <!-- DroidTux Card -->
+      <div class="gsap-bento-card bg-surface-default rounded-lg p-8 sm:p-10 border border-neutral-100 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-colors">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-primary uppercase tracking-wider">03 — Android Ecosystem</span>
+            <img src="/logos/droidtux.png" alt="DroidTux" class="size-7 object-contain" />
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-semibold font-display mb-3">DroidTux Mobile Suite</h3>
+          <p class="text-on-surface-muted text-base leading-relaxed mb-8">
+            Run mobile Android apps side-by-side with full mouse, trackpad, and keyboard shortcuts.
+          </p>
+        </div>
+
+        <!-- Floating Window Preview -->
+        <div class="rounded-t-md border-t border-x border-neutral-100 bg-surface-muted shadow-sm overflow-hidden group-hover:-translate-y-2 transition-transform duration-500">
+          <div class="bg-black/80 px-3 py-1.5 border-b border-white/10 flex items-center gap-1.5">
+            <span class="size-2 rounded-full bg-[#ff5f56]"></span>
+            <span class="size-2 rounded-full bg-[#ffbd2e]"></span>
+            <span class="size-2 rounded-full bg-[#27c93f]"></span>
+            <span class="text-[10px] text-white/50 ml-2 font-mono">DroidTux Mobile Runtime</span>
+          </div>
+          <img src="/assets/quick-setting.png" alt="DroidTux Mobile Preview" class="w-full h-48 object-cover object-top" />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Feature Panel 4: Dynamic Wallpapers & Command Remap (Dark Surface Panel) -->
+    <div class="gsap-bento-card bg-[#161617] text-white rounded-lg p-8 sm:p-14 border border-white/10 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden group hover:border-primary/50 transition-colors">
+      <div class="max-w-xl">
+        <span class="text-xs font-mono text-primary uppercase tracking-wider block mb-3">04 — Input & Visuals</span>
+        <h3 class="text-3xl sm:text-5xl font-bold font-display text-white mb-4 leading-tight">Dynamic Wallpapers & Key Remap</h3>
+        <p class="text-white/70 text-base sm:text-lg leading-relaxed mb-8">
+          Live moving wallpapers on lockscreen and desktop paired with native macOS command key bindings out of the box.
+        </p>
+        <div class="flex items-center gap-3">
+          <span class="px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs font-medium border border-white/10">Cmd + C / Cmd + V Remapped</span>
+          <span class="px-3.5 py-1.5 rounded-full bg-[#2997ff]/20 text-[#2997ff] text-xs font-medium border border-[#2997ff]/30">60 FPS Motion</span>
+        </div>
+      </div>
+
+      <!-- Video Frame -->
+      <div class="w-full lg:w-1/2 rounded-md overflow-hidden border border-white/20 bg-black aspect-video shadow-2xl">
+        <video src="/videos/remap-live-wallpaper.mp4" autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+      </div>
+    </div>
+
+  </div>
+</section>

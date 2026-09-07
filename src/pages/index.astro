@@ -3,50 +3,70 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import HeroSection from '../components/HeroSection.astro';
 import AppleMediaCardGallery from '../components/AppleMediaCardGallery.astro';
-import SolutionsSection from '../components/SolutionsSection.astro';
-import WorkflowsSection from '../components/WorkflowsSection.astro';
-import EcosystemSection from '../components/EcosystemSection.astro';
+import StorySection from '../components/StorySection.astro';
+import BentoSection from '../components/BentoSection.astro';
+import VideoReelSection from '../components/VideoReelSection.astro';
+import CloudProvidersSection from '../components/CloudProvidersSection.astro';
 import EditionsSection from '../components/EditionsSection.astro';
 import FAQSection from '../components/FAQSection.astro';
 import Footer from '../components/Footer.astro';
+import FloatingControlBar from '../components/FloatingControlBar.astro';
 import { SITE_CONFIG } from '../config/site';
 ---
 
 <Layout title={`${SITE_CONFIG.name} — ${SITE_CONFIG.brandTagline}`}>
-  <div class="min-h-screen bg-[#ffffff] dark:bg-[#000000] text-[#1d1d1f] dark:text-[#f5f5f7] antialiased selection:bg-[#0071e3]/20 selection:text-[#0071e3]">
+  <div id="main-root" class="min-h-screen bg-surface-default text-on-surface-default font-text antialiased selection:bg-primary/20 selection:text-primary">
     <Header />
-    <main>
+
+    <main class="overflow-x-hidden">
       <HeroSection />
       <AppleMediaCardGallery />
-      <SolutionsSection />
-      <WorkflowsSection />
-      <EcosystemSection />
+      <StorySection />
+      <BentoSection />
+      <VideoReelSection />
+      <CloudProvidersSection />
       <EditionsSection />
       <FAQSection />
-
-      <!-- Apple Final CTA Banner -->
-      <section class="py-24 sm:py-32 bg-[#ffffff] dark:bg-[#000000] text-center px-4 sm:px-6 border-t border-[#e5e7eb] dark:border-white/10">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">
-            Get PulsarOS Bitten Fruit.
-          </h2>
-          <p class="text-lg sm:text-xl text-[#86868b] max-w-xl mx-auto mb-10 leading-relaxed">
-            Free, open source, and built by the community. Download the ISO and boot live without modifying your hard drive.
-          </p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary">
-              Download ISO Now
-            </a>
-            <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="apple-link group text-base">
-              <span>View Source Code</span>
-              <svg class="size-4 text-[#0071e3] dark:text-[#2997ff] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </section>
     </main>
+
     <Footer />
+    <FloatingControlBar />
   </div>
 </Layout>
+
+<script>
+  import { initHeroReveal, cleanupHeroReveal } from '../animations/hero-reveal';
+  import { initScrollReveal, cleanupScrollReveal } from '../animations/scroll-reveal';
+  import { initInteractiveStory, cleanupInteractiveStory } from '../animations/interactive-story';
+  import { initHorizontalTrack, cleanupHorizontalTrack } from '../animations/horizontal-track';
+
+  function initPage() {
+    const root = document.getElementById('main-root');
+    if (!root) return;
+
+    initHeroReveal(root);
+    initScrollReveal(root);
+    initInteractiveStory(root);
+    initHorizontalTrack(root);
+
+    document.getElementById('btn-scroll-top')?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  function cleanupPage() {
+    cleanupHeroReveal();
+    cleanupScrollReveal();
+    cleanupInteractiveStory();
+    cleanupHorizontalTrack();
+  }
+
+  document.addEventListener('astro:page-load', initPage);
+  document.addEventListener('astro:before-swap', cleanupPage);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPage);
+  } else {
+    initPage();
+  }
+</script>

@@ -2,112 +2,55 @@
 import { SITE_CONFIG } from '../config/site';
 ---
 
-<section id="overview" class="pt-16 sm:pt-24 pb-16 bg-[#f5f5f7] dark:bg-[#000000] text-center px-4 sm:px-6 overflow-hidden [perspective:1200px]">
-  <div class="max-w-5xl mx-auto flex flex-col items-center">
-    
-    <div id="index-hero-text" class="flex flex-col items-center">
-      <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#0071e3] mb-3">
-        {SITE_CONFIG.edition}
+<section id="hero-trigger" class="relative min-h-screen flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 sm:px-6 text-center bg-surface-default border-b border-neutral-100">
+  
+  <!-- Hero Text Group -->
+  <div id="hero-text" class="max-w-4xl mx-auto flex flex-col items-center z-10">
+    <div class="mb-4">
+      <span class="gsap-reveal-hero text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary inline-block bg-primary/10 px-4 py-1 rounded-full border border-primary/20">
+        PulsarOS Bittenfruit
       </span>
-
-      <h1 class="text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] leading-[1.04] mb-6 text-balance max-w-4xl">
-        Power. Precision.<br />Pure macOS.
-      </h1>
-
-      <p class="text-lg sm:text-2xl text-[#86868b] max-w-2xl font-normal leading-relaxed mb-8 text-balance">
-        {SITE_CONFIG.description}
-      </p>
-
-      <!-- Apple Paired CTA Pattern -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-5 mb-14">
-        <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary">
-          Download Bitten Fruit
-        </a>
-        <a href="#features" class="apple-link group text-base">
-          <span>Explore all features</span>
-          <svg class="size-4 text-[#0071e3] dark:text-[#2997ff] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
-      </div>
     </div>
 
-    <!-- Apple Studio Display Hardware Frame Render -->
-    <div id="index-display-container" class="w-full max-w-5xl mx-auto mt-4 origin-top z-20">
-      <div class="relative rounded-[28px] sm:rounded-[36px] bg-[#1d1d1f] p-3 sm:p-4 shadow-2xl border border-white/10">
-        <!-- Camera Lens Dot -->
-        <div class="absolute top-2.5 left-1/2 -translate-x-1/2 size-2 rounded-full bg-[#000000] border border-white/10 z-20"></div>
-        
-        <!-- Screen Container -->
-        <div class="rounded-[20px] sm:rounded-[28px] overflow-hidden bg-black relative border border-black">
-          <img 
-            src="/assets/desktop.png" 
-            alt="PulsarOS Bitten Fruit Desktop Environment" 
-            class="w-full h-auto object-cover"
-            fetchpriority="high"
-          />
-        </div>
-      </div>
-      
-      <!-- Studio Display Stand Base -->
-      <div id="index-display-stand" class="w-36 h-4 bg-gradient-to-b from-[#272729] to-[#121214] mx-auto rounded-b-xl border-x border-b border-white/10 shadow-lg"></div>
-    </div>
+    <h1 class="gsap-reveal-hero text-5xl sm:text-7xl lg:text-8xl font-bold font-display tracking-tight text-on-surface-default leading-[1.03] mb-6 text-balance">
+      Power. Precision.<br />
+      <span class="bg-linear-to-r from-on-surface-default via-on-surface-default to-on-surface-muted bg-clip-text text-transparent">
+        Pure macOS on Linux.
+      </span>
+    </h1>
 
+    <p class="gsap-reveal-hero text-lg sm:text-2xl text-on-surface-muted max-w-2xl font-normal leading-relaxed mb-8 text-balance">
+      Engineered to replicate the exact visual design, animation rhythm, and desktop experience of macOS on Debian.
+    </p>
+
+    <div class="gsap-reveal-hero flex flex-col sm:flex-row items-center justify-center gap-5 mb-10">
+      <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary">
+        Download Bittenfruit ISO
+      </a>
+      <a href="#interactive-story-section" class="apple-button-secondary">
+        Explore features
+      </a>
+    </div>
   </div>
+
+  <!-- Studio Display / Laptop Hardware Frame with Dynamic Zoom -->
+  <div id="display-container" class="w-full max-w-5xl mx-auto mt-4 origin-top z-20">
+    <div class="relative rounded-xl bg-surface-elevated p-3 sm:p-4 shadow-xl border border-neutral-100">
+      <div class="absolute top-2.5 left-1/2 -translate-x-1/2 size-2.5 rounded-full bg-black border border-white/20 z-20"></div>
+      <div class="rounded-lg overflow-hidden bg-black relative border border-black aspect-video shadow-inner">
+        <video 
+          id="hero-video"
+          src="/videos/session-restore.mp4" 
+          poster="/assets/desktop.png"
+          autoplay 
+          loop 
+          muted 
+          playsinline
+          class="w-full h-full object-cover object-top"
+        ></video>
+      </div>
+    </div>
+    <div id="display-stand" class="w-36 h-4 bg-linear-to-b from-[#272729] to-[#121214] mx-auto rounded-b-xl border-x border-b border-white/10 shadow-lg"></div>
+  </div>
+
 </section>
-
-<script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  function initIndexHero() {
-    const heroSection = document.getElementById('overview');
-    if (!heroSection) return;
-
-    const heroTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#overview',
-        start: 'top top',
-        end: '+=1000',
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      }
-    });
-
-    heroTl
-      .to('#index-hero-text', {
-        autoAlpha: 0,
-        y: -100,
-        scale: 0.92,
-        duration: 0.5,
-        ease: 'power1.in',
-      }, 0)
-      .to('#index-display-stand', {
-        autoAlpha: 0,
-        height: 0,
-        duration: 0.3,
-        ease: 'power1.in',
-      }, 0)
-      .to('#index-display-container', {
-        scale: 1.35,
-        rotateX: 4,
-        y: -70,
-        duration: 1,
-        ease: 'power1.inOut',
-      }, 0);
-
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 200);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initIndexHero);
-  } else {
-    initIndexHero();
-  }
-</script>

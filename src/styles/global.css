@@ -3,9 +3,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  /* Apple Design System Tokens - CLAUDE.md / DESIGN.md */
+@theme {
   --color-primary: #0071e3;
+  --color-primary-hover: #0077ed;
   --color-secondary: #0066cc;
   --color-tertiary: #f5f5f7;
   --color-neutral-0: #ffffff;
@@ -22,7 +22,6 @@
   --color-on-surface-inverse: #ffffff;
   --color-error: #d92d20;
 
-  /* Radius */
   --radius-none: 0px;
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -30,30 +29,19 @@
   --radius-xl: 24px;
   --radius-full: 980px;
 
-  /* Spacing */
   --space-xs: 4px;
   --space-sm: 12px;
   --space-md: 20px;
   --space-lg: 44px;
   --space-xl: 102px;
 
-  /* Typography */
   --font-display: "SF Pro Display", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-text: "SF Pro Text", "SF Pro Icons", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
-  /* Global theme fallbacks */
+:root {
   --background: var(--color-surface-default);
   --foreground: var(--color-on-surface-default);
-  --card: var(--color-surface-elevated);
-  --card-foreground: var(--color-on-surface-default);
-  --primary: var(--color-primary);
-  --primary-hover: #0077ed;
-  --primary-foreground: var(--color-on-surface-inverse);
-  --secondary: var(--color-secondary);
-  --secondary-foreground: var(--color-on-surface-inverse);
-  --tertiary: var(--color-tertiary);
-  --muted: var(--color-surface-muted);
-  --muted-foreground: var(--color-on-surface-muted);
   --border: var(--color-neutral-100);
 }
 
@@ -69,50 +57,23 @@
 
   --background: #000000;
   --foreground: #f5f5f7;
-  --card: #161617;
-  --card-foreground: #f5f5f7;
-  --primary: #2997ff;
-  --primary-hover: #0077ed;
-  --primary-foreground: #ffffff;
-  --secondary: #2997ff;
-  --secondary-foreground: #ffffff;
-  --tertiary: #161617;
-  --muted: #161617;
-  --muted-foreground: #86868b;
   --border: #2d2d2e;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-tertiary: var(--tertiary);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-
-  --font-display: var(--font-display);
-  --font-text: var(--font-text);
-  --font-sans: var(--font-text);
-}
-
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground font-sans antialiased selection:bg-[var(--color-primary)]/20 selection:text-[var(--color-primary)] overscroll-contain overflow-x-clip;
+    background-color: var(--color-surface-default);
+    color: var(--color-on-surface-default);
     font-family: var(--font-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: contain;
+    overflow-x: clip;
   }
 }
 
-/* Apple Design System Utility Components */
-.apple-button-primary {
+/* Custom Tailwind v4 Utilities */
+@utility apple-button-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -128,12 +89,13 @@
   border: 1px solid transparent;
   transition: background-color 0.2s ease, transform 0.2s ease;
   box-shadow: none;
-}
-.apple-button-primary:hover {
-  background-color: var(--primary-hover);
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+  }
 }
 
-.apple-button-secondary {
+@utility apple-button-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -149,12 +111,13 @@
   line-height: 1.35;
   transition: background-color 0.2s ease;
   box-shadow: none;
-}
-.apple-button-secondary:hover {
-  background-color: rgba(0, 113, 227, 0.05);
+
+  &:hover {
+    background-color: rgba(0, 113, 227, 0.05);
+  }
 }
 
-.apple-card {
+@utility apple-card {
   background-color: var(--color-surface-default);
   color: var(--color-on-surface-default);
   border: 1px solid var(--color-neutral-100);
