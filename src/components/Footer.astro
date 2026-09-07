@@ -1,67 +1,161 @@
 ---
 import { SITE_CONFIG } from '@/config/site';
+
+const currentYear = new Date().getFullYear();
+
+const footerDirectory = [
+  {
+    title: "Explore PulsarOS",
+    links: [
+      { label: "Bitten Fruit Edition", href: "#overview" },
+      { label: "Sayri AI Engine", href: "#intelligence" },
+      { label: "Session Restore", href: "#interactive-story-section" },
+      { label: "Spotlight Search", href: "#features" },
+      { label: "Control Center", href: "#features" },
+    ]
+  },
+  {
+    title: "Virtualization",
+    links: [
+      { label: "MacBoat (OpenCore)", href: "#connectivity" },
+      { label: "WinBoat App Runtime", href: "#connectivity" },
+      { label: "DroidTux Mobile", href: "#connectivity" },
+      { label: "GSConnect Device Sync", href: "#connectivity" },
+      { label: "Native KVM Passthrough", href: "#bento-section" },
+    ]
+  },
+  {
+    title: "Ecosystem & Apps",
+    links: [
+      { label: "App Store (Flathub & AUR)", href: "#features" },
+      { label: "55 Cloud Providers", href: "#features" },
+      { label: "Dynamic Wallpapers", href: "#bento-section" },
+      { label: "macOS Key Remapper", href: "#bento-section" },
+    ]
+  },
+  {
+    title: "Editions & Downloads",
+    links: [
+      { label: "Debian Stable Core", href: "#editions" },
+      { label: "Arch Rolling Core", href: "#editions" },
+      { label: "Download Bitten Fruit ISO", href: SITE_CONFIG.releasesUrl, external: true },
+      { label: "Release Notes", href: SITE_CONFIG.releasesUrl, external: true },
+    ]
+  },
+  {
+    title: "Community & Values",
+    links: [
+      { label: "GitHub Repository", href: SITE_CONFIG.githubUrl, external: true },
+      { label: "Open Source (GPL-3.0)", href: SITE_CONFIG.githubUrl, external: true },
+      { label: "Privacy First Architecture", href: "#intelligence" },
+      { label: "Hardware Support", href: "#overview" },
+    ]
+  }
+];
 ---
 
-<!-- Apple Signature Minimal Editorial Footer -->
-<footer class="bg-[#f5f5f7] text-on-surface-muted text-[12px] font-normal py-10 px-4 sm:px-6 border-t border-neutral-100 transition-colors">
-  <div class="max-w-6xl mx-auto space-y-6">
+<!-- Apple Signature Editorial Footer -->
+<footer class="bg-surface-muted text-on-surface-muted text-[12px] leading-[1.33337] font-normal py-10 px-4 sm:px-6 border-t border-neutral-100 transition-colors font-text select-none">
+  <div class="max-w-6xl mx-auto space-y-4">
     
-    <!-- Legal / Footnotes Paragraph -->
-    <div class="space-y-3 pb-6 border-b border-neutral-100 leading-relaxed">
+    <!-- Section 1: Footnotes Paragraph -->
+    <div class="space-y-2.5 pb-4 border-b border-neutral-100 text-[11px] leading-normal text-on-surface-muted/90">
       <p>
         1. PulsarOS Bitten Fruit is an independent open-source Linux distribution project. macOS, Mac, OpenCore, and Apple logo design elements are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
       </p>
       <p>
         2. Hardware virtualization features (MacBoat, WinBoat, DroidTux) require compatible CPU hardware virtualization support (Intel VT-x or AMD-V) enabled in your BIOS/UEFI firmware.
       </p>
+      <p>
+        3. Sayri AI operates 100% locally on user hardware. No personal data, queries, or telemetry leave your local device.
+      </p>
     </div>
 
-    <!-- Main Navigation Columns -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-4">
-      <div>
-        <h3 class="font-semibold text-[#1d1d1f] mb-3 text-[13px]">Explore PulsarOS</h3>
-        <ul class="space-y-2">
-          <li><a href="#overview" class="hover:text-[#1d1d1f] transition-colors">Bitten Fruit Edition</a></li>
-          <li><a href="#intelligence" class="hover:text-[#1d1d1f] transition-colors">Sayri AI Engine</a></li>
-          <li><a href="#features" class="hover:text-[#1d1d1f] transition-colors">Spotlight Search</a></li>
-          <li><a href="#connectivity" class="hover:text-[#1d1d1f] transition-colors">GSConnect Sync</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-semibold text-[#1d1d1f] mb-3 text-[13px]">Virtualization</h3>
-        <ul class="space-y-2">
-          <li><a href="#features" class="hover:text-[#1d1d1f] transition-colors">MacBoat (OpenCore)</a></li>
-          <li><a href="#features" class="hover:text-[#1d1d1f] transition-colors">WinBoat Virtualizer</a></li>
-          <li><a href="#features" class="hover:text-[#1d1d1f] transition-colors">DroidTux Mobile</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-semibold text-[#1d1d1f] mb-3 text-[13px]">Editions & Releases</h3>
-        <ul class="space-y-2">
-          <li><a href="#editions" class="hover:text-[#1d1d1f] transition-colors">Debian Stable Core</a></li>
-          <li><a href="#editions" class="hover:text-[#1d1d1f] transition-colors">Arch Rolling Core</a></li>
-          <li><a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="hover:text-[#1d1d1f] transition-colors">Download ISO</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-semibold text-[#1d1d1f] mb-3 text-[13px]">Community</h3>
-        <ul class="space-y-2">
-          <li><a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="hover:text-[#1d1d1f] transition-colors">GitHub Repository</a></li>
-          <li><a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="hover:text-[#1d1d1f] transition-colors">Release Notes</a></li>
-          <li><span class="text-[#a1a1a6]">License: {SITE_CONFIG.license}</span></li>
-        </ul>
-      </div>
+    <!-- Section 2: Apple Breadcrumb Trail Bar -->
+    <div class="py-2.5 border-b border-neutral-100 flex items-center gap-2 text-[12px]">
+      <a href="/" class="text-on-surface-default hover:text-primary transition-colors flex items-center font-medium">
+        <img src="/favicon.png" alt="PulsarOS" class="size-8 object-contain" />
+        <span>PulsarOS</span>
+      </a>
+      <span class="text-on-surface-muted/50">›</span>
+      <span class="text-on-surface-default font-normal">{SITE_CONFIG.edition}</span>
     </div>
 
-    <!-- Copyright Bar -->
-    <div class="pt-6 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
-      <p>© {new Date().getFullYear()} {SITE_CONFIG.name}. Built with passion by the open-source community.</p>
-      <div class="flex items-center gap-6">
-        <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="hover:underline">GitHub</a>
-        <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="hover:underline">Releases</a>
+    <!-- Section 3: Desktop 5-Column Directory Grid / Mobile Accordions -->
+    <div class="py-4">
+      
+      <!-- Desktop Grid (md and up) -->
+      <div class="hidden md:grid md:grid-cols-5 gap-8">
+        {footerDirectory.map((col) => (
+          <div>
+            <h3 class="font-semibold text-on-surface-default mb-3 text-[12px] tracking-tight">{col.title}</h3>
+            <ul class="space-y-2">
+              {col.links.map((link) => (
+                <li>
+                  <a 
+                    href={link.href} 
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    class="hover:text-on-surface-default hover:underline transition-colors block text-[12px]"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Mobile Accordions (below md) -->
+      <div class="block md:hidden border-t border-neutral-100 divide-y divide-neutral-100">
+        {footerDirectory.map((col) => (
+          <details class="group py-3 cursor-pointer">
+            <summary class="flex items-center justify-between text-[12px] font-semibold text-on-surface-default list-none py-1">
+              <span>{col.title}</span>
+              <span class="text-on-surface-muted text-xs group-open:rotate-180 transition-transform duration-200">
+                ▾
+              </span>
+            </summary>
+            <ul class="pt-2 pb-3 space-y-2.5 pl-2">
+              {col.links.map((link) => (
+                <li>
+                  <a 
+                    href={link.href} 
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    class="hover:text-on-surface-default transition-colors block text-[12px] text-on-surface-muted"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
+
+    </div>
+
+    <!-- Section 4: Shop / Ways to Get Action Bar -->
+    <div class="py-3 border-b border-neutral-100 text-[12px] text-on-surface-muted">
+      More ways to get PulsarOS: <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="text-primary hover:underline font-normal">Download Bittenfruit ISO</a> or <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="text-primary hover:underline font-normal">contribute on GitHub</a>.
+    </div>
+
+    <!-- Section 5: Copyright & Legal Bar -->
+    <div class="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] text-on-surface-muted">
+      <div>
+        Copyright © {currentYear} {SITE_CONFIG.name}. Built by the open-source community.
+      </div>
+
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="hover:text-on-surface-default hover:underline">GitHub</a>
+        <span>|</span>
+        <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="hover:text-on-surface-default hover:underline">Releases</a>
+        <span>|</span>
+        <span>GPL-3.0 License</span>
+        <span>|</span>
+        <span class="text-on-surface-default font-medium">Global / Open Source</span>
       </div>
     </div>
 
