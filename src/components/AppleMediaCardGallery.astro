@@ -5,15 +5,15 @@ const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
 ---
 
 <!-- Apple All-Access Media Card Gallery -->
-<section id="gallery" class="py-24 sm:py-32 bg-[#f5f5f7] dark:bg-[#000000] text-[#1d1d1f] dark:text-[#f5f5f7] overflow-hidden border-t border-[#e5e7eb] dark:border-white/10 transition-colors">
+<section id="gallery" class="py-24 sm:py-32 bg-[#f5f5f7] text-[#1d1d1f] overflow-hidden border-t border-neutral-100 transition-colors">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
     
     <!-- Editorial Category Tag -->
-    <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#0071e3] dark:text-[#2997ff] mb-2 block">
+    <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary mb-2 block">
       All-Access Pass
     </span>
 
-    <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] leading-tight max-w-3xl">
+    <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#1d1d1f] leading-tight max-w-3xl">
       Get to know PulsarOS Bitten Fruit.
     </h2>
   </div>
@@ -44,7 +44,7 @@ const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
           <div class="relative z-10 flex items-center justify-between">
             <div class="flex items-center gap-3">
               {item.badge && (
-                <span class="px-3 py-1 rounded-full bg-[#0071e3]/80 backdrop-blur-md text-white text-xs font-semibold tracking-wide">
+                <span class="px-3 py-1 rounded-full bg-primary/80 backdrop-blur-md text-white text-xs font-semibold tracking-wide">
                   {item.badge}
                 </span>
               )}
@@ -103,10 +103,10 @@ const galleryItems = [...INTELLIGENCE_FEATURES, ...VIDEO_SHOWCASES];
             if (v !== video) v.pause();
           });
           video.play().catch(() => {});
-          card.classList.add('ring-2', 'ring-[#0071e3]');
+          card.classList.add('ring-2', 'ring-primary');
         } else {
           video.pause();
-          card.classList.remove('ring-2', 'ring-[#0071e3]');
+          card.classList.remove('ring-2', 'ring-primary');
         }
       };
 

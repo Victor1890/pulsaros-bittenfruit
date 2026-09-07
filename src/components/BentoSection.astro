@@ -101,13 +101,13 @@ const darkCard = cards.find(c => c.layout === 'dark-full');
       </div>
     )}
 
-    <!-- Feature Panel 4: Dark Full Surface Card -->
+    <!-- Feature Panel 4: Clean Full Surface Card -->
     {darkCard && (
-      <div class="gsap-bento-card bg-[#161617] text-white rounded-lg p-8 sm:p-14 border border-white/10 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden group hover:border-primary/50 transition-colors">
+      <div class="gsap-bento-card bg-surface-default text-on-surface-default rounded-lg p-8 sm:p-14 border border-neutral-100 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden group hover:border-primary/50 transition-colors">
         <div class="max-w-xl">
           <span class="text-xs font-mono text-primary uppercase tracking-wider block mb-3">{darkCard.stepNumber} — {darkCard.category}</span>
-          <h3 class="text-3xl sm:text-5xl font-bold font-display text-white mb-4 leading-tight">{darkCard.title}</h3>
-          <p class="text-white/70 text-base sm:text-lg leading-relaxed mb-8">
+          <h3 class="text-3xl sm:text-5xl font-bold font-display text-on-surface-default mb-4 leading-tight">{darkCard.title}</h3>
+          <p class="text-on-surface-muted text-base sm:text-lg leading-relaxed mb-8">
             {darkCard.description}
           </p>
           {darkCard.tags && (
@@ -117,8 +117,8 @@ const darkCard = cards.find(c => c.layout === 'dark-full');
                   class:list={[
                     "px-3.5 py-1.5 rounded-full text-xs font-medium border",
                     {
-                      "bg-white/10 text-white border-white/10": i === 0,
-                      "bg-[#2997ff]/20 text-[#2997ff] border-[#2997ff]/30": i !== 0
+                      "bg-neutral-100 text-on-surface-muted border-neutral-100": i === 0,
+                      "bg-primary/10 text-primary border-primary/20": i !== 0
                     }
                   ]}
                 >
@@ -129,7 +129,7 @@ const darkCard = cards.find(c => c.layout === 'dark-full');
           )}
         </div>
 
-        <div class="w-full lg:w-1/2 rounded-md overflow-hidden border border-white/20 bg-black aspect-video shadow-2xl">
+        <div class="w-full lg:w-1/2 rounded-md overflow-hidden border border-neutral-100 bg-black aspect-video shadow-lg">
           <video src={darkCard.previewSrc} autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
         </div>
       </div>
