@@ -52,6 +52,12 @@ const footerDirectory = [
     ]
   }
 ];
+
+const footnotesParagraphs = [
+  "1. PulsarOS Bitten Fruit is an independent open-source Linux distribution project. macOS, Mac, OpenCore, and Apple logo design elements are trademarks of Apple Inc., registered in the U.S. and other countries and regions.",
+  "2. Hardware virtualization features (MacBoat, WinBoat, DroidTux) require compatible CPU hardware virtualization support (Intel VT-x or AMD-V) enabled in your BIOS/UEFI firmware.",
+  "3. Sayri AI operates 100% locally on user hardware. No personal data, queries, or telemetry leave your local device."
+];
 ---
 
 <!-- Apple Signature Editorial Footer -->
@@ -60,15 +66,11 @@ const footerDirectory = [
     
     <!-- Section 1: Footnotes Paragraph -->
     <div class="space-y-2.5 pb-4 border-b border-neutral-100 text-[11px] leading-normal text-on-surface-muted/90">
-      <p id="fn-1" class="target:bg-primary/10 target:p-1.5 target:rounded-md transition-colors">
-        1. PulsarOS Bitten Fruit is an independent open-source Linux distribution project. macOS, Mac, OpenCore, and Apple logo design elements are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
-      </p>
-      <p id="fn-2" class="target:bg-primary/10 target:p-1.5 target:rounded-md transition-colors">
-        2. Hardware virtualization features (MacBoat, WinBoat, DroidTux) require compatible CPU hardware virtualization support (Intel VT-x or AMD-V) enabled in your BIOS/UEFI firmware.
-      </p>
-      <p id="fn-3" class="target:bg-primary/10 target:p-1.5 target:rounded-md transition-colors">
-        3. Sayri AI operates 100% locally on user hardware. No personal data, queries, or telemetry leave your local device.
-      </p>
+      {footnotesParagraphs.map((item, idx) => (
+        <p id={`fn-${idx + 1}`} class="target:bg-primary/10 target:p-1.5 target:rounded-md transition-colors">
+          {item}
+        </p>
+      ))}
     </div>
 
     <!-- Section 2: Apple Breadcrumb Trail Bar -->
