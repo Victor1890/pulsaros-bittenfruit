@@ -1,0 +1,254 @@
+---
+import "@/styles/global.css"
+
+const VERIFICATION_LIST = [
+  {
+    lang: "en-US",
+    title: "Verifying connection..."
+  },
+  {
+    lang: "fr-FR",
+    title: "Vérification de la connexion..."
+  },
+  {
+    lang: "ko-KR",
+    title: "연결을 확인하는 중..."
+  },
+  {
+    lang: "ja-JP",
+    title: "接続を確認しています..."
+  },
+  {
+    lang: "de-DE",
+    title: "Verbindung überprüfen ..."
+  },
+  {
+    lang: "zh-CN",
+    title: "正在验证连接..."
+  },
+  {
+    lang: "es-ES",
+    title: "Verificando Conexión..."
+  },
+  {
+    lang: "pt-BR",
+    title: "Verificando conexão..."
+  }
+]
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover" />
+    <title>Security Verification</title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+    <style>
+      /* Exact Apple Security Verification Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --glyph-gray: #1d1d1f;
+        --glyph-gray-secondary: #6e6e73;
+        --glyph-blue: #0066cc;
+        --glyph-green: #008009;
+        --glyph-red: #e30000;
+        --fill-tertiary: #f5f5f7;
+        --fill-blue: #0071e3;
+        --fill-blue-hover: #0077ed;
+        --spinner-track: #e8e8ed;
+        --spinner-accent: #0071e3;
+        --content-gap: 40px;
+        --container-padding: 40px 20px;
+        --icon-size: 56px;
+        --loader-size: 30px;
+        --loader-border: 3px;
+        --title-font-size: 24px;
+        --text-font-size: 17px;
+        --title-container-height: 36px;
+        --text-container-height: 25px;
+        --status-container-height: 40px;
+        color-scheme: light dark;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --glyph-gray: #f5f5f7;
+          --glyph-gray-secondary: #86868b;
+          --glyph-blue: #2997ff;
+          --glyph-green: #03a10e;
+          --glyph-red: #ff3037;
+          --fill-tertiary: #000000;
+          --fill-blue: #0071e3;
+          --fill-blue-hover: #0077ed;
+          --spinner-track: rgba(255, 255, 255, 0.15);
+          --spinner-accent: #0a84ff;
+        }
+      }
+      body {
+        font-family: "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+        background-color: var(--fill-tertiary);
+        color: var(--glyph-gray);
+        font-size: 17px;
+        line-height: 1.47059;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .container {
+        max-width: 580px;
+        width: 100%;
+        padding: var(--container-padding);
+      }
+      .loading-box {
+        display: grid;
+        justify-items: center;
+        gap: var(--content-gap);
+        text-align: center;
+      }
+      .apple-logo {
+        width: var(--icon-size);
+        height: var(--icon-size);
+        fill: var(--glyph-gray);
+      }
+      .verification-title-container {
+        height: var(--title-container-height);
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        justify-items: center;
+        align-items: center;
+        width: 100%;
+      }
+      .verification-title {
+        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: var(--title-font-size);
+        line-height: 1.19048;
+        font-weight: 600;
+        color: var(--glyph-gray);
+        letter-spacing: .011em;
+        opacity: 0;
+        grid-column: 1;
+        grid-row: 1;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        width: 100%;
+        text-align: center;
+      }
+      .verification-title[data-lang="en-US"] { animation: languageCycle 16s infinite 0s; }
+      .verification-title[data-lang="fr-FR"] { animation: languageCycle 16s infinite 2s; }
+      .verification-title[data-lang="ko-KR"] { animation: languageCycle 16s infinite 4s; }
+      .verification-title[data-lang="ja-JP"] { animation: languageCycle 16s infinite 6s; }
+      .verification-title[data-lang="de-DE"] { animation: languageCycle 16s infinite 8s; }
+      .verification-title[data-lang="zh-CN"] { animation: languageCycle 16s infinite 10s; }
+      .verification-title[data-lang="es-ES"] { animation: languageCycle 16s infinite 12s; }
+      .verification-title[data-lang="pt-BR"] { animation: languageCycle 16s infinite 14s; }
+
+      @keyframes languageCycle {
+        0% { opacity: 0; }
+        5%, 10% { opacity: 1; }
+        12.5%, 100% { opacity: 0; }
+      }
+      .verification-card {
+        display: inline-block;
+        max-width: 400px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+      .verification-status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .loader {
+        width: var(--loader-size);
+        height: var(--loader-size);
+        min-width: var(--loader-size);
+        min-height: var(--loader-size);
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: var(--loader-border) solid var(--spinner-track);
+        border-top-color: var(--spinner-accent);
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      .hidden {
+        display: none !important;
+      }
+      .checkmark-icon {
+        width: 30px;
+        height: 30px;
+        fill: var(--glyph-green);
+        margin-right: 10px;
+      }
+      .verified-text {
+        font-size: 17px;
+        font-weight: 500;
+        color: var(--glyph-gray);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container" id="main-content">
+      <!-- Loading/Success Box -->
+      <div id="loading-box" class="loading-box gap-0!">
+        <img src="/favicon.png" alt="Verified" class="size-50" />
+
+       <div class="loading-box">
+         <div class="verification-title-container">
+          {VERIFICATION_LIST.map((item) => (
+            <h2 class="verification-title" data-lang={item.lang} lang={item.lang}>{item.title}</h2>
+          ))}
+        </div>
+
+        <!-- Verification Card -->
+        <div class="verification-card">
+          <!-- Spinner Loader (During 1 min wait) -->
+          <div id="verifying-status" class="verification-status">
+            <div class="loader" role="progressbar"></div>
+          </div>
+
+          <!-- Verified Success Status (Shown after 1 min wait) -->
+          <div id="verified-status" class="verification-status hidden">
+            <svg class="checkmark-icon" viewBox="0 0 19 19">
+              <g transform="translate(-0.5, -3)">
+                <path d="M10,4.1a8.4,8.4,0,1,1-8.4,8.4A8.409,8.409,0,0,1,10,4.1M10,3a9.5,9.5,0,1,0,9.5,9.5A9.5,9.5,0,0,0,10,3Z"/>
+                <path d="M9.19,16.914a.5.5,0,0,1-.809.046L5.25,13.112a.55.55,0,1,1,.854-.694l2.608,3.2,4.8-7.478a.55.55,0,0,1,.926.594Z"/>
+              </g>
+            </svg>
+            <span class="verified-text">Verification Successful. Redirecting...</span>
+          </div>
+        </div>
+       </div>
+      </div>
+    </main>
+
+    <script>
+      // 1 Minute (60,000 ms) Verification Wait
+      const WAIT_TIME = 60000;
+
+      setTimeout(() => {
+        const verifyingStatus = document.getElementById('verifying-status');
+        const verifiedStatus = document.getElementById('verified-status');
+
+        if (verifyingStatus) verifyingStatus.classList.add('hidden');
+        if (verifiedStatus) verifiedStatus.classList.remove('hidden');
+
+        // Redirect home 1.5 seconds after verification completion
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1500);
+      }, WAIT_TIME);
+    </script>
+  </body>
+</html>
