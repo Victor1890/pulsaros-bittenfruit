@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
 import HeroSection from '../components/HeroSection.astro';
 import AppleMediaCardGallery from '../components/AppleMediaCardGallery.astro';
 import StorySection from '../components/StorySection.astro';
@@ -9,29 +8,18 @@ import VideoReelSection from '../components/VideoReelSection.astro';
 import CloudProvidersSection from '../components/CloudProvidersSection.astro';
 import EditionsSection from '../components/EditionsSection.astro';
 import FAQSection from '../components/FAQSection.astro';
-import Footer from '../components/Footer.astro';
-import FloatingControlBar from '../components/FloatingControlBar.astro';
 import { SITE_CONFIG } from '../config/site';
 ---
 
 <Layout title={`${SITE_CONFIG.name} — ${SITE_CONFIG.brandTagline}`}>
-  <div id="main-root" class="min-h-screen bg-surface-default text-on-surface-default font-text antialiased selection:bg-primary/20 selection:text-primary">
-    <Header />
-
-    <main class="overflow-x-hidden">
-      <HeroSection />
-      <AppleMediaCardGallery />
-      <StorySection />
-      <BentoSection />
-      <VideoReelSection />
-      <CloudProvidersSection />
-      <EditionsSection />
-      <FAQSection />
-    </main>
-
-    <Footer />
-    <FloatingControlBar />
-  </div>
+  <HeroSection />
+  <AppleMediaCardGallery />
+  <StorySection />
+  <BentoSection />
+  <VideoReelSection />
+  <CloudProvidersSection />
+  <EditionsSection />
+  <FAQSection />
 </Layout>
 
 <script>
