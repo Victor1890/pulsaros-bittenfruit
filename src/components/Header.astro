@@ -1,24 +1,48 @@
 ---
 import { SITE_CONFIG } from '@/config/site';
+
+const navLinks = [
+  { label: "Overview", href: "#hero-trigger" },
+  { label: "Features", href: "#interactive-story-section" },
+  { label: "Bento Suite", href: "#bento-section" },
+  { label: "Editions", href: "#editions-section" },
+  { label: "FAQ", href: "#faq-section" },
+];
 ---
 
-<header class="sticky top-0 z-40 bg-surface-default/80 backdrop-blur-xl border-b border-neutral-100 text-[13px] py-3 px-4 sm:px-8 transition-colors">
-  <div class="max-w-7xl mx-auto flex items-center justify-between">
-    <a href="/" aria-label="PulsarOS Bittenfruit Home" class="font-semibold text-sm sm:text-base text-on-surface-default hover:opacity-80 transition-opacity tracking-tight">
-      PulsarOS Bittenfruit
+<!-- Apple-Style Translucent Local Sub-Header -->
+<header class="sticky top-0 z-40 bg-surface-default/80 backdrop-blur-md border-b border-neutral-100 text-[13px] py-2.5 px-4 sm:px-8 transition-colors select-none font-text">
+  <div class="max-w-7xl mx-auto flex items-center justify-between h-9">
+    
+    <!-- Left: Apple-Style Product Lockup -->
+    <a href="/" aria-label="PulsarOS Bitten Fruit Home" class="flex items-center gap-2 group">
+      <img src="/favicon.png" alt="" class="size-6.5 object-contain group-hover:scale-105 transition-transform" aria-hidden="true" />
+      <span class="font-display font-semibold text-base sm:text-lg text-on-surface-default tracking-tight group-hover:text-primary transition-colors leading-none">
+        PulsarOS <span class="font-normal text-on-surface-muted font-text text-sm sm:text-base">Bitten Fruit</span>
+      </span>
     </a>
+
+    <!-- Right: Desktop Navigation Links & Download CTA -->
     <nav aria-label="Primary Navigation" class="flex items-center gap-4 sm:gap-6">
-      <a href="#hero-trigger" class="text-on-surface-muted hover:text-on-surface-default transition-colors hidden sm:inline-block">Overview</a>
-      <a href="#interactive-story-section" class="text-on-surface-muted hover:text-on-surface-default transition-colors hidden sm:inline-block">Features</a>
-      <a href="#bento-section" class="text-on-surface-muted hover:text-on-surface-default transition-colors hidden sm:inline-block">Bento Grid</a>
-      <a href="#editions-section" class="text-on-surface-muted hover:text-on-surface-default transition-colors hidden sm:inline-block">Editions</a>
+      <div class="hidden md:flex items-center gap-6">
+        {navLinks.map((link) => (
+          <a 
+            href={link.href} 
+            class="text-on-surface-muted hover:text-on-surface-default text-[12px] font-medium transition-colors"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Apple Compact Action Pill Button -->
       <a 
         href={SITE_CONFIG.releasesUrl} 
         target="_blank" 
         rel="noopener" 
-        class="bg-primary hover:bg-primary-hover text-on-surface-inverse font-medium px-4 py-1.5 rounded-full transition-all text-xs shadow-xs hover:scale-105"
+        class="bg-primary hover:bg-primary-hover text-on-surface-inverse font-medium px-3.5 py-1 rounded-full transition-colors text-[12px] shadow-none flex items-center gap-1 shrink-0"
       >
-        Download ISO
+        <span>Download ISO</span>
       </a>
     </nav>
   </div>
