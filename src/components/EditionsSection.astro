@@ -13,15 +13,15 @@ const {
 } = Astro.props;
 ---
 
-<section id="editions-section" class="py-24 sm:py-32 bg-surface-default px-4 sm:px-6 border-t border-neutral-100">
+<section id="editions-section" aria-label="Available Operating System Editions" class="py-24 sm:py-32 bg-surface-default px-4 sm:px-6 border-t border-neutral-100">
   <div class="max-w-5xl mx-auto">
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <header class="text-center max-w-3xl mx-auto mb-16">
       <h2 class="text-4xl sm:text-6xl font-bold font-display tracking-tight">{title}</h2>
-    </div>
+    </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {editions.map((ed) => (
-        <div class="bg-surface-muted rounded-lg p-8 sm:p-12 border border-neutral-100 flex flex-col justify-between hover:border-primary/40 transition-colors">
+        <article class="bg-surface-muted rounded-lg p-8 sm:p-12 border border-neutral-100 flex flex-col justify-between hover:border-primary/40 transition-colors">
           <div>
             <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary uppercase tracking-wider inline-block mb-4">{ed.badge}</span>
             <h3 class="text-3xl font-semibold font-display mb-1">{ed.name}</h3>
@@ -30,14 +30,14 @@ const {
             <ul class="space-y-3 mb-10 border-t border-neutral-100 pt-6">
               {ed.highlights.map((h) => (
                 <li class="flex items-center text-sm font-medium">
-                  <svg class="size-4 text-primary mr-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="size-4 text-primary mr-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                   {h}
                 </li>
               ))}
             </ul>
           </div>
           <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="apple-button-primary w-full text-center">Get {ed.name}</a>
-        </div>
+        </article>
       ))}
     </div>
   </div>

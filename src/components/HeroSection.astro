@@ -2,10 +2,10 @@
 import { SITE_CONFIG } from '@/config/site';
 ---
 
-<section id="hero-trigger" class="relative min-h-screen flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 sm:px-6 text-center bg-surface-default border-b border-neutral-100">
+<section id="hero-trigger" aria-label="Hero Overview" class="relative min-h-screen flex flex-col items-center justify-start pt-16 sm:pt-24 px-4 sm:px-6 text-center bg-surface-default border-b border-neutral-100">
   
   <!-- Hero Text Group -->
-  <div id="hero-text" class="max-w-4xl mx-auto flex flex-col items-center z-10">
+  <header id="hero-text" class="max-w-4xl mx-auto flex flex-col items-center z-10">
     <div class="mb-4">
       <span class="gsap-reveal-hero text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary inline-block bg-primary/10 px-4 py-1 rounded-full border border-primary/20">
         PulsarOS Bittenfruit
@@ -31,10 +31,10 @@ import { SITE_CONFIG } from '@/config/site';
         Explore features
       </a>
     </div>
-  </div>
+  </header>
 
   <!-- Studio Display / Laptop Hardware Frame with Dynamic Zoom -->
-  <div id="display-container" class="w-full max-w-5xl mx-auto mt-4 origin-top z-20">
+  <figure id="display-container" class="w-full max-w-5xl mx-auto mt-4 origin-top z-20">
     <div class="relative rounded-xl bg-surface-elevated p-3 sm:p-4 shadow-xl border border-neutral-100">
       <div class="absolute top-2.5 left-1/2 -translate-x-1/2 size-2.5 rounded-full bg-black border border-white/20 z-20"></div>
       <div class="rounded-lg overflow-hidden bg-black relative border border-black aspect-video shadow-inner">
@@ -46,11 +46,13 @@ import { SITE_CONFIG } from '@/config/site';
           loop 
           muted 
           playsinline
+          aria-label="Live Desktop Preview of PulsarOS Session Restore"
           class="w-full h-full object-cover object-top"
         ></video>
       </div>
     </div>
     <div id="display-stand" class="w-36 h-4 bg-linear-to-b from-[#272729] to-[#121214] mx-auto rounded-b-xl border-x border-b border-white/10 shadow-lg"></div>
-  </div>
+    <figcaption class="sr-only">Live desktop preview video of PulsarOS Session Restore on Studio Display</figcaption>
+  </figure>
 
 </section>

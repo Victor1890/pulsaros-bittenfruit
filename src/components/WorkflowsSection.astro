@@ -2,26 +2,26 @@
 import { VIDEO_SHOWCASES, CLOUD_PROVIDERS } from '@/config/site';
 ---
 
-<section id="features" class="py-24 sm:py-32 bg-[#f5f5f7] px-4 sm:px-6">
+<section id="features" aria-label="Key Features & Finder Cloud Integration" class="py-24 sm:py-32 bg-[#f5f5f7] px-4 sm:px-6">
   <div class="max-w-6xl mx-auto">
     
-    <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+    <header class="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
       <h2 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#1d1d1f] leading-tight">
         Everything you love about Mac.<br />
         Everything you need from Linux.
       </h2>
-    </div>
+    </header>
 
     <!-- 2x2 Apple Product Tile Grid with Real Video Demos -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
       {VIDEO_SHOWCASES.map((tile) => (
-        <div class="bg-[#ffffff] rounded-3xl p-8 sm:p-10 border border-neutral-100 flex flex-col justify-between overflow-hidden group shadow-sm hover:border-primary/40 transition-colors">
+        <article class="bg-[#ffffff] rounded-3xl p-8 sm:p-10 border border-neutral-100 flex flex-col justify-between overflow-hidden group shadow-sm hover:border-primary/40 transition-colors">
           <div>
             <h3 class="text-2xl sm:text-3xl font-semibold text-[#1d1d1f]">{tile.title}</h3>
             <p class="text-sm sm:text-base font-medium text-primary mt-1 mb-3">{tile.subtitle}</p>
             <p class="text-on-surface-muted text-sm sm:text-base leading-relaxed mb-8">{tile.description}</p>
           </div>
-          <div class="rounded-2xl overflow-hidden border border-neutral-100 bg-[#000000] aspect-video">
+          <figure class="rounded-2xl overflow-hidden border border-neutral-100 bg-[#000000] aspect-video">
             <video 
               src={tile.video} 
               poster={tile.poster}
@@ -30,10 +30,12 @@ import { VIDEO_SHOWCASES, CLOUD_PROVIDERS } from '@/config/site';
               muted 
               playsinline 
               preload="metadata"
+              aria-label={`Video showcase for ${tile.title}`}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             ></video>
-          </div>
-        </div>
+            <figcaption class="sr-only">Video showcase for {tile.title}</figcaption>
+          </figure>
+        </article>
       ))}
     </div>
 
@@ -43,14 +45,16 @@ import { VIDEO_SHOWCASES, CLOUD_PROVIDERS } from '@/config/site';
       <h3 class="text-2xl sm:text-4xl font-semibold text-[#1d1d1f] mb-3">55 Cloud Storage Providers Built-In</h3>
       <p class="text-sm sm:text-base text-on-surface-muted max-w-xl mx-auto mb-8">Access your files natively in Finder without downloading separate client apps.</p>
 
-      <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+      <ul class="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
         {CLOUD_PROVIDERS.map((provider) => (
-          <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#f5f5f7] border border-neutral-100 hover:border-primary/40 transition-colors">
-            <img src={provider.logo} alt={provider.name} class="size-6 object-contain" />
-            <span class="text-xs font-semibold text-[#1d1d1f]">{provider.name}</span>
-          </div>
+          <li>
+            <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#f5f5f7] border border-neutral-100 hover:border-primary/40 transition-colors">
+              <img src={provider.logo} alt="" class="size-6 object-contain" aria-hidden="true" />
+              <span class="text-xs font-semibold text-[#1d1d1f]">{provider.name}</span>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
 
   </div>
