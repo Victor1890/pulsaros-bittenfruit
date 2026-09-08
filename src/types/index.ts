@@ -5,6 +5,7 @@ export interface SiteConfig {
   description: string;
   githubUrl: string;
   releasesUrl: string;
+  downloadsUrl: string;
   license: string;
 }
 

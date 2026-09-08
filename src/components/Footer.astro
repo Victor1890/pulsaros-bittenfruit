@@ -38,7 +38,7 @@ const footerDirectory = [
     links: [
       { label: "Debian Stable Core", href: "#editions" },
       { label: "Arch Rolling Core", href: "#editions" },
-      { label: "Download Bitten Fruit ISO", href: SITE_CONFIG.releasesUrl, external: true },
+      { label: "Download Bitten Fruit ISO", href: SITE_CONFIG.downloadsUrl, external: true },
       { label: "Release Notes", href: SITE_CONFIG.releasesUrl, external: true },
     ]
   },
@@ -46,7 +46,7 @@ const footerDirectory = [
     title: "Community & Values",
     links: [
       { label: "GitHub Repository", href: SITE_CONFIG.githubUrl, external: true },
-      { label: "Open Source (GPL-3.0)", href: SITE_CONFIG.githubUrl, external: true },
+      { label: "Open Source (MIT-INLED)", href: SITE_CONFIG.githubUrl, external: true },
       { label: "Privacy First Architecture", href: "#intelligence" },
       { label: "Hardware Support", href: "#overview" },
     ]
@@ -141,7 +141,7 @@ const footnotesParagraphs = [
 
     <!-- Section 4: Shop / Ways to Get Action Bar -->
     <div class="py-3 border-b border-neutral-100 text-[12px] text-on-surface-muted">
-      More ways to get PulsarOS: <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="text-primary hover:underline font-normal">Download Bittenfruit ISO</a> or <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="text-primary hover:underline font-normal">contribute on GitHub</a>.
+      More ways to get PulsarOS: <a href={SITE_CONFIG.downloadsUrl} target="_blank" rel="noopener" class="text-primary hover:underline font-normal">Download Bittenfruit ISO</a> or <a href={SITE_CONFIG.githubUrl} target="_blank" rel="noopener" class="text-primary hover:underline font-normal">contribute on GitHub</a>.
     </div>
 
     <!-- Section 5: Copyright & Legal Bar -->
@@ -155,7 +155,7 @@ const footnotesParagraphs = [
         <span>|</span>
         <a href={SITE_CONFIG.releasesUrl} target="_blank" rel="noopener" class="hover:text-on-surface-default hover:underline">Releases</a>
         <span>|</span>
-        <span>GPL-3.0 License</span>
+        <span>MIT-INLED License</span>
         <span>|</span>
         <span class="text-on-surface-default font-medium">Global / Open Source</span>
       </div>

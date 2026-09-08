@@ -16,7 +16,8 @@ export const SITE_CONFIG = {
   description: "PulsarOS is a Linux distribution engineered to replicate commercial operating systems. Bitten Fruit is specifically crafted to reproduce the macOS interface, animation rhythm, and user experience.",
   githubUrl: "https://github.com/Inled-Pulsar-OS",
   releasesUrl: "https://github.com/Inled-Pulsar-OS/ISO/releases/latest",
-  license: "GPL-3.0",
+  downloadsUrl: "https://downloads-os.inled.es/",
+  license: "MIT-INLED",
 } as const;
 
 export const FAQS: FAQItem[] = [
