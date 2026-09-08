@@ -21,7 +21,7 @@ export function initMediaGalleryScroll(root: HTMLElement): void {
 
       const scrollAmount = track.scrollWidth - window.innerWidth + 80;
 
-      gsap.to(track, {
+        gsap.to(track, {
         x: -scrollAmount,
         ease: 'none',
         scrollTrigger: {

@@ -34,13 +34,13 @@ import { SITE_CONFIG } from '@/config/site';
   </header>
 
   <!-- Studio Display / Laptop Hardware Frame with Dynamic Zoom -->
-  <figure id="display-container" class="w-full max-w-5xl mx-auto mt-4 origin-top z-20">
+  <figure id="display-container" class="relative w-full max-w-6xl mx-auto mt-4 origin-top z-20">
     <div class="relative rounded-xl bg-surface-elevated p-3 sm:p-4 shadow-xl border border-neutral-100">
       <div class="absolute top-2.5 left-1/2 -translate-x-1/2 size-2.5 rounded-full bg-black border border-white/20 z-20"></div>
       <div class="rounded-lg overflow-hidden bg-black relative border border-black aspect-video shadow-inner">
         <video 
           id="hero-video"
-          src="/videos/session-restore.mp4" 
+          src="https://hosted.inled.es/cdn/PulsarAdHorizontal.mp4" 
           poster="/assets/desktop.png"
           autoplay
           loop
@@ -49,6 +49,26 @@ import { SITE_CONFIG } from '@/config/site';
           aria-label="Live Desktop Preview of PulsarOS Session Restore"
           class="w-full h-full object-cover object-top"
         ></video>
+
+        <!-- Audio toggle -->
+        <button
+          id="hero-mute-toggle"
+          type="button"
+          aria-pressed="false"
+          aria-label="Activate video audio"
+          class="absolute top-4 right-4 z-30 size-11 rounded-full bg-black/50 backdrop-blur-md border border-white/25 text-white flex items-center justify-center cursor-pointer hover:bg-black/70 transition-colors"
+        >
+          <svg class="icon-sound hidden size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
+            <path d="M16 9a5 5 0 0 1 0 6" />
+            <path d="M19.364 18.364a9 9 0 0 0 0-12.728" />
+          </svg>
+          <svg class="icon-muted size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z" />
+            <path d="m16.5 14.5 5-5" />
+            <path d="m16.5 9.5 5 5" />
+          </svg>
+        </button>
       </div>
     </div>
     <div id="display-stand" class="w-36 h-4 bg-linear-to-b from-[#272729] to-[#121214] mx-auto rounded-b-xl border-x border-b border-white/10 shadow-lg"></div>
@@ -56,3 +76,43 @@ import { SITE_CONFIG } from '@/config/site';
   </figure>
 
 </section>
+
+<script>
+  function initHeroAudio() {
+    const video = document.getElementById('hero-video') as HTMLVideoElement | null;
+    const btn = document.getElementById('hero-mute-toggle') as HTMLButtonElement | null;
+    if (!video || !btn) return;
+
+    const soundIcon = btn.querySelector('.icon-sound');
+    const mutedIcon = btn.querySelector('.icon-muted');
+
+    const sync = () => {
+      const muted = video.muted || video.volume === 0;
+      btn.setAttribute('aria-pressed', String(!muted));
+      btn.setAttribute('aria-label', muted ? 'Activate video audio' : 'Mute video audio');
+      soundIcon?.classList.toggle('hidden', muted);
+      mutedIcon?.classList.toggle('hidden', !muted);
+    };
+
+    btn.addEventListener('click', () => {
+      if (video.muted) {
+        video.muted = false;
+        video.volume = 1;
+        video.play().catch(() => {});
+      } else {
+        video.muted = true;
+      }
+      sync();
+    });
+
+    video.addEventListener('volumechange', sync);
+    sync();
+  }
+
+  document.addEventListener('astro:page-load', initHeroAudio);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroAudio);
+  } else {
+    initHeroAudio();
+  }
+</script>

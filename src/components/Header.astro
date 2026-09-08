@@ -6,6 +6,9 @@ const navLinks = [
   { label: "Features", href: "#interactive-story-section" },
   { label: "Editions", href: "#editions-section" },
   { label: "FAQ", href: "#faq-section" },
+  { label: "App Store", href: "https://store-os.inled.es/", external: true },
+  { label: "Help", href: "https://os.inled.es/help/", external: true },
+  { label: "Resources", href: "https://os.inled.es/resources/", external: true },
 ];
 ---
 
@@ -27,6 +30,8 @@ const navLinks = [
         {navLinks.map((link) => (
           <a 
             href={link.href} 
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
             class="text-on-surface-muted hover:text-on-surface-default text-[12px] font-medium transition-colors"
           >
             {link.label}
